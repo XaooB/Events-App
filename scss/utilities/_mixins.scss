@@ -1,0 +1,24 @@
+@mixin respond-to($breakpoint) {
+  $raw: map-get($breakpoints, $breakpoint);
+
+  @if $raw {
+    $query:  if(
+    type-of($raw) == 'string',
+    unquote($raw),
+    inspect($raw)
+    );
+
+    @media #{$query} {
+      @content;
+    }
+  } @else {
+    @error 'Brak wartości dla `#{$breakpoint}`.' + 'Sprwadź czy jest zdefiniowane w `$breakpoints`';
+  }
+}
+
+// użycie
+// .klasa {
+//   @include respond-to('medium') {
+//     color:red;
+//   }
+// }
