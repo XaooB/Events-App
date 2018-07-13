@@ -48,7 +48,7 @@ body {
 @media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000337}}
   .page-intro__title {
     font-family: 'RobotoL';
-    font-size: 2em;
+    font-size: 2.5em;
     line-height: 1; }
 @media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000342}}
   .page-intro__desc {
