@@ -1,0 +1,10 @@
+.nav, .nav-mobile {
+  align-self: center;
+  display:none;
+  &__list {
+    list-style-type: none;
+  }
+  &__item {
+    display:inline-block;
+  }
+}

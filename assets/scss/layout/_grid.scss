@@ -1,0 +1,8 @@
+.flex-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  &--horizontal {
+    flex-direction: row;
+  }
+}

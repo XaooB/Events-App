@@ -1,0 +1,176 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_base\.scss}line{font-family:\000031}}
+body {
+  font-family: 'RobotoR';
+  font-size: 16px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_base\.scss}line{font-family:\000036}}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_reset\.scss}line{font-family:\000031}}
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
+@font-face {
+  font-family: 'TwCentEB';
+  src: url("../fonts/Tw Cent/TCCEB.ttf") format("truetype"); }
+@font-face {
+  font-family: 'RobotoL';
+  src: url("../fonts/Roboto/Roboto-Light.ttf") format("truetype"); }
+@font-face {
+  font-family: 'RobotoR';
+  src: url("../fonts/Roboto/Roboto-Regular.ttf") format("truetype"); }
+@font-face {
+  font-family: 'RobotoM';
+  src: url("../fonts/Roboto/Roboto-Medium.ttf") format("truetype"); }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000321}}
+.logotype {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'TwCentEB'; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000325}}
+  .logotype__head {
+    color: #d4145a;
+    font-size: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000329}}
+  .logotype__desc {
+    font-size: .75em;
+    letter-spacing: .8px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000335}}
+.page-intro {
+  color: #ffffff; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000337}}
+  .page-intro__title {
+    font-family: 'RobotoL';
+    font-size: 2em;
+    line-height: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000342}}
+  .page-intro__desc {
+    font-family: 'RobotoR';
+    font-size: .75em;
+    line-height: 1.7;
+    word-spacing: .15em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_inputs\.scss}line{font-family:\000031}}
+.nav-toggle {
+  -ms-flex-item-align: center;
+      align-self: center;
+  font-size: 1.8em;
+  font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_inputs\.scss}line{font-family:\000035}}
+  .nav-toggle input {
+    display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_inputs\.scss}line{font-family:\000038}}
+    .nav-toggle input:checked ~ .nav-mobile {
+      display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_inputs\.scss}line{font-family:\0000313}}
+  .nav-toggle label {
+    color: #ffffff;
+    padding: 10px;
+    -webkit-transform: rotate(75deg);
+            transform: rotate(75deg); }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_forms\.scss}line{font-family:\000031}}
+.input {
+  height: 37px;
+  border: none;
+  border-radius: 10px;
+  padding: 0 15px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_forms\.scss}line{font-family:\000036}}
+  .input::-webkit-input-placeholder {
+    color: #f44d90; }
+  .input:-ms-input-placeholder {
+    color: #f44d90; }
+  .input::-ms-input-placeholder {
+    color: #f44d90; }
+  .input::placeholder {
+    color: #f44d90; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_forms\.scss}line{font-family:\000039}}
+  .input--default {
+    background: #7c043a; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_header\.scss}line{font-family:\000031}}
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: nowrap row;
+          flex-flow: nowrap row;
+  height: 80px;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 80px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_navigation\.scss}line{font-family:\000031}}
+.nav, .nav-mobile {
+  -ms-flex-item-align: center;
+      align-self: center;
+  display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_navigation\.scss}line{font-family:\000034}}
+  .nav__list, .nav-mobile__list {
+    list-style-type: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_navigation\.scss}line{font-family:\000037}}
+  .nav__item, .nav-mobile__item {
+    display: inline-block; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_hero\.scss}line{font-family:\000031}}
+.hero {
+  background-image: url("../images/hero.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: -70px;
+  background-position-x: -80px;
+  height: 565px;
+  overflow: hidden; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_logotype\.scss}line{font-family:\000031}}
+.logotype {
+  -ms-flex-item-align: center;
+      align-self: center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_logotype\.scss}line{font-family:\000033}}
+  .logotype__image {
+    height: 40px;
+    width: 45px;
+    margin-right: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_grid\.scss}line{font-family:\000031}}
+.flex-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_grid\.scss}line{font-family:\000035}}
+  .flex-wrapper--horizontal {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_pageIntro\.scss}line{font-family:\000031}}
+.page-intro {
+  max-width: 420px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_pageIntro\.scss}line{font-family:\000033}}
+  .page-intro__title {
+    margin-bottom: 12px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_pageIntro\.scss}line{font-family:\000036}}
+  .page-intro__desc {
+    margin-bottom: 20px; }
+
+/*# sourceMappingURL=main.css.map */

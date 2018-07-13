@@ -1,0 +1,30 @@
+//rwd breakpoints
+
+$breakpoints: (
+  'tiny': (min-width: 360px),
+  'small': (min-width: 480px),
+  'medium': (min-width: 640px),
+  'large': (min-width: 960px),
+  'huge': (min-width: 1200px)
+);
+
+//internal
+$x-palette-crimson: #d4145a;
+$x-palette-frenchRose: #f44d90;
+$x-palette-white: #ffffff;
+$x-palette-siren: #7c043a;
+$x-palette-corn: #e8ab00;
+$x-palette-mineShaft: #2b2b2b;
+
+$default-line-height: 1.5;
+$intro-title-line-height: 1;
+$intro-desc-line-height: 1.7;
+
+//global
+$palette-primary: $x-palette-crimson;
+$palette-secondary: $x-palette-white;
+$palette-buttons: $x-palette-corn;
+$palette-primary-text: $x-palette-mineShaft;
+$palette-secondary-text: lighter($x-palette-mineShaft, 30%);
+$palette-inputs-bg: $x-palette-siren;
+$palette-inputs-text: $x-palette-frenchRose;

@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'TwCentEB';
+  src: url('../fonts/Tw Cent/TCCEB.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoL';
+  src: url('../fonts/Roboto/Roboto-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoR';
+  src: url('../fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoM';
+  src: url('../fonts/Roboto/Roboto-Medium.ttf') format('truetype');
+}
+
+.logotype {
+  font-weight:bold;
+  text-transform: uppercase;
+  font-family: 'TwCentEB';
+  &__head {
+    color: $palette-primary;
+    font-size: 1.4em;
+  }
+  &__desc {
+    font-size: .75em;
+    letter-spacing: .8px;
+  }
+}
+
+.page-intro {
+  color:$palette-secondary;
+  &__title {
+    font-family:'RobotoL';
+    font-size: 2em;
+    line-height: $intro-title-line-height;
+  };
+  &__desc {
+    font-family:'RobotoR';
+    font-size:.75em;
+    line-height: $intro-desc-line-height;
+    word-spacing: .15em;
+  }
+}
