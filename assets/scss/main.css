@@ -23,7 +23,7 @@ body {
 
 @font-face {
   font-family: 'TwcentEb';
-  src: url("../fonts/Twcent/TCCEB.ttf") format("truetype"); }
+  src: url("../fonts/TwCent/TCCEB.ttf") format("truetype"); }
 @font-face {
   font-family: 'RobotoL';
   src: url("../fonts/Roboto/Roboto-Light.ttf") format("truetype"); }
@@ -40,8 +40,8 @@ body {
   font-family: 'RobotoBk';
   src: url("../fonts/Roboto/Roboto-Black.ttf") format("truetype"); }
 .logotype {
-  text-transform: uppercase;
-  font-family: 'TwcentEb'; }
+  font-family: 'TwcentEb';
+  text-transform: uppercase; }
   .logotype__head {
     color: #d4145a;
     font-size: 1.4em; }
