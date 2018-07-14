@@ -28,3 +28,6 @@ $palette-primary-text: $x-palette-mineShaft;
 $palette-secondary-text: lighter($x-palette-mineShaft, 30%);
 $palette-inputs-bg: $x-palette-siren;
 $palette-inputs-text: $x-palette-frenchRose;
+$palette-body-bg: darken($x-palette-white, 3%);
+$palette-shadow: lighten($x-palette-mineShaft, 70%);
+$palette-footer-color: darken($x-palette-white, 15%);

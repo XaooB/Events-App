@@ -18,6 +18,16 @@
   src: url('../fonts/Roboto/Roboto-Medium.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'RobotoB';
+  src: url('../fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoBk';
+  src: url('../fonts/Roboto/Roboto-Black.ttf') format('truetype');
+}
+
 .logotype {
   font-weight:bold;
   text-transform: uppercase;
@@ -36,7 +46,7 @@
   color:$palette-secondary;
   &__title {
     font-family:'RobotoL';
-    font-size: 2.5em;
+    font-size: 2.2em;
     line-height: $intro-title-line-height;
   };
   &__desc {
@@ -44,5 +54,42 @@
     font-size:.75em;
     line-height: $intro-desc-line-height;
     word-spacing: .15em;
+  }
+}
+
+.section {
+  &-title {
+    position: relative;
+    display:inline-block;
+    font-size: 1.25em;
+    padding:15px 0;
+    &:before {
+      position: absolute;
+      content: '';
+      width:85%;
+      height:2px;
+      background:$palette-primary-text;
+      left:0;
+      bottom:10px;
+    }
+    &--centered {
+      &:before {
+        left:50%;
+        transform: translate(-50%);
+      }
+    }
+  }
+}
+
+.search {
+  text-align: center;
+  text-transform: uppercase;
+  &__title {
+    font-family: 'RobotoBk';
+    font-size: 1.5em;
+  }
+  &__sub {
+    font-size:1.2em;
+    letter-spacing: 1px;
   }
 }

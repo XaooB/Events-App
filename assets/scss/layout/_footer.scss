@@ -1,0 +1,17 @@
+.footer {
+  color:$palette-footer-color;
+  background: $palette-primary-text;
+  border-top: 10px solid $palette-footer-color;
+  &__head {
+    @extend .section-title;
+    font-size: 1em;
+    &:before {
+      background: $palette-footer-color;
+    }
+  }
+  &__link {
+    text-decoration: none;
+    color:$palette-footer-color;
+    font-size: .875em;
+  }
+}

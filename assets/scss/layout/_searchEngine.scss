@@ -1,0 +1,12 @@
+.search {
+  background: url('../images/searchBg.svg') no-repeat;
+  color:$palette-secondary;
+  background-position-x: 68%;
+  background-size: cover;
+  height:320px;
+  display:flex;
+  align-items: center;
+  &__form {
+    margin:30px 0;
+  }
+}

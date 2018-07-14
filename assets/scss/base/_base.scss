@@ -1,10 +1,18 @@
 body {
   font-family: 'RobotoR';
   font-size: 16px; //1em
+  background:$palette-body-bg;
 };
 
 .container {
   max-width:1200px;
   margin:0 auto;
-  padding:0 5px;
+  padding:0 10px;
 };
+
+.section {
+  background:$palette-secondary;
+  padding:40px 12px;
+  border-radius: 10px;
+  box-shadow: 0px 1px 8px $palette-shadow;
+}

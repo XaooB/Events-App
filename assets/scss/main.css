@@ -1,15 +1,20 @@
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_base\.scss}line{font-family:\000031}}
 body {
   font-family: 'RobotoR';
-  font-size: 16px; }
+  font-size: 16px;
+  background: #f7f7f7; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_base\.scss}line{font-family:\000036}}
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 5px; }
+  padding: 0 10px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_reset\.scss}line{font-family:\000031}}
+.section {
+  background: #ffffff;
+  padding: 40px 12px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 1px 8px #dedede;
+          box-shadow: 0px 1px 8px #dedede; }
+
 * {
   margin: 0;
   padding: 0;
@@ -28,61 +33,114 @@ body {
 @font-face {
   font-family: 'RobotoM';
   src: url("../fonts/Roboto/Roboto-Medium.ttf") format("truetype"); }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000321}}
+@font-face {
+  font-family: 'RobotoB';
+  src: url("../fonts/Roboto/Roboto-Bold.ttf") format("truetype"); }
+@font-face {
+  font-family: 'RobotoBk';
+  src: url("../fonts/Roboto/Roboto-Black.ttf") format("truetype"); }
 .logotype {
   font-weight: bold;
   text-transform: uppercase;
   font-family: 'TwCentEB'; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000325}}
   .logotype__head {
     color: #d4145a;
     font-size: 1.4em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000329}}
   .logotype__desc {
     font-size: .75em;
     letter-spacing: .8px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000335}}
 .page-intro {
   color: #ffffff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000337}}
   .page-intro__title {
     font-family: 'RobotoL';
-    font-size: 2.5em;
+    font-size: 2.2em;
     line-height: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/base\/_typography\.scss}line{font-family:\0000342}}
   .page-intro__desc {
     font-family: 'RobotoR';
     font-size: .75em;
     line-height: 1.7;
     word-spacing: .15em; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_inputs\.scss}line{font-family:\000031}}
+.section-title, .footer__head {
+  position: relative;
+  display: inline-block;
+  font-size: 1.25em;
+  padding: 15px 0; }
+  .section-title:before, .footer__head:before {
+    position: absolute;
+    content: '';
+    width: 85%;
+    height: 2px;
+    background: #2b2b2b;
+    left: 0;
+    bottom: 10px; }
+  .section-title--centered:before {
+    left: 50%;
+    -webkit-transform: translate(-50%);
+            transform: translate(-50%); }
+
+.search {
+  text-align: center;
+  text-transform: uppercase; }
+  .search__title {
+    font-family: 'RobotoBk';
+    font-size: 1.5em; }
+  .search__sub {
+    font-size: 1.2em;
+    letter-spacing: 1px; }
+
+.button-wrapper {
+  position: relative;
+  top: -.1px;
+  left: -4px;
+  padding: 0 5px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #7c043a;
+  height: 38px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px; }
+
+.button {
+  cursor: pointer;
+  height: 30px;
+  border: none;
+  padding: 0 10px;
+  font-size: .75em;
+  border-radius: 6px;
+  text-transform: uppercase;
+  font-family: 'RobotoB'; }
+  .button--default {
+    background: #e8ab00;
+    color: #ffffff; }
+    .button--default:hover {
+      background: #ffc112; }
+
 .nav-toggle {
   -ms-flex-item-align: center;
       align-self: center;
   font-size: 1.8em;
   font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_inputs\.scss}line{font-family:\000035}}
   .nav-toggle input {
     display: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_inputs\.scss}line{font-family:\000038}}
     .nav-toggle input:checked ~ .nav-mobile {
       display: block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_inputs\.scss}line{font-family:\0000313}}
   .nav-toggle label {
     color: #ffffff;
-    padding: 10px;
     -webkit-transform: rotate(75deg);
             transform: rotate(75deg); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_forms\.scss}line{font-family:\000031}}
 .input {
-  height: 37px;
+  color: #f44d90;
+  outline: none;
+  height: 38px;
   border: none;
-  border-radius: 10px;
   padding: 0 15px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_forms\.scss}line{font-family:\000036}}
   .input::-webkit-input-placeholder {
     color: #f44d90; }
   .input:-ms-input-placeholder {
@@ -91,11 +149,15 @@ body {
     color: #f44d90; }
   .input::placeholder {
     color: #f44d90; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/components\/_forms\.scss}line{font-family:\000039}}
   .input--default {
     background: #7c043a; }
+  .input--leftBorder {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px; }
+  .input--rightBorder {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_header\.scss}line{font-family:\000031}}
 .header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -112,19 +174,28 @@ body {
           justify-content: space-between;
   margin-bottom: 80px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_navigation\.scss}line{font-family:\000031}}
+.footer {
+  color: #d9d9d9;
+  background: #2b2b2b;
+  border-top: 10px solid #d9d9d9; }
+  .footer__head {
+    font-size: 1em; }
+    .footer__head:before {
+      background: #d9d9d9; }
+  .footer__link {
+    text-decoration: none;
+    color: #d9d9d9;
+    font-size: .875em; }
+
 .nav, .nav-mobile {
   -ms-flex-item-align: center;
       align-self: center;
   display: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_navigation\.scss}line{font-family:\000034}}
   .nav__list, .nav-mobile__list {
     list-style-type: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_navigation\.scss}line{font-family:\000037}}
   .nav__item, .nav-mobile__item {
     display: inline-block; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_hero\.scss}line{font-family:\000031}}
 .hero {
   background-image: url("../images/hero.svg");
   background-repeat: no-repeat;
@@ -134,17 +205,14 @@ body {
   height: 565px;
   overflow: hidden; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_logotype\.scss}line{font-family:\000031}}
 .logotype {
   -ms-flex-item-align: center;
       align-self: center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_logotype\.scss}line{font-family:\000033}}
   .logotype__image {
     height: 40px;
     width: 45px;
     margin-right: 10px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_grid\.scss}line{font-family:\000031}}
 .flex-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -156,21 +224,49 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_grid\.scss}line{font-family:\000035}}
   .flex-wrapper--horizontal {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_pageIntro\.scss}line{font-family:\000031}}
 .page-intro {
   max-width: 420px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_pageIntro\.scss}line{font-family:\000033}}
   .page-intro__title {
     margin-bottom: 12px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/E\:\/Projekty\%20FrontEnd\/EventsApp\/assets\/scss\/layout\/_pageIntro\.scss}line{font-family:\000036}}
   .page-intro__desc {
     margin-bottom: 20px; }
+
+.about {
+  text-align: center;
+  line-height: 1.5;
+  text-transform: uppercase;
+  margin-bottom: 50px; }
+  .about__image {
+    height: 38px;
+    max-width: 75px; }
+  .about__item {
+    padding: 20px 0; }
+    .about__item p {
+      letter-spacing: .5px;
+      text-align: justify; }
+    .about__item figure {
+      padding: 15px 0;
+      text-align: center; }
+
+.search {
+  background: url("../images/searchBg.svg") no-repeat;
+  color: #ffffff;
+  background-position-x: 68%;
+  background-size: cover;
+  height: 320px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+  .search__form {
+    margin: 30px 0; }
 
 /*# sourceMappingURL=main.css.map */

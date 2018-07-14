@@ -49,9 +49,11 @@
         <section class="page-intro">
           <h2 class='page-intro__title'>Best events among </br> Your beloved city</h2>
           <p class='page-intro__desc'>Are you looking for a party, concert or you are the organizer by yourself? You are in a good place! Choose through a thousands of events available in plenty of cities.</p>
-          <form action="#" method="post" class='form form--default'>
-            <input type="text" placeholder="Enter your email" class='input input--default'/>
-            <button type="submit" class='button button--default'>create account</button>
+          <form action="#" method="post" class='form'>
+            <input type="text" placeholder="Enter your email" class='input input--default input--leftBorder'/>
+            <div class='button-wrapper'>
+              <button type="submit" class='button button--default'>sign in</button>
+            </div>
           </form>
         </section>
       </div>
@@ -59,29 +61,29 @@
     <main class="main">
       <div class="container">
         <section class="section about">
-          <h3 class="section-title">about us</h3>
+          <h3 class="section-title section-title--centered">about us</h3>
           <div class="flex-wrapper">
             <div class="about__item">
               <figure>
-                <img src="#" alt="">
+                <img src="assets/images/searchIcon.svg" class='about__image' alt="searching">
               </figure>
               <p>we have plenty of events on our databse waiting for your participation. search it now and go party with your friends.</p>
             </div>
             <div class="about__item">
               <figure>
-                <img src="#" alt="">
+                <img src="assets/images/categoriesIcon.svg" class='about__image' alt="categories">
               </figure>
               <p>are you interested in music? do you like 'it' stuff? Do not worry! we categorise every event for your convenience.</p>
             </div>
             <div class="about__item">
               <figure>
-                <img src="#" alt="">
+                <img src="assets/images/organiseIcon.svg" class='about__image' alt="organize">
               </figure>
               <p>doing a party or an art show? forget about leaflets! let us be a distributor for you. we are going to make it work.</p>
             </div>
             <div class="about__item">
               <figure>
-                <img src="#" alt="">
+                <img src="assets/images/clockIcon.svg" class='about__image' alt="savings">
               </figure>
               <p>you save a lot of time. it works fast and ably. couple seconds after, your vent is visible for everyone interested.</p>
             </div>
@@ -93,10 +95,12 @@
           <div class="search-flex">
             <h3 class="search__title">search our database</h3>
             <p class="search__sub">1000+ events near you</p>
-            <form action="#" method="post" class='form form--default'>
+            <form action="#" method="post" class='search__form form form--default'>
               <input type="text" placeholder="What are you looking for?" class="input input--default" />
               <input type="text" placeholder="Enter event location" class="input input--default" />
-              <button class="button button--default">search now</button>
+              <div class='button-wrapper'>
+                <button class="button button--default">search now</button>
+              </div>
             </form>
           </div>
         </div>
@@ -145,44 +149,44 @@
             <section class="footer__item">
               <h4 class="footer__head">navigation</h4>
               <ul class="footer__list">
-                <li class="list__item"><a href="#">home</a></li>
-                <li class="list__item"><a href="#">events</a></li>
-                <li class="list__item"><a href="#">add event</a></li>
-                <li class="list__item"><a href="#">categories</a></li>
-                <li class="list__item"><a href="#">about us</a></li>
-                <li class="list__item"><a href="#">contact</a></li>
+                <li class="list__item"><a class='footer__link' href="#">home</a></li>
+                <li class="list__item"><a class='footer__link' href="#">events</a></li>
+                <li class="list__item"><a class='footer__link' href="#">add event</a></li>
+                <li class="list__item"><a class='footer__link' href="#">categories</a></li>
+                <li class="list__item"><a class='footer__link' href="#">about us</a></li>
+                <li class="list__item"><a class='footer__link' href="#">contact</a></li>
               </ul>
             </section>
             <section class="footer__item">
               <h4 class="footer__head">social media</h4>
               <ul class="footer__list">
-                <li class="list__item"><a href="#">facebook</a></li>
-                <li class="list__item"><a href="#">twitter</a></li>
-                <li class="list__item"><a href="#">youtube</a></li>
-                <li class="list__item"><a href="#">linkedin</a></li>
+                <li class="list__item"><a class='footer__link' href="#">facebook</a></li>
+                <li class="list__item"><a class='footer__link' href="#">twitter</a></li>
+                <li class="list__item"><a class='footer__link' href="#">youtube</a></li>
+                <li class="list__item"><a class='footer__link' href="#">linkedin</a></li>
               </ul>
             </section>
             <section class="footer__item">
               <h4 class="footer__head">categories</h4>
               <ul class="footer__list">
-                <li class="list__item"><a href="#">food</a></li>
-                <li class="list__item"><a href="#">sport</a></li>
-                <li class="list__item"><a href="#">fashion</a></li>
-                <li class="list__item"><a href="#">technology</a></li>
-                <li class="list__item"><a href="#">drink</a></li>
-                <li class="list__item"><a href="#">music</a></li>
-                <li class="list__item"><a href="#">party</a></li>
+                <li class="list__item"><a class='footer__link' href="#">food</a></li>
+                <li class="list__item"><a class='footer__link' href="#">sport</a></li>
+                <li class="list__item"><a class='footer__link' href="#">fashion</a></li>
+                <li class="list__item"><a class='footer__link' href="#">technology</a></li>
+                <li class="list__item"><a class='footer__link' href="#">drink</a></li>
+                <li class="list__item"><a class='footer__link' href="#">music</a></li>
+                <li class="list__item"><a class='footer__link' href="#">party</a></li>
               </ul>
             </section>
             <section class="footer__item">
               <h4 class="footer__head">events</h4>
               <ul class="footer__list">
-                <li class="list__item"><a href="#">warszawa</a></li>
-                <li class="list__item"><a href="#">poznań</a></li>
-                <li class="list__item"><a href="#">bydgoszcz</a></li>
-                <li class="list__item"><a href="#">szczecin</a></li>
-                <li class="list__item"><a href="#">gdynia</a></li>
-                <li class="list__item"><a href="#">wrocław</a></li>
+                <li class="list__item"><a class='footer__link' href="#">warszawa</a></li>
+                <li class="list__item"><a class='footer__link' href="#">poznań</a></li>
+                <li class="list__item"><a class='footer__link' href="#">bydgoszcz</a></li>
+                <li class="list__item"><a class='footer__link' href="#">szczecin</a></li>
+                <li class="list__item"><a class='footer__link' href="#">gdynia</a></li>
+                <li class="list__item"><a class='footer__link' href="#">wrocław</a></li>
               </ul>
             </section>
             <section class="footer__item">

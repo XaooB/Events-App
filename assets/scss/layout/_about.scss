@@ -1,0 +1,21 @@
+.about {
+  text-align: center;
+  line-height: $default-line-height;
+  text-transform: uppercase;
+  margin-bottom:50px;
+  &__image {
+    height:38px;
+    max-width:75px;
+  }
+  &__item {
+    padding:20px 0;
+    p {
+      letter-spacing: .5px;
+      text-align: justify;
+    }
+    figure {
+      padding:15px 0;
+      text-align: center;
+    }
+  }
+}
