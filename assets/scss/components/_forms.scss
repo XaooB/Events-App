@@ -16,6 +16,13 @@
   }
 }
 
+.form {
+  display:flex;
+  align-content:center;
+  &--footer {
+    flex-flow: nowrap column;
+  }
+}
 
 .input {
   color:$palette-inputs-text;
