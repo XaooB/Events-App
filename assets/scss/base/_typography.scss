@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'TwCentEB';
-  src: url('../fonts/TwCent/TCCEB.ttf') format('truetype');
+  font-family: 'TwcentEb';
+  src: url('../fonts/Twcent/TCCEB.ttf') format('truetype');
 }
 
 @font-face {
@@ -29,9 +29,8 @@
 }
 
 .logotype {
-  font-weight:bold;
   text-transform: uppercase;
-  font-family: 'TwCentEB';
+  font-family: 'TwcentEb';
   &__head {
     color: $palette-primary;
     font-size: 1.4em;

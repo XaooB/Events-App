@@ -22,8 +22,8 @@ body {
           box-sizing: border-box; }
 
 @font-face {
-  font-family: 'TwCentEB';
-  src: url("../fonts/Tw Cent/TCCEB.ttf") format("truetype"); }
+  font-family: 'TwcentEb';
+  src: url("../fonts/Twcent/TCCEB.ttf") format("truetype"); }
 @font-face {
   font-family: 'RobotoL';
   src: url("../fonts/Roboto/Roboto-Light.ttf") format("truetype"); }
@@ -40,9 +40,8 @@ body {
   font-family: 'RobotoBk';
   src: url("../fonts/Roboto/Roboto-Black.ttf") format("truetype"); }
 .logotype {
-  font-weight: bold;
   text-transform: uppercase;
-  font-family: 'TwCentEB'; }
+  font-family: 'TwcentEb'; }
   .logotype__head {
     color: #d4145a;
     font-size: 1.4em; }
