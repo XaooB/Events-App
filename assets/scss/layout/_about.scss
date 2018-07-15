@@ -4,12 +4,13 @@
   text-transform: uppercase;
   margin-bottom:50px;
   &__image {
-    height:38px;
-    max-width:75px;
+    height:45px;
+    max-width:90px;
   }
   &__item {
     padding:20px 0;
     p {
+      font-size:.9em;
       letter-spacing: .5px;
       text-align: justify;
     }

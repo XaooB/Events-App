@@ -4,8 +4,7 @@
   align-items: center;
   background:$palette-inputs-bg;
   height:38px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: $radius10;
 }
 
 .button {

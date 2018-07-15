@@ -2,6 +2,7 @@
   color:$palette-footer-color;
   background: $palette-primary-text;
   border-top: 10px solid $palette-footer-color;
+  padding-bottom:20px;
   &__head {
     @extend .section-title;
     font-size: 1em;
@@ -13,5 +14,27 @@
     text-decoration: none;
     color:$palette-footer-color;
     font-size: .875em;
+  }
+  &__item {
+    margin:0 15px;
+    flex: 1 40%;
+    &:last-child {
+      flex:1 100%;
+    }
+  }
+  &__list {
+    list-style: none;
+  }
+  .label-wrapper {
+    width:100%;
+    margin-bottom:10px;
+    label {
+      display:inline-block;
+      margin-left:8px;
+      padding-bottom:4px;
+    }
+  }
+  &__copy {
+    margin-top:50px;
   }
 }

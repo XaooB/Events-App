@@ -6,4 +6,12 @@
   &__desc {
     margin-bottom:20px;
   }
+  .button-wrapper {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }

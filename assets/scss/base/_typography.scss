@@ -86,9 +86,19 @@
   &__title {
     font-family: 'RobotoBk';
     font-size: 1.5em;
+    padding-bottom:4px;
   }
   &__sub {
-    font-size:1.2em;
+    font-size:.7em;
+    letter-spacing: 1.5px;
+  }
+}
+
+.footer {
+  &__copy {
+    text-align: center;
+    font-size:.8em;
+    font-family:'RobotoL';
     letter-spacing: 1px;
   }
 }

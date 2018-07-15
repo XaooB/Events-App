@@ -84,10 +84,17 @@ body {
   text-transform: uppercase; }
   .search__title {
     font-family: 'RobotoBk';
-    font-size: 1.5em; }
+    font-size: 1.5em;
+    padding-bottom: 4px; }
   .search__sub {
-    font-size: 1.2em;
-    letter-spacing: 1px; }
+    font-size: .7em;
+    letter-spacing: 1.5px; }
+
+.footer__copy {
+  text-align: center;
+  font-size: .8em;
+  font-family: 'RobotoL';
+  letter-spacing: 1px; }
 
 .button-wrapper {
   padding: 0 5px;
@@ -99,8 +106,7 @@ body {
           align-items: center;
   background: #7c043a;
   height: 38px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px; }
+  border-radius: 10px; }
 
 .button {
   cursor: pointer;
@@ -149,7 +155,8 @@ body {
   outline: none;
   height: 38px;
   border: none;
-  padding: 0 15px; }
+  padding: 0 15px;
+  border-radius: 10px; }
   .input::-webkit-input-placeholder {
     color: #f44d90; }
   .input:-ms-input-placeholder {
@@ -160,12 +167,30 @@ body {
     color: #f44d90; }
   .input--default {
     background: #7c043a; }
-  .input--leftBorder {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px; }
-  .input--rightBorder {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px; }
+  .input--darker {
+    background: #262626; }
+    .input--darker::-webkit-input-placeholder {
+      color: #d9d9d9; }
+    .input--darker:-ms-input-placeholder {
+      color: #d9d9d9; }
+    .input--darker::-ms-input-placeholder {
+      color: #d9d9d9; }
+    .input--darker::placeholder {
+      color: #d9d9d9; }
+
+input, textarea {
+  font-family: 'RobotoL';
+  letter-spacing: .2px;
+  font-size: .8em; }
+
+.footer input, .footer textarea {
+  color: #d9d9d9;
+  width: 100%;
+  outline: 0; }
+.footer textarea {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px; }
 
 .header {
   display: -webkit-box;
@@ -186,7 +211,8 @@ body {
 .footer {
   color: #d9d9d9;
   background: #2b2b2b;
-  border-top: 10px solid #d9d9d9; }
+  border-top: 10px solid #d9d9d9;
+  padding-bottom: 20px; }
   .footer__head {
     font-size: 1em; }
     .footer__head:before {
@@ -195,6 +221,26 @@ body {
     text-decoration: none;
     color: #d9d9d9;
     font-size: .875em; }
+  .footer__item {
+    margin: 0 15px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 40%;
+            flex: 1 40%; }
+    .footer__item:last-child {
+      -webkit-box-flex: 1;
+          -ms-flex: 1 100%;
+              flex: 1 100%; }
+  .footer__list {
+    list-style: none; }
+  .footer .label-wrapper {
+    width: 100%;
+    margin-bottom: 10px; }
+    .footer .label-wrapper label {
+      display: inline-block;
+      margin-left: 8px;
+      padding-bottom: 4px; }
+  .footer__copy {
+    margin-top: 50px; }
 
 .nav, .nav-mobile {
   -ms-flex-item-align: center;
@@ -226,18 +272,16 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
-          justify-content: space-between; }
-  .flex-wrapper--horizontal {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row; }
+          justify-content: space-between;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch; }
 
 .page-intro {
   max-width: 420px; }
@@ -245,6 +289,12 @@ body {
     margin-bottom: 12px; }
   .page-intro__desc {
     margin-bottom: 20px; }
+  .page-intro .button-wrapper {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0; }
+  .page-intro input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0; }
 
 .about {
   text-align: center;
@@ -252,11 +302,12 @@ body {
   text-transform: uppercase;
   margin-bottom: 50px; }
   .about__image {
-    height: 38px;
-    max-width: 75px; }
+    height: 45px;
+    max-width: 90px; }
   .about__item {
     padding: 20px 0; }
     .about__item p {
+      font-size: .9em;
       letter-spacing: .5px;
       text-align: justify; }
     .about__item figure {
@@ -281,5 +332,7 @@ body {
         -ms-flex-flow: nowrap column;
             flex-flow: nowrap column;
     margin: 30px 0; }
+    .search__form input {
+      margin-bottom: 3px; }
 
 /*# sourceMappingURL=main.css.map */

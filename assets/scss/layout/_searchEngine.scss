@@ -9,5 +9,8 @@
   &__form {
     flex-flow: nowrap column;
     margin:30px 0;
+    input {
+      margin-bottom:3px;
+    }
   }
 }

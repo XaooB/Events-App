@@ -30,18 +30,36 @@
   height:38px;
   border:none;
   padding:0 15px;
+  border-radius:$radius10;
   &::placeholder {
     color: $palette-inputs-text;
   }
   &--default {
     background: $palette-inputs-bg;
   }
-  &--leftBorder {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+  &--darker {
+    background: $palette-footer-inputs;
+    &::placeholder {
+      color:$palette-footer-color;
+    }
   }
-  &--rightBorder {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+}
+
+input, textarea {
+  font-family: 'RobotoL';
+  letter-spacing: .2px;
+  font-size:.8em;
+}
+
+.footer {
+  input, textarea {
+    color:$palette-footer-color;
+    width:100%;
+    outline:0;
+  }
+  textarea {
+    padding:10px 15px;
+    border:none;
+    border-radius: $radius10;
   }
 }
