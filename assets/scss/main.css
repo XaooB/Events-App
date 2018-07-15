@@ -9,6 +9,7 @@ body {
   padding: 0 10px; }
 
 .section {
+  margin: 50px 0;
   background: #ffffff;
   padding: 40px 12px;
   border-radius: 10px;
