@@ -2,7 +2,7 @@
   color:$palette-footer-color;
   background: $palette-primary-text;
   border-top: 10px solid $palette-footer-color;
-  padding-bottom:20px;
+  padding:20px 0;
   &__head {
     @extend .section-title;
     font-size: 1em;
