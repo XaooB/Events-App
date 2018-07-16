@@ -22,6 +22,10 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
 
+a {
+  text-decoration: none;
+  color: inherit; }
+
 @font-face {
   font-family: 'TwcentEb';
   src: url("./../fonts/TwCent/TCCEB.ttf") format("truetype"); }
@@ -222,6 +226,8 @@ input, textarea {
     text-decoration: none;
     color: #d9d9d9;
     font-size: .875em; }
+    .footer__link:hover {
+      color: #d4145a; }
   .footer__item {
     margin: 0 15px;
     -webkit-box-flex: 1;
@@ -335,5 +341,67 @@ input, textarea {
     margin: 30px 0; }
     .search__form input {
       margin-bottom: 3px; }
+
+.popular__direction {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap; }
+.popular__item {
+  margin-bottom: 10px; }
+
+.article__image-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  border-bottom: 3px solid #d4145a; }
+.article__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+.article__info {
+  padding: 10px;
+  background: #f7f7f7;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; }
+.article__date {
+  text-align: center;
+  margin-right: 10px; }
+.article__title {
+  font-family: 'RobotoL';
+  font-size: 1.2em; }
+.article__text {
+  font-family: 'RobotoL';
+  font-size: .9em; }
+.article__summary {
+  margin-bottom: 6px;
+  color: #d9d9d9;
+  font-size: .8em; }
+.article__day {
+  font-family: 'RobotoR';
+  font-size: 1.6em; }
+.article__month {
+  font-family: 'RobotoB';
+  font-size: .9em;
+  display: block;
+  color: #d4145a;
+  margin-top: -3px; }
+.article__link:hover h4 {
+  color: #d4145a; }
 
 /*# sourceMappingURL=main.css.map */

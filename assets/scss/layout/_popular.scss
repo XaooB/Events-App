@@ -1,0 +1,9 @@
+.popular {
+  &__direction {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  &__item {
+    margin-bottom:10px;
+  }
+}
