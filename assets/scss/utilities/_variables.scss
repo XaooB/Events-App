@@ -1,11 +1,10 @@
 //rwd breakpoints
 
 $breakpoints: (
-  'tiny': (min-width: 360px),
-  'small': (min-width: 480px),
-  'medium': (min-width: 640px),
-  'large': (min-width: 960px),
-  'huge': (min-width: 1200px)
+  'small': (max-width: 480px),
+  'medium': (max-width: 640px),
+  'large': (max-width: 960px),
+  'huge': (max-width: 1200px)
 );
 
 //internal
