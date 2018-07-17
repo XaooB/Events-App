@@ -67,6 +67,7 @@ a {
     word-spacing: .15em; }
 
 .section-title, .footer__head {
+  text-transform: uppercase;
   position: relative;
   display: inline-block;
   font-size: 1.25em;
@@ -94,6 +95,14 @@ a {
   .search__sub {
     font-size: .7em;
     letter-spacing: 1.5px; }
+
+.category {
+  color: #ffffff; }
+  .category__name {
+    font-size: 2.2em;
+    font-family: 'RobotoR';
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 6px black; }
 
 .footer__copy {
   text-align: center;
@@ -351,6 +360,71 @@ input, textarea {
       flex-wrap: nowrap; }
 .popular__item {
   margin-bottom: 10px; }
+
+.category {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap; }
+  .category__item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 1px;
+    cursor: pointer; }
+    .category__item:hover:after {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: #d4145a;
+      opacity: .5;
+      z-index: 1; }
+  .category__name {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); }
+  .category__image-wrapper {
+    height: 80px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    overflow: hidden; }
+
+.close-events {
+  margin-top: 10px; }
+
+.food, .drink, .sport, .music {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 50%;
+          flex: 1 50%; }
+
+.technology, .parties, .fashion {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%; }
 
 .article__image-wrapper {
   display: -webkit-box;
