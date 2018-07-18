@@ -18,5 +18,17 @@
       padding:15px 0;
       text-align: center;
     }
+      @include respond-to(small) {
+        flex:1 1 50%;
+        &:nth-child(odd) {
+          padding-right:16px;
+        }
+      }
+      @include respond-to(medium-large) {
+        flex: 1 1 25%;
+        &:not(:last-child) {
+          padding-right:16px;
+        }
+      }
   }
 }

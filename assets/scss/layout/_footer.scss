@@ -19,7 +19,7 @@
     }
   }
   &__item {
-    margin:0 15px;
+    padding:0 15px;
     flex: 1 40%;
     &:last-child {
       flex:1 100%;
@@ -39,5 +39,21 @@
   }
   &__copy {
     margin-top:50px;
+  }
+  @include respond-to(medium-large) {
+    &__item {
+      flex: 1 33%;
+      &:last-child {
+        flex:1 67%;
+      }
+    }
+    &__labels {
+      flex-flow: row nowrap;
+      .label-wrapper {
+        &:not(:last-child) {
+          padding-right:10px;
+        }
+      }
+    }
   }
 }

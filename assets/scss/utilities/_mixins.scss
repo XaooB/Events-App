@@ -15,10 +15,3 @@
     @error 'Brak wartości dla `#{$breakpoint}`.' + 'Sprwadź czy jest zdefiniowane w `$breakpoints`';
   }
 }
-
-// użycie
-// .klasa {
-//   @include respond-to('medium') {
-//     color:red;
-//   }
-// }

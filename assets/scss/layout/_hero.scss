@@ -6,4 +6,8 @@
   background-position-x: -80px;
   height:565px;
   overflow:hidden;
+  @include respond-to(medium-large) {
+    background-position-y: -80px;
+    background-position-x: 160px;
+  }
 }

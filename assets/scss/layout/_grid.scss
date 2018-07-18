@@ -1,6 +1,10 @@
 .flex-wrapper {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column nowrap;
   justify-content: space-between;
-  align-items: stretch;
+  flex-direction: column;
+  @include respond-to(small) {
+    flex-direction: row;
+    flex-flow: row wrap;
+  }
 }
