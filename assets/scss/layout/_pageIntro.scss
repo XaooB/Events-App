@@ -1,5 +1,8 @@
 .page-intro {
   max-width:440px;
+  input {
+    width:auto;
+  }
   &__title {
     margin-bottom:12px;
   }
@@ -14,7 +17,11 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
+  @include respond-to(medium) {
+    margin-left:30px;
+  }
   @include respond-to(medium-large) {
-    margin-left:220px;
+    margin-top:65px;
+    margin-left:280px;
   }
 }

@@ -46,12 +46,18 @@ a {
     font-family: 'RobotoR';
     font-size: .75em;
     line-height: 1.7;
-    word-spacing: .15em; }
+    word-spacing: .15em;
+    letter-spacing: .2px; }
   @media (min-width: 640px) {
     .page-intro__title {
-      font-size: 3.1em; }
+      font-size: 3em; }
     .page-intro__desc {
-      font-size: 1em; } }
+      font-size: .9em; } }
+  @media (min-width: 1200px) {
+    .page-intro__title {
+      font-family: 'RobotoM'; }
+    .page-intro__desc {
+      font-size: .8em; } }
 
 .section-title, .footer__head {
   text-transform: uppercase;
@@ -254,12 +260,19 @@ input, textarea {
   background-size: cover;
   background-position-y: -70px;
   background-position-x: -80px;
-  height: 565px;
-  overflow: hidden; }
+  height: 565px; }
   @media (min-width: 820px) {
     .hero {
       background-position-y: -80px;
       background-position-x: 160px; } }
+  @media (min-width: 1200px) {
+    .hero {
+      margin: 0 auto;
+      max-width: 1200px;
+      background-size: auto;
+      background-position: top center;
+      background-position-y: -90px;
+      background-position-x: 120px; } }
 
 .logotype {
   -ms-flex-item-align: center;
@@ -290,9 +303,17 @@ input, textarea {
               flex-direction: row;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap; } }
+  @media (min-width: 960px) {
+    .flex-wrapper {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row nowrap;
+              flex-flow: row nowrap; } }
 
 .page-intro {
   max-width: 440px; }
+  .page-intro input {
+    width: auto; }
   .page-intro__title {
     margin-bottom: 12px; }
   .page-intro__desc {
@@ -303,9 +324,13 @@ input, textarea {
   .page-intro input {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; }
+  @media (min-width: 640px) {
+    .page-intro {
+      margin-left: 30px; } }
   @media (min-width: 820px) {
     .page-intro {
-      margin-left: 220px; } }
+      margin-top: 65px;
+      margin-left: 280px; } }
 
 .about {
   text-align: center;
@@ -383,16 +408,35 @@ input, textarea {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap; }
+  -ms-flex-flow: column nowrap;
+      flex-flow: column nowrap; }
+  @media (min-width: 960px) {
+    .popular__direction {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap;
+      -ms-flex-direction: row;
+          flex-direction: row; }
+      .popular__direction > section {
+        width: 50%; }
+        .popular__direction > section:first-child {
+          padding-right: 10px; }
+      .popular__direction .flex-wrapper {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: row wrap;
+                flex-flow: row wrap; } }
 .popular__item {
   width: 100%;
   margin-bottom: 10px; }
   @media (min-width: 480px) {
     .popular__item {
       width: 50%; }
+      .popular__item:nth-child(even) {
+        padding-left: 5px; }
       .popular__item:nth-child(odd) {
-        padding-right: 10px; } }
+        padding-right: 5px; } }
 
 .category {
   display: -webkit-box;
@@ -438,13 +482,28 @@ input, textarea {
     .category .music, .category .sport, .category .parties {
       -webkit-box-flex: 1;
           -ms-flex: 1 33%;
-              flex: 1 33%;
-      -ms-flex-positive: 1;
-          flex-grow: 1; }
+              flex: 1 33%; }
     .category .technology, .category .fashion {
       -webkit-box-flex: 1;
           -ms-flex: 1 50%;
               flex: 1 50%; } }
+  @media (min-width: 960px) {
+    .category .food, .category .soprt {
+      -webkit-box-flex: 1;
+          -ms-flex: 1 100%;
+              flex: 1 100%; }
+    .category .music, .category .parties {
+      -webkit-box-flex: 1;
+          -ms-flex: 1 50%;
+              flex: 1 50%; }
+    .category .drink {
+      -webkit-box-flex: 1;
+          -ms-flex: 1 35%;
+              flex: 1 35%; }
+    .category .technology {
+      -webkit-box-flex: 1;
+          -ms-flex: 1 65%;
+              flex: 1 65%; } }
   .category__name {
     position: absolute;
     z-index: 2;
@@ -470,6 +529,11 @@ input, textarea {
 
 .close-events {
   margin-top: 10px; }
+  @media (min-width: 960px) {
+    .close-events .popular__item {
+      width: 25%; }
+      .close-events .popular__item:nth-child(2) {
+        padding-right: 10px; } }
 
 .footer {
   color: #d9d9d9;

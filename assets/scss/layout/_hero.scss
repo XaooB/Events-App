@@ -5,9 +5,16 @@
   background-position-y: -70px;
   background-position-x: -80px;
   height:565px;
-  overflow:hidden;
   @include respond-to(medium-large) {
     background-position-y: -80px;
     background-position-x: 160px;
+  }
+  @include respond-to(huge) {
+    margin: 0 auto;
+    max-width: 1200px;
+    background-size: auto;
+    background-position: top center;
+    background-position-y: -90px;
+    background-position-x: 120px;
   }
 }

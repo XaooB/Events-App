@@ -1,17 +1,37 @@
 .popular {
   &__direction {
     flex-direction: column;
-    flex-wrap: nowrap;
+    flex-flow: column nowrap;
+    @include respond-to(large) {
+      flex-flow: row wrap;
+      flex-direction: row;
+      > section {
+        width:50%;
+        &:first-child {
+          padding-right:10px;
+        }
+      }
+      .flex-wrapper {
+        flex-flow: row wrap;
+      }
+    }
   }
   &__item {
     width:100%;
     margin-bottom:10px;
     @include respond-to(small) {
       width:50%;
+      &:nth-child(even) {
+        padding-left:5px;
+      }
       &:nth-child(odd) {
-        padding-right:10px;
+        padding-right:5px;
       }
     }
+
+  }
+  &__events {
+    //DO NAPISANIA
   }
 }
 
@@ -55,6 +75,20 @@
       flex:1 50%;
     }
   }
+  @include respond-to(large) {
+    .food, .soprt {
+      flex:1 100%;
+    }
+    .music, .parties {
+      flex: 1 50%;
+    }
+    .drink {
+      flex:1 35%;
+    }
+    .technology {
+      flex: 1 65%;
+    }
+  }
   &__name {
     position: absolute;
     z-index: 2;
@@ -78,4 +112,12 @@
 
 .close-events {
   margin-top:10px;
+  @include respond-to(large) {
+    .popular__item {
+      width:25%;
+      &:nth-child(2) {
+        padding-right:10px;
+      }
+    }
+  }
 }

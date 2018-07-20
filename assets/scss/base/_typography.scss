@@ -23,13 +23,22 @@
     font-size:.75em;
     line-height: $intro-desc-line-height;
     word-spacing: .15em;
+    letter-spacing: .2px;
   }
   @include respond-to(medium) {
     &__title {
-      font-size: 3.1em;
+      font-size: 3em;
     }
     &__desc {
-      font-size:1em;
+      font-size:.9em;
+    }
+  }
+  @include respond-to(huge) {
+    &__title {
+      font-family: 'RobotoM';
+    }
+    &__desc {
+      font-size: .8em;
     }
   }
 }
