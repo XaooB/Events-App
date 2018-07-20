@@ -10,8 +10,8 @@
   &__item {
     padding:20px 0;
     p {
-      font-size:.9em;
-      letter-spacing: .5px;
+      font-size:.8em;
+      letter-spacing: .4px;
       text-align: justify;
     }
     figure {
@@ -27,7 +27,7 @@
       @include respond-to(medium-large) {
         flex: 1 1 25%;
         &:not(:last-child) {
-          padding-right:16px;
+          padding-right:50px;
         }
       }
   }

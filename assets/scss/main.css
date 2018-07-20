@@ -11,7 +11,7 @@ body {
 .section {
   margin: 50px 0;
   background: #ffffff;
-  padding: 25px 12px;
+  padding: 30px;
   border-radius: 10px;
   -webkit-box-shadow: 0px 1px 8px #dedede;
           box-shadow: 0px 1px 8px #dedede; }
@@ -231,7 +231,7 @@ input, textarea {
   -webkit-box-direction: normal;
       -ms-flex-flow: nowrap row;
           flex-flow: nowrap row;
-  height: 80px;
+  height: 70px;
   -ms-flex-line-pack: center;
       align-content: center;
   -webkit-box-pack: justify;
@@ -343,8 +343,8 @@ input, textarea {
   .about__item {
     padding: 20px 0; }
     .about__item p {
-      font-size: .9em;
-      letter-spacing: .5px;
+      font-size: .8em;
+      letter-spacing: .4px;
       text-align: justify; }
     .about__item figure {
       padding: 15px 0;
@@ -362,7 +362,7 @@ input, textarea {
             -ms-flex: 1 1 25%;
                 flex: 1 1 25%; }
         .about__item:not(:last-child) {
-          padding-right: 16px; } }
+          padding-right: 50px; } }
 
 .search {
   background: url("../images/searchBg.svg") no-repeat;
