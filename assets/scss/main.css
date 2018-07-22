@@ -613,6 +613,15 @@ input, textarea {
               flex-flow: row nowrap; }
       .footer__labels .label-wrapper:not(:last-child) {
         padding-right: 10px; } }
+  @media (min-width: 1200px) {
+    .footer__item {
+      -webkit-box-flex: 1;
+          -ms-flex: 1 15%;
+              flex: 1 15%; }
+      .footer__item:last-child {
+        -webkit-box-flex: 1;
+            -ms-flex: 1 40%;
+                flex: 1 40%; } }
 
 .article__image-wrapper {
   display: none;

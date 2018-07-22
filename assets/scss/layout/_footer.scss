@@ -60,4 +60,12 @@
       }
     }
   }
+  @include respond-to(huge) {
+    &__item {
+      flex:1 15%;
+      &:last-child {
+        flex:1 40%;
+      }
+    }
+  }
 }
