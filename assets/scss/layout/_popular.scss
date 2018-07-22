@@ -1,4 +1,7 @@
 .popular {
+  img {
+    align-self: normal;
+  }
   &__direction {
     flex-direction: column;
     flex-flow: column nowrap;

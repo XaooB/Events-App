@@ -425,6 +425,9 @@ input, textarea {
         .search__form .button-wrapper button {
           width: 100px; } }
 
+.popular img {
+  -ms-flex-item-align: normal;
+      align-self: normal; }
 .popular__direction {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
