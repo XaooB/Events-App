@@ -3,6 +3,10 @@
   background: $palette-primary-text;
   border-top: 10px solid $palette-footer-color;
   padding:20px 0;
+  &__nav {
+    @extend .flex-wrapper;
+    flex-flow: row wrap;
+  }
   &__head {
     @extend .section-title;
     font-size: 1em;

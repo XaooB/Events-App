@@ -3,11 +3,13 @@
   text-transform: uppercase;
   &__head {
     color: $palette-primary;
-    font-size: 1.4em;
+    font-size: 1.3em;
+    letter-spacing: 1.1px;
   }
   &__desc {
+    font-weight:bold;
     font-size: .75em;
-    letter-spacing: .8px;
+    letter-spacing: 1px;
   }
 }
 
