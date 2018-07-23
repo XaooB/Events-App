@@ -1,7 +1,10 @@
 .popular {
-  img {
-    align-self: normal;
+  @-moz-document url-prefix() {
+    img {
+      align-self: normal;
+    }
   }
+
   &__direction {
     flex-direction: column;
     flex-flow: column nowrap;
