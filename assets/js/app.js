@@ -4,14 +4,6 @@ const Events = {
   indexedDB: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB,
   dbOpen: this.indexedDB.open('Events', 2),
 
-  bindEvents: function() {
-    let modal = document.querySelector('.modal'),
-        addEventBtn = modal.querySelector('#add-wrapper');
-
-    addEventBtn.addEventListener('click', (e) => {
-      this.addEvent();
-    });
-  },
   createDomElement: function() {
     //create document element
   },
@@ -41,16 +33,23 @@ const Events = {
   },
   //initial funtion
   initial: function() {
-    this.dbOpen.onupgradeneeded = e => {
-      console.log('onupgradeneeded event ', e);
-    }
-    this.dbOpen.onsuccess = e => {
-      console.log('onsuccess event ',e);
-    }
-    this.dbOpen.onerror = e => {
-      console.log('onerror event ', e);
+    //binding DOM elementes
+    let addEventBtn = document.querySelector('#add-wrapper');
+
+    return () => {
+      this.dbOpen.onupgradeneeded = e => {
+        console.log('onupgradeneeded event ', e);
+      }
+      this.dbOpen.onsuccess = e => {
+        console.log('onsuccess event ',e);
+      }
+      this.dbOpen.onerror = e => {
+        console.log('onerror event ', e);
+      }
+
+      addEventBtn.addEventListener('click', (e) => { console.log('show modal') });
     }
   }
 }
 
-Events.initial();
+Events.initial()();
