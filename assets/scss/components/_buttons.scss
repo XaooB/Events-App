@@ -24,4 +24,11 @@
       background: lighten($palette-buttons, 8%);
     }
   }
+  &--danger {
+    background: darken(red,7%);
+    &:hover {
+      font-weight:bold;
+      background: red;
+    }
+  }
 }

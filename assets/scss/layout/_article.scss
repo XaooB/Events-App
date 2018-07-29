@@ -1,5 +1,7 @@
 .article {
+  position: relative;
   &__image-wrapper {
+    position: relative;
     display:none;
     align-items: center;
     width:100%;
