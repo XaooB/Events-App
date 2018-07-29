@@ -42,9 +42,12 @@ const Events = {
         let deleteItem = store.delete(eventID);
 
         deleteItem.onsuccess = e => {
-          //just for testing purposes, result is undefined - figuring out why...
-          console.log(store.get(2));
+          console.log(e.target);
 
+          store.get(1).onsuccess = e => {
+            console.log(e.target);
+          }
+          //just for testing purposes, result is undefined - figuring out why..
           console.log('item has been deleted');
         }
 
@@ -55,8 +58,7 @@ const Events = {
   addEventsAfterDbOpen: function(data) {
     let container = document.querySelector('.recently-added .flex-wrapper');
 
-    data.onsuccess = () => {
-      data.result.forEach((item, key) => {
+        data.result.forEach((item, key) => {
         if(key>3) return; //testing purposes
 
         container.innerHTML += `<article class="popular__item" data-id='${key}'>
@@ -81,7 +83,6 @@ const Events = {
                     </div>
                 </article>`
       });
-    }
 
     data.onerror = e => {
       throw new Error(e);
@@ -129,9 +130,12 @@ const Events = {
             });
 
             //receive data from db and add it to the DOM
-            let reveicedData = store.getAll();
-            this.addEventsAfterDbOpen(reveicedData);
+            let receivedData = store.getAll();
+            receivedData.onsuccess = () => {
+              this.addEventsAfterDbOpen(receivedData);
+            }
 
+            console.log(store.get(1));
             //fired after the initial transaction is completed
             tx.oncomplete = () => {
               //bind click event to recently added events
