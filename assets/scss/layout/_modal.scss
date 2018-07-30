@@ -1,0 +1,21 @@
+#nav-modal {
+  position: fixed;
+  right:25px;
+  z-index: 2;
+  bottom:25px;
+  display: flex;
+  flex-flow: row nowrap;
+  button {
+    margin-right:10px;
+    border-radius: 10px;
+    font-family:'RobotoR';
+    font-size:.9em;
+    // height:inherit;
+    // width: inherit;
+    color:$palette-secondary;
+    &:hover {
+      font-family:'RobotoM';
+      color:$palette-footer-inputs;
+    }
+  }
+}

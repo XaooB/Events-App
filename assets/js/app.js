@@ -38,6 +38,25 @@ const Events = {
     //data from form
     //store.put({title: '', location: '', describe: '', date: '', image: ''})
   },
+  restoreDatabase: function() {
+    let db = this.dbOpen.result,
+        tx = db.transaction('EventsStore', 'readwrite');
+        store = tx.objectStore('EventsStore');
+
+        store.clear().onsuccess = () => {
+          this.clearDOM();
+          this.initialValues.forEach(item => {
+            store.put({
+              id: item.id,
+              title: item.title,
+              location: item.location,
+              description: item.description
+            });
+          });
+
+          this.loadDataToDOM();
+        };
+  },
   deleteEvent: function(e) {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
@@ -61,10 +80,9 @@ const Events = {
         store = tx.objectStore('EventsStore'),
         counter = 0,
 
-
         store.openCursor().onsuccess = e => {
           let cursor = e.target.result;
-          if(cursor) {
+          if(cursor && counter++ < 4) {
             this.container.innerHTML += `<article class="popular__item" data-id='${cursor.key}'>
                           <figure class='article__image-wrapper'>
                             <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
@@ -89,7 +107,7 @@ const Events = {
                cursor.continue();
           } else {
             //if theres no events in container then display a message
-            if(!this.container.innerHTML) return this.container.innerText = 'No events to display';
+            if(!this.container.innerHTML) return this.container.innerText = 'No events to display. You need to add one or restore data to initial values.';
             //bind all events inside container
             return this.bindEvents();
           }
@@ -98,7 +116,9 @@ const Events = {
   //initial funtion
   initial: function() {
     //binding DOM elementes
-    let addEventBtn = document.querySelector('#add-wrapper');
+    let modal = document.querySelector('#nav-modal')
+        addEventBtn = modal.querySelector('#add_event'),
+        restoreDbBtn = modal.querySelector('#restore_database');
 
     return () => {
       this.dbOpen.onupgradeneeded = e => {
@@ -139,11 +159,11 @@ const Events = {
             });
 
             //add data to the DOM
-              this.loadDataToDOM();
+            this.loadDataToDOM();
 
             //fired after the initial transaction is completed
             tx.oncomplete = () => {
-
+              console.log('transaction completed');
             };
       };
 
@@ -151,9 +171,10 @@ const Events = {
         throw new Error(e.target.error);
       };
 
-      addEventBtn.addEventListener('click', (e) => { console.log('show modal') });
+      addEventBtn.addEventListener('click', e => { console.log('show modal') });
+      restoreDbBtn.addEventListener('click', this.restoreDatabase.bind(this), false);
     };
-  }
+  },
 };
 
 Events.initial()();

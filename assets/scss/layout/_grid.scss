@@ -11,18 +11,3 @@
     flex-flow: row nowrap;
   }
 }
-
-#add-wrapper {
-  position: fixed;
-  right:25px;
-  bottom:25px;
-  width:45px;
-  height:45px;
-  button {
-    border-radius: 100%;
-    font-family:'RobotoR';
-    font-size:1.5em;
-    height:inherit;
-    width: inherit;
-  }
-}
