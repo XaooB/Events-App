@@ -4,7 +4,8 @@ const Events = {
       title: 'FrontEnd Bootcamp 2018',
       location: 'Saturday at 6 pm, H15 Boutique Hotel, Warsaw',
       description: 'Meet us in Boutique Hotel next Saturday. We are going to talk about new trends of 2018'
-    },{
+    },
+    {
       title: 'Up In Smoke Tour',
       location: 'Saturday at 5 pm, Mattress Firm Amphitheatre, 2050 Entertainment Cir, Chula Vista',
       description: 'Featured Eminem, Snoop Dog, Dr Dre and more! Best event of 2018'
@@ -12,7 +13,7 @@ const Events = {
     {
       title: 'Art Show',
       location: 'Sunday at 11 am, Lincoln Street, London',
-      description: 'Must come and see best art made by John Doe. FREE ENTRY, FREE MEAL'
+      description: 'Must come and see best art made by John Doe. #FREE ENTRY, #FREE MEAL'
     },
     {
       title: 'Open Day - Business Link Maraton',
@@ -35,8 +36,19 @@ const Events = {
         this.container.innerHTML = '';
   },
   addEvent: function() {
-    //data from form
-    //store.put({title: '', location: '', describe: '', date: '', image: ''})
+    let db = this.dbOpen.result,
+        tx = db.transaction('EventsStore', 'readwrite');
+        store = tx.objectStore('EventsStore');
+
+    //add all events to the db backward (from the newest to the oldest)
+    for(i = this.initialValues.length-1; i >= 0; i--) {
+      store.put({
+        title: this.initialValues[i].title,
+        location: this.initialValues[i].location,
+        description: this.initialValues[i].description
+      });
+    }
+
   },
   restoreDatabase: function() {
     let db = this.dbOpen.result,
@@ -45,15 +57,7 @@ const Events = {
 
         store.clear().onsuccess = () => {
           this.clearDOM();
-          this.initialValues.forEach(item => {
-            store.put({
-              id: item.id,
-              title: item.title,
-              location: item.location,
-              description: item.description
-            });
-          });
-
+          this.addEvent();
           this.loadDataToDOM();
         };
   },
@@ -149,14 +153,7 @@ const Events = {
             store.clear();
 
             //add initial data to the database
-            this.initialValues.forEach(item => {
-              store.put({
-                id: item.id,
-                title: item.title,
-                location: item.location,
-                description: item.description
-              });
-            });
+            this.addEvent();
 
             //add data to the DOM
             this.loadDataToDOM();

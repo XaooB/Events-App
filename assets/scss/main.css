@@ -151,10 +151,10 @@ a {
     .button--default:hover {
       background: #ffc112; }
   .button--danger {
-    background: #db0000; }
+    background: #d4145a; }
     .button--danger:hover {
-      font-weight: bold;
-      background: red; }
+      background: #e91864;
+      font-weight: bold; }
 
 .nav-toggle {
   -ms-flex-item-align: center;

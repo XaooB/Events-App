@@ -25,10 +25,10 @@
     }
   }
   &--danger {
-    background: darken(red,7%);
+    background: $palette-primary;
     &:hover {
+      background: lighten($palette-primary, 5%);
       font-weight:bold;
-      background: red;
     }
   }
 }
