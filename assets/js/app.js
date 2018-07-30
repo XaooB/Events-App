@@ -25,68 +25,75 @@ const Events = {
       description: 'For many years both the Greater Poland Rowing Foundation and FISA International Rowing Federation were loyal partners for the organization of international events'
     }],
   indexedDB: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB,
-  dbOpen: this.indexedDB.open('Events', 2),
-
+  dbOpen: this.indexedDB.open('Events', 1),
+  container: document.querySelector('.recently-added .flex-wrapper'),
+  bindEvents: function() {
+    //recently added events
+    document.querySelectorAll('.popular__delete').forEach(item => {item.addEventListener('click', this.deleteEvent.bind(this))});
+  },
+  clearDOM: function() {
+        this.container.innerHTML = '';
+  },
   addEvent: function() {
     //data from form
     //store.put({title: '', location: '', describe: '', date: '', image: ''})
   },
-  //doesnt work correctly..
   deleteEvent: function(e) {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore'),
-        eventID = Number(e.target.parentElement.parentElement.getAttribute('data-id'))
+        eventID = Number(e.target.parentElement.parentElement.getAttribute('data-id'));
 
         //delete event
         let deleteItem = store.delete(eventID);
-
         deleteItem.onsuccess = e => {
-          console.log(e.target);
-
-          store.get(1).onsuccess = e => {
-            console.log(e.target);
-          }
-          //just for testing purposes, result is undefined - figuring out why..
-          console.log('item has been deleted');
+          this.clearDOM();
+          this.loadDataToDOM();
         }
 
         deleteItem.onerror = e => {
           throw new Error(e);
         }
   },
-  addEventsAfterDbOpen: function(data) {
-    let container = document.querySelector('.recently-added .flex-wrapper');
+  loadDataToDOM: function() {
+    let db = this.dbOpen.result,
+        tx = db.transaction('EventsStore', 'readwrite');
+        store = tx.objectStore('EventsStore'),
+        counter = 0,
 
-        data.result.forEach((item, key) => {
-        if(key>3) return; //testing purposes
 
-        container.innerHTML += `<article class="popular__item" data-id='${key}'>
-                    <figure class='article__image-wrapper'>
-                      <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
-                      <button class='button button--danger popular__delete'>⤫</button>
-                    </figure>
-                    <div class="article__wrapper article__info">
-                      <div class="article__date">
-                        <span class='article__day'>21</span>
-                        <span class='article__month'>AUG</span>
-                      </div>
-                      <a href="#" class='article__link'>
-                        <div class="article__content">
-                          <header>
-                            <h4 class='article__title'>${item.title}</h4>
-                          </header>
-                            <p class="article__summary">${item.location}</p>
-                            <p class='article__text'>${item.description}</p>
-                        </div>
-                      </a>
-                    </div>
-                </article>`
-      });
-
-    data.onerror = e => {
-      throw new Error(e);
-    }
+        store.openCursor().onsuccess = e => {
+          let cursor = e.target.result;
+          if(cursor) {
+            this.container.innerHTML += `<article class="popular__item" data-id='${cursor.key}'>
+                          <figure class='article__image-wrapper'>
+                            <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
+                            <button class='button button--danger popular__delete'>⤫</button>
+                          </figure>
+                          <div class="article__wrapper article__info">
+                            <div class="article__date">
+                              <span class='article__day'>21</span>
+                              <span class='article__month'>AUG</span>
+                            </div>
+                            <a href="#" class='article__link'>
+                              <div class="article__content">
+                                <header>
+                                  <h4 class='article__title'>${cursor.value.title}</h4>
+                                </header>
+                                  <p class="article__summary">${cursor.value.location}</p>
+                                  <p class='article__text'>${cursor.value.description}</p>
+                              </div>
+                            </a>
+                          </div>
+                      </article>`
+               cursor.continue();
+          } else {
+            //if theres no events in container then display a message
+            if(!this.container.innerHTML) return this.container.innerText = 'No events to display';
+            //bind all events inside container
+            return this.bindEvents();
+          }
+      }
   },
   //initial funtion
   initial: function() {
@@ -103,6 +110,7 @@ const Events = {
             store.createIndex('location', 'location', {unique: false});
             store.createIndex('description', 'description', {unique: false});
       };
+
       this.dbOpen.onsuccess = e => {
         let db = this.dbOpen.result,
             tx = db.transaction('EventsStore', 'readwrite');
@@ -123,28 +131,22 @@ const Events = {
             //add initial data to the database
             this.initialValues.forEach(item => {
               store.put({
+                id: item.id,
                 title: item.title,
                 location: item.location,
                 description: item.description
               });
             });
 
-            //receive data from db and add it to the DOM
-            let receivedData = store.getAll();
-            receivedData.onsuccess = () => {
-              this.addEventsAfterDbOpen(receivedData);
-            }
+            //add data to the DOM
+              this.loadDataToDOM();
 
-            console.log(store.get(1));
             //fired after the initial transaction is completed
             tx.oncomplete = () => {
-              //bind click event to recently added events
-              document.querySelectorAll('.popular__delete')
-              .forEach(item => {
-                item.addEventListener('click', this.deleteEvent.bind(this));
-              });
+
             };
       };
+
       this.dbOpen.onerror = e => {
         throw new Error(e.target.error);
       };

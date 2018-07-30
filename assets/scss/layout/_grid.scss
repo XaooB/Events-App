@@ -1,7 +1,7 @@
 .flex-wrapper {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: column;
   @include respond-to(small) {
     flex-direction: row;
