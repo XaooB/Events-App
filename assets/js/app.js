@@ -26,8 +26,12 @@ const Events = {
       description: 'For many years both the Greater Poland Rowing Foundation and FISA International Rowing Federation were loyal partners for the organization of international events'
     }],
   indexedDB: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB,
+  //db connection
   dbOpen: this.indexedDB.open('Events', 1),
+  //container for recently added events
   container: document.querySelector('.recently-added .flex-wrapper'),
+  //container for adding event and displaying searched by user
+  modal: document.querySelector('#modal'),
   bindEvents: function() {
     //recently added events
     document.querySelectorAll('.popular__delete').forEach(item => {item.addEventListener('click', this.deleteEvent.bind(this))});
@@ -35,7 +39,7 @@ const Events = {
   clearDOM: function() {
         this.container.innerHTML = '';
   },
-  addEvent: function() {
+  addEvents: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore');
@@ -50,6 +54,9 @@ const Events = {
     }
 
   },
+  addEventFromUser: function() {
+
+  }.
   restoreDatabase: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
@@ -57,7 +64,7 @@ const Events = {
 
         store.clear().onsuccess = () => {
           this.clearDOM();
-          this.addEvent();
+          this.addEvents();
           this.loadDataToDOM();
         };
   },
@@ -142,18 +149,18 @@ const Events = {
 
             store.index('title');
             store.index('location');
-            store.index('description');
+            store.index('description')
 
             //general error handler
             db.onerror = e => {
               throw new Error(e.target.error);
             };
 
-            //clear old data on each refresh
+            //clear old data on each refresh - causes troubles with cursor. Cursor is incremented instead of being reset after every initiation call.
             store.clear();
 
             //add initial data to the database
-            this.addEvent();
+            this.addEvents();
 
             //add data to the DOM
             this.loadDataToDOM();
