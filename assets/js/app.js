@@ -56,7 +56,7 @@ const Events = {
   },
   addEventFromUser: function() {
 
-  }.
+  },
   restoreDatabase: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
