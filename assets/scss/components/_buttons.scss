@@ -17,6 +17,9 @@
   border-radius:6px;
   text-transform: uppercase;
   font-family: 'RobotoB';
+  &:hover {
+    background: lighten(#F0F0F0, 1%);
+  }
   &--default {
     background: $palette-buttons;
     color:$palette-secondary;

@@ -1,4 +1,4 @@
-#nav-modal {
+#db-nav {
   position: fixed;
   right:25px;
   z-index: 2;
@@ -10,12 +10,63 @@
     border-radius: 10px;
     font-family:'RobotoR';
     font-size:.9em;
-    // height:inherit;
-    // width: inherit;
     color:$palette-secondary;
     &:hover {
-      font-family:'RobotoM';
-      color:$palette-footer-inputs;
+        font-family:'RobotoM';
+    color:$palette-footer-inputs;
+    }
+  }
+}
+
+.modal {
+  display:none;
+  position: fixed;
+  left:0;
+  top:0;
+  z-index: 9;
+  background:$palette-modal-bg;
+  min-width:100%;
+  min-height:100%;
+  padding:10px;
+  &__wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    flex-direction: column;
+    max-width:800px;
+    margin:50px auto;
+    padding:30px;
+  }
+  &__form {
+    margin-top:15px;
+    display: flex;
+    flex-flow: column nowrap;
+    div {
+      margin-bottom:15px;
+    }
+  }
+  &__exit {
+    align-self: flex-end;
+    font-size:1.5em;
+    cursor: pointer;
+    font-weight:bold;
+    &:hover {
+      color: $palette-primary;
+    }
+  }
+  &__btn {
+    align-self: flex-end;
+    width:120px;
+  }
+  &__label {
+    display:block;
+    margin-bottom:2px;
+  }
+  &__input {
+    display:block;
+    color:$palette-primary-text;
+    border: 1px solid $palette-footer-color;
+    &::placeholder {
+      color: $palette-primary-text;
     }
   }
 }

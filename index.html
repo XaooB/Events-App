@@ -320,11 +320,35 @@
         <p class='footer__copy'>BestEvents app &copy; 2018. All rights reserved.</p>
       </div>
     </footer>
-    <div id="nav-modal">
+    <div id="db-nav">
       <button type="button" name="button" class='button button--default' id='restore_database'>Restore</button>
       <button type="button" name="button" class='button button--default' id='add_event'>Add</button>
-      <div id="modal"></div>
     </div>
+    <section class="modal">
+      <div class="section modal__wrapper">
+        <span class='modal__exit'>⤫</span>
+        <h4 class='section-title'>Event adding form</h4>
+        <form action="" class='form modal__form'>
+          <div>
+            <label class='modal__label'>Title:</label>
+            <input type="text" class='input modal__input' placeholder="Enter event title" />
+          </div>
+          <div>
+            <label class='modal__label'>Location:</label>
+            <input type="text" class='input modal__input' placeholder="Enter event location" />
+          </div>
+          <div>
+            <label class='modal__label'>Description:</label>
+            <input type="text" class='input modal__input' placeholder="Enter event description" />
+          </div>
+          <div>
+            <label class='modal__label'>Starting Date:</label>
+            <input type="date" class='input modal__input' placeholder="Enter event starting date" />
+          </div>
+          <button class='button modal__btn'>add event</button>
+        </form>
+      </div>
+    </section>
     <script src="assets/js/app.js" charset="utf-8"></script>
   </body>
 </html>

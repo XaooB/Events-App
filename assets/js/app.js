@@ -31,13 +31,16 @@ const Events = {
   //container for recently added events
   container: document.querySelector('.recently-added .flex-wrapper'),
   //container for adding event and displaying searched by user
-  modal: document.querySelector('#modal'),
+  modal: document.querySelector('.modal'),
   bindEvents: function() {
     //recently added events
     document.querySelectorAll('.popular__delete').forEach(item => {item.addEventListener('click', this.deleteEvent.bind(this))});
   },
   clearDOM: function() {
-        this.container.innerHTML = '';
+    this.container.innerHTML = '';
+  },
+  showModal:function() {
+    this.modal.style.display = 'block';
   },
   addEvents: function() {
     let db = this.dbOpen.result,
@@ -52,10 +55,10 @@ const Events = {
         description: this.initialValues[i].description
       });
     }
-
   },
-  addEventFromUser: function() {
-
+  addEventFromUser: function(e) {
+    e.preventDefault();
+    console.log('Clicked: ',e.target);
   },
   restoreDatabase: function() {
     let db = this.dbOpen.result,
@@ -127,9 +130,10 @@ const Events = {
   //initial funtion
   initial: function() {
     //binding DOM elementes
-    let modal = document.querySelector('#nav-modal')
-        addEventBtn = modal.querySelector('#add_event'),
-        restoreDbBtn = modal.querySelector('#restore_database');
+    let dbNav = document.querySelector('#db-nav')
+        addEventBtn = dbNav.querySelector('#add_event'),
+        restoreDbBtn = dbNav.querySelector('#restore_database'),
+        modalAddBtn = document.querySelector('.modal .modal__btn');
 
     return () => {
       this.dbOpen.onupgradeneeded = e => {
@@ -175,8 +179,9 @@ const Events = {
         throw new Error(e.target.error);
       };
 
-      addEventBtn.addEventListener('click', e => { console.log('show modal') });
+      addEventBtn.addEventListener('click', this.showModal.bind(this), false);
       restoreDbBtn.addEventListener('click', this.restoreDatabase.bind(this), false);
+      modalAddBtn.addEventListener('click', this.addEventFromUser.bind(this), false);
     };
   },
 };
