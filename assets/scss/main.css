@@ -720,6 +720,8 @@ input, textarea {
   padding: 10px; }
   .modal--showing {
     display: block; }
+  .modal--hiding {
+    display: none; }
   .modal__wrapper {
     display: -webkit-box;
     display: -ms-flexbox;

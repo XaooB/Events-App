@@ -39,8 +39,13 @@ const Events = {
   clearDOM: function() {
     this.container.innerHTML = '';
   },
-  toggleModal:function() {
-    this.modal.classList.toggle('modal--showing');
+  showModal:function() {
+    this.modal.classList.remove('modal--hiding');
+    this.modal.classList.add('modal--showing');
+  },
+  hideModal: function() {
+    this.modal.classList.remove('modal--showing');
+    this.modal.classList.add('modal--hiding');
   },
   addEvents: function() {
     let db = this.dbOpen.result,
@@ -131,12 +136,11 @@ const Events = {
   initial: function() {
     //binding DOM elementes
     let dbNav = document.querySelector('#db-nav'),
-        modal = document.querySelector('.modal'),
         modalDisplayBtn = dbNav.querySelector('#add_event'),
         restoreDbBtn = dbNav.querySelector('#restore_database'),
-        modalAddBtn = modal.querySelector('.modal__btn'),
-        modalExitBtn = modal.querySelector('.modal__exit'),
-        modalWrapper = modal.querySelector('.modal__wrapper');
+        modalAddBtn = this.modal.querySelector('.modal__btn'),
+        modalExitBtn = this.modal.querySelector('.modal__exit'),
+        modalWrapper = this.modal.querySelector('.modal__wrapper');
 
     return () => {
       this.dbOpen.onupgradeneeded = e => {
@@ -184,8 +188,9 @@ const Events = {
 
       restoreDbBtn.addEventListener('click', this.restoreDatabase.bind(this), false);
       modalAddBtn.addEventListener('click', this.addEventFromUser.bind(this), false);
-      modalDisplayBtn.addEventListener('click', this.toggleModal.bind(this), false);
-      modalExitBtn.addEventListener('click', this.toggleModal.bind(this), false);
+      modalDisplayBtn.addEventListener('click', this.showModal.bind(this), false);
+      modalExitBtn.addEventListener('click', this.hideModal.bind(this), false);
+      window.addEventListener('click', e => { if(e.target === this.modal) this.hideModal() }, false);
     };
   },
 };

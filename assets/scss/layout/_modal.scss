@@ -31,6 +31,9 @@
   &--showing {
     display:block;
   }
+  &--hiding {
+    display:none;
+  }
   &__wrapper {
     display: flex;
     flex-flow: column nowrap;
