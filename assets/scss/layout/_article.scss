@@ -15,13 +15,16 @@
   &__wrapper { //jest ok
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content:flex-start;
   }
   &__info {
     padding:10px;
     background:$palette-body-bg;
     border-bottom-left-radius: $radius10;
     border-bottom-right-radius: $radius10;
+  }
+  &__content {
+    align-self: flex-start;
   }
   &__date {
     text-align: center;
@@ -52,6 +55,7 @@
     margin-top:-3px;
   }
   &__link {
+    display: block;
     &:hover {
       h4 {
         color:$palette-primary;

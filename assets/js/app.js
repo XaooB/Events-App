@@ -47,23 +47,56 @@ const Events = {
     this.modal.classList.remove('modal--showing');
     this.modal.classList.add('modal--hiding');
   },
-  addEvents: function() {
+  addInitialEvents: function() {
     let db = this.dbOpen.result,
-        tx = db.transaction('EventsStore', 'readwrite');
+        tx = db.transaction('EventsStore', 'readwrite'),
         store = tx.objectStore('EventsStore');
 
     //add all events to the db backward (from the newest to the oldest)
-    for(i = this.initialValues.length-1; i >= 0; i--) {
+    this.initialValues.forEach(item => {
       store.put({
-        title: this.initialValues[i].title,
-        location: this.initialValues[i].location,
-        description: this.initialValues[i].description
+        title: item.title,
+        location: item.location,
+        description: item.description
       });
-    }
+    })
   },
   addEventFromUser: function(e) {
     e.preventDefault();
-    console.log('Clicked: ',e.target);
+    let form = e.target.parentElement,
+        title = form.querySelector('#title').value,
+        location = form.querySelector('#location').value,
+        description = form.querySelector('#description').value,
+        date = form.querySelector('#date').value,
+        btn = e.target,
+
+        db = this.dbOpen.result,
+        tx = db.transaction('EventsStore', 'readwrite'),
+        store = tx.objectStore('EventsStore'),
+
+        event = store.put({
+          title,
+          location,
+          description
+        });
+        console.log(date);
+
+        event.onsuccess = e => {
+          //works but items are added to the end of the array
+          this.clearDOM();
+          this.loadDataToDOM();
+          btn.disabled = true;
+        }
+
+        event.onerror = e => {
+          throw new Error(e);
+        }
+
+        //avoid abusing requests
+        let disableButton = setTimeout(e => {
+          btn.disabled = false;
+         clearTimeout(disableButton);
+        },3000);
   },
   restoreDatabase: function() {
     let db = this.dbOpen.result,
@@ -72,7 +105,7 @@ const Events = {
 
         store.clear().onsuccess = () => {
           this.clearDOM();
-          this.addEvents();
+          this.addInitialEvents();
           this.loadDataToDOM();
         };
   },
@@ -99,7 +132,7 @@ const Events = {
         store = tx.objectStore('EventsStore'),
         counter = 0,
 
-        store.openCursor().onsuccess = e => {
+        store.openCursor(null, 'prev').onsuccess = e => {
           let cursor = e.target.result;
           if(cursor && counter++ < 4) {
             this.container.innerHTML += `<article class="popular__item" data-id='${cursor.key}'>
@@ -171,7 +204,7 @@ const Events = {
             store.clear();
 
             //add initial data to the database
-            this.addEvents();
+            this.addInitialEvents();
 
             //add data to the DOM
             this.loadDataToDOM();

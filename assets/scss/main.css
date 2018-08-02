@@ -653,14 +653,17 @@ input, textarea {
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between; }
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start; }
   .article__info {
     padding: 10px;
     background: #f7f7f7;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px; }
+  .article__content {
+    -ms-flex-item-align: start;
+        align-self: flex-start; }
   .article__date {
     text-align: center;
     margin-right: 10px; }
@@ -683,8 +686,10 @@ input, textarea {
     display: block;
     color: #d4145a;
     margin-top: -3px; }
-  .article__link:hover h4 {
-    color: #d4145a; }
+  .article__link {
+    display: block; }
+    .article__link:hover h4 {
+      color: #d4145a; }
 
 #db-nav {
   position: fixed;
