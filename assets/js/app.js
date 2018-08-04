@@ -236,7 +236,7 @@ const Events = {
       filterByNameDate.addEventListener('change', this.afterSelectionChange.bind(this) ,false);
       filterByAscDesc.addEventListener('change', this.afterSelectionChange.bind(this), false);
       window.addEventListener('click', e => {
-        if(e.target === this.modal) this.toggleModal() 
+        if(e.target === this.modal) this.toggleModal();
       }, false);
     };
   },
