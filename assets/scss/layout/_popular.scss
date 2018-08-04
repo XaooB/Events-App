@@ -45,6 +45,29 @@
     right:10px;
     z-index: 1;
   }
+  &__sort-wrapper {
+    display:flex;
+    flex-flow:row nowrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__sort {
+    color:$palette-primary;
+  }
+  &__sort-value {
+    display: none;
+  }
+  &__selection {
+    color:$palette-primary;
+    padding:5px;
+    cursor:pointer;
+    border-radius:$radius10;
+    border:1px solid $palette-primary;
+    font-family:'RobotoM';
+    outline: none;
+    margin-right:4px;
+  }
 }
 
 .category {

@@ -39,13 +39,8 @@ const Events = {
   clearDOM: function() {
     this.container.innerHTML = '';
   },
-  showModal:function() {
-    this.modal.classList.remove('modal--hiding');
-    this.modal.classList.add('modal--showing');
-  },
-  hideModal: function() {
-    this.modal.classList.remove('modal--showing');
-    this.modal.classList.add('modal--hiding');
+  toggleModal: function () {
+    this.modal.classList.toggle('modal--showing');
   },
   addInitialEvents: function() {
     let db = this.dbOpen.result,
@@ -79,7 +74,6 @@ const Events = {
           location,
           description
         });
-        console.log(date);
 
         event.onsuccess = e => {
           //works but items are added to the end of the array
@@ -95,8 +89,8 @@ const Events = {
         //avoid abusing requests
         let disableButton = setTimeout(e => {
           btn.disabled = false;
-         clearTimeout(disableButton);
-        },3000);
+          clearTimeout(disableButton);
+        }, 2000);
   },
   restoreDatabase: function() {
     let db = this.dbOpen.result,
@@ -126,12 +120,25 @@ const Events = {
           throw new Error(e);
         }
   },
+  afterSelectionChange: function(e) {
+    //default value is set to 0,
+    //selectionByDateNameValue = 0 - sort by date,
+    //selectionByAscDescValue = 0 - sort asc
+    let selectionByDateNameValue = document.querySelector('#sort_dn').value,
+        selectionByAscDescValue = document.querySelector('#sort_ad').value;
+
+    console.log(`Value of first selection is: ${selectionByDateNameValue}. Value of the second seleection is: ${selectionByAscDescValue}`);
+    //1. get array of nodes from the DOM,
+    //2. sort em based on user prefernces,
+    //3. load new array to DOM
+  },
   loadDataToDOM: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore'),
         counter = 0,
 
+        //read cursor backward
         store.openCursor(null, 'prev').onsuccess = e => {
           let cursor = e.target.result;
           if(cursor && counter++ < 4) {
@@ -169,11 +176,14 @@ const Events = {
   initial: function() {
     //binding DOM elementes
     let dbNav = document.querySelector('#db-nav'),
+        sortWrapper = document.querySelector('.popular__sort'),
         modalDisplayBtn = dbNav.querySelector('#add_event'),
         restoreDbBtn = dbNav.querySelector('#restore_database'),
         modalAddBtn = this.modal.querySelector('.modal__btn'),
         modalExitBtn = this.modal.querySelector('.modal__exit'),
-        modalWrapper = this.modal.querySelector('.modal__wrapper');
+        modalWrapper = this.modal.querySelector('.modal__wrapper'),
+        filterByNameDate = sortWrapper.querySelector('#sort_dn'),
+        filterByAscDesc = sortWrapper.querySelector('#sort_ad');
 
     return () => {
       this.dbOpen.onupgradeneeded = e => {
@@ -221,9 +231,13 @@ const Events = {
 
       restoreDbBtn.addEventListener('click', this.restoreDatabase.bind(this), false);
       modalAddBtn.addEventListener('click', this.addEventFromUser.bind(this), false);
-      modalDisplayBtn.addEventListener('click', this.showModal.bind(this), false);
-      modalExitBtn.addEventListener('click', this.hideModal.bind(this), false);
-      window.addEventListener('click', e => { if(e.target === this.modal) this.hideModal() }, false);
+      modalDisplayBtn.addEventListener('click', this.toggleModal.bind(this), false);
+      modalExitBtn.addEventListener('click', this.toggleModal.bind(this), false);
+      filterByNameDate.addEventListener('change', this.afterSelectionChange.bind(this) ,false);
+      filterByAscDesc.addEventListener('change', this.afterSelectionChange.bind(this), false);
+      window.addEventListener('click', e => {
+        if(e.target === this.modal) this.toggleModal() 
+      }, false);
     };
   },
 };

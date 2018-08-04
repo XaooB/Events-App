@@ -94,8 +94,8 @@
             <h3 class="search__title">search our database</h3>
             <p class="search__sub">1000+ events near you</p>
             <form action="#" method="post" class='search__form form form--default'>
-              <input type="text" placeholder="What are you looking for?" class="input input--default" />
-              <input type="text" placeholder="Enter event location" class="input input--default" />
+              <input type="search" placeholder="What are you looking for?" class="input input--default" />
+              <input type="search" placeholder="Enter event location" class="input input--default" />
               <div class='button-wrapper'>
                 <button class="button button--default">search now</button>
               </div>
@@ -106,7 +106,20 @@
       <div class='container'>
         <section class="section popular">
           <section class='recently-added'>
-            <h3 class="section-title">recently added</h3>
+            <div class='popular__sort-wrapper'>
+              <h3 class="section-title">recently added</h3>
+              <div class='popular__sort'>
+                <span><i>filter: &nbsp;</i></span>
+                <select class="popular__selection" name="sort_dn" id="sort_dn">
+                  <option value="0">by date</option>
+                  <option value="1">by name</option>
+                </select>
+                <select class="popular__selection" name="sort_ad" id='sort_ad'>
+                  <option value="0">asc</option>
+                  <option value="1">desc</option>
+                </select>
+              </div>
+            </div>
             <div class="flex-wrapper">
               <!-- all recently added events goes here -->
             </div>
