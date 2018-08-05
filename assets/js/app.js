@@ -47,7 +47,6 @@ const Events = {
         tx = db.transaction('EventsStore', 'readwrite'),
         store = tx.objectStore('EventsStore');
 
-    //add all events to the db backward (from the newest to the oldest)
     this.initialValues.forEach(item => {
       store.put({
         title: item.title,
@@ -103,7 +102,7 @@ const Events = {
           this.loadDataToDOM();
         };
   },
-  setFilters: function(e) {
+  setFilters: function() {
     let selectionByDateTitle = document.querySelector('#sort_dn').value,
         selectionByAscDesc = document.querySelector('#sort_ad').value;
 
@@ -118,7 +117,6 @@ const Events = {
         store = tx.objectStore('EventsStore'),
         eventID = Number(e.target.parentElement.parentElement.getAttribute('data-id'));
 
-        //delete event
         let deleteItem = store.delete(eventID);
         deleteItem.onsuccess = e => {
           this.clearDOM();
@@ -130,9 +128,6 @@ const Events = {
         }
   },
   afterSelectionChange: function(e) {
-    //default value is set to 0,
-    //selectionByDateNameValue = 0 - sort by name,
-    //selectionByAscDescValue = 0 - sort asc
     let events = this.container.querySelectorAll('article'),
         db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite'),
@@ -174,9 +169,6 @@ const Events = {
                return this.bindEvents();
              }
         }
-
-    //2. sort em based on user prefernces,
-    //3. load new array to DOM
   },
   loadDataToDOM: function() {
     let db = this.dbOpen.result,
@@ -185,7 +177,6 @@ const Events = {
         counter = 0,
         filters = this.setFilters();
 
-        //read cursor backward
         store.index(filters[0]).openCursor(null, filters[1]).onsuccess = e => {
           let cursor = e.target.result;
           if(cursor && counter++ < 4) {
