@@ -103,6 +103,15 @@ const Events = {
           this.loadDataToDOM();
         };
   },
+  setFilters: function(e) {
+    let selectionByDateTitle = document.querySelector('#sort_dn').value,
+        selectionByAscDesc = document.querySelector('#sort_ad').value;
+
+    (selectionByDateTitle == 0) ? selectionByDateTitle = 'title' : selectionByDateTitle = 'location';
+    (selectionByAscDesc == 0) ? selectionByAscDesc = 'next' : selectionByAscDesc = 'prev';
+
+    return [selectionByDateTitle, selectionByAscDesc];
+  },
   deleteEvent: function(e) {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
@@ -122,13 +131,50 @@ const Events = {
   },
   afterSelectionChange: function(e) {
     //default value is set to 0,
-    //selectionByDateNameValue = 0 - sort by date,
+    //selectionByDateNameValue = 0 - sort by name,
     //selectionByAscDescValue = 0 - sort asc
-    let selectionByDateNameValue = document.querySelector('#sort_dn').value,
-        selectionByAscDescValue = document.querySelector('#sort_ad').value;
+    let events = this.container.querySelectorAll('article'),
+        db = this.dbOpen.result,
+        tx = db.transaction('EventsStore', 'readwrite'),
+        store = tx.objectStore('EventsStore'),
+        filters = this.setFilters(),
+        counter = 0;
 
-    console.log(`Value of first selection is: ${selectionByDateNameValue}. Value of the second seleection is: ${selectionByAscDescValue}`);
-    //1. get array of nodes from the DOM,
+        this.clearDOM();
+
+        store.index(filters[0]).openCursor(null, filters[1]).onsuccess = e => {
+          let cursor = e.target.result;
+          if(cursor && counter++ < 4) {
+            this.container.innerHTML += `<article class="popular__item" data-id='${cursor.primaryKey}'>
+                          <figure class='article__image-wrapper'>
+                            <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
+                            <button class='button button--danger popular__delete'>⤫</button>
+                          </figure>
+                          <div class="article__wrapper article__info">
+                            <div class="article__date">
+                              <span class='article__day'>21</span>
+                              <span class='article__month'>AUG</span>
+                            </div>
+                            <a href="#" class='article__link'>
+                              <div class="article__content">
+                                <header>
+                                  <h4 class='article__title'>${cursor.value.title}</h4>
+                                </header>
+                                  <p class="article__summary">${cursor.value.location}</p>
+                                  <p class='article__text'>${cursor.value.description}</p>
+                              </div>
+                            </a>
+                          </div>
+                      </article>`
+               cursor.continue();
+             } else {
+               //if theres no events in container then display a message
+               if(!this.container.innerHTML) return this.container.innerText = 'No events to display. You need to add one or restore data to initial values.';
+               //bind all events inside container
+               return this.bindEvents();
+             }
+        }
+
     //2. sort em based on user prefernces,
     //3. load new array to DOM
   },
@@ -137,12 +183,13 @@ const Events = {
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore'),
         counter = 0,
+        filters = this.setFilters();
 
         //read cursor backward
-        store.openCursor(null, 'prev').onsuccess = e => {
+        store.index(filters[0]).openCursor(null, filters[1]).onsuccess = e => {
           let cursor = e.target.result;
           if(cursor && counter++ < 4) {
-            this.container.innerHTML += `<article class="popular__item" data-id='${cursor.key}'>
+            this.container.innerHTML += `<article class="popular__item" data-id='${cursor.primaryKey}'>
                           <figure class='article__image-wrapper'>
                             <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
                             <button class='button button--danger popular__delete'>⤫</button>
