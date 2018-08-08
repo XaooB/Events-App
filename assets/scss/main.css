@@ -146,7 +146,8 @@ a {
   text-transform: uppercase;
   font-family: 'RobotoB'; }
   .button:hover {
-    background: #f3f3f3; }
+    background: #d4145a;
+    color: #ffffff; }
   .button--default {
     background: #e8ab00;
     color: #ffffff; }
@@ -323,8 +324,8 @@ input, textarea {
     .flex-wrapper, .footer__nav {
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
-          -ms-flex-flow: row nowrap;
-              flex-flow: row nowrap; } }
+          -ms-flex-flow: row wrap;
+              flex-flow: row wrap; } }
 
 .page-intro {
   max-width: 440px; }

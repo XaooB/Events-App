@@ -8,6 +8,6 @@
     flex-flow: row wrap;
   }
   @include respond-to(large) {
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
   }
 }

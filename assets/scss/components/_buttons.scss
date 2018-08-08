@@ -18,7 +18,8 @@
   text-transform: uppercase;
   font-family: 'RobotoB';
   &:hover {
-    background: lighten(#F0F0F0, 1%);
+    background: $palette-primary;
+    color:$palette-secondary;
   }
   &--default {
     background: $palette-buttons;

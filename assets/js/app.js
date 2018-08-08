@@ -32,6 +32,7 @@ const Events = {
   container: document.querySelector('.recently-added .flex-wrapper'),
   //container for adding event and displaying searched by user
   modal: document.querySelector('.modal'),
+  numberToDisplay: 4,
   bindEvents: function() {
     //recently added events
     document.querySelectorAll('.popular__delete').forEach(item => {item.addEventListener('click', this.deleteEvent.bind(this))});
@@ -41,6 +42,11 @@ const Events = {
   },
   toggleModal: function () {
     this.modal.classList.toggle('modal--showing');
+  },
+  loadMoreData: function(e) {
+    this.numberToDisplay += 4;
+    this.clearDOM();
+    this.loadDataToDOM();
   },
   addInitialEvents: function() {
     let db = this.dbOpen.result,
@@ -58,7 +64,8 @@ const Events = {
   addEventFromUser: function(e) {
     e.preventDefault();
     let form = e.target.parentElement,
-        title = form.querySelector('#title').value,
+        //make the first letter of the string to be uppercase
+        title = form.querySelector('#title').value.replace(/^\w/, e => e.toUpperCase()),
         location = form.querySelector('#location').value,
         description = form.querySelector('#description').value,
         date = form.querySelector('#date').value,
@@ -96,6 +103,8 @@ const Events = {
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore');
 
+        this.numberToDisplay = 4;
+
         store.clear().onsuccess = () => {
           this.clearDOM();
           this.addInitialEvents();
@@ -103,24 +112,27 @@ const Events = {
         };
   },
   setFilters: function() {
-    let selectionByDateTitle = document.querySelector('#sort_dn').value,
+    let selectionByTitle = document.querySelector('#sort_dn').value,
         selectionByAscDesc = document.querySelector('#sort_ad').value;
 
-    (selectionByDateTitle == 0) ? selectionByDateTitle = 'title' : selectionByDateTitle = 'location';
+    (selectionByTitle == 0) ? selectionByTitle = 'title' : selectionByTitle = 'location';
     (selectionByAscDesc == 0) ? selectionByAscDesc = 'next' : selectionByAscDesc = 'prev';
 
-    return [selectionByDateTitle, selectionByAscDesc];
+    return [selectionByTitle, selectionByAscDesc];
   },
   deleteEvent: function(e) {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore'),
-        eventID = Number(e.target.parentElement.parentElement.getAttribute('data-id'));
+        eventID = Number(e.target.parentElement.parentElement.getAttribute('data-id')),
+        articleToBeDeleted = e.target.parentNode.parentNode;
 
         let deleteItem = store.delete(eventID);
         deleteItem.onsuccess = e => {
           this.clearDOM();
           this.loadDataToDOM();
+          //delete child from rencetly added container
+          // this.container.removeChild(articleToBeDeleted);
         }
 
         deleteItem.onerror = e => {
@@ -179,7 +191,7 @@ const Events = {
 
         store.index(filters[0]).openCursor(null, filters[1]).onsuccess = e => {
           let cursor = e.target.result;
-          if(cursor && counter++ < 4) {
+          if(cursor && counter++ < this.numberToDisplay) {
             this.container.innerHTML += `<article class="popular__item" data-id='${cursor.primaryKey}'>
                           <figure class='article__image-wrapper'>
                             <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
@@ -204,17 +216,17 @@ const Events = {
                cursor.continue();
           } else {
             //if theres no events in container then display a message
-            if(!this.container.innerHTML) return this.container.innerText = 'No events to display. You need to add one or restore data to initial values.';
+            if(!this.container.innerHTML) return this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">No events to display. You need to add one or restore data to initial values.</span>';
             //bind all events inside container
             return this.bindEvents();
           }
       }
   },
-  //initial funtion
   initial: function() {
     //binding DOM elementes
     let dbNav = document.querySelector('#db-nav'),
         sortWrapper = document.querySelector('.popular__sort'),
+        loadMoreBtn = document.querySelector('button[name="load-more-events"]'),
         modalDisplayBtn = dbNav.querySelector('#add_event'),
         restoreDbBtn = dbNav.querySelector('#restore_database'),
         modalAddBtn = this.modal.querySelector('.modal__btn'),
@@ -271,6 +283,7 @@ const Events = {
       modalAddBtn.addEventListener('click', this.addEventFromUser.bind(this), false);
       modalDisplayBtn.addEventListener('click', this.toggleModal.bind(this), false);
       modalExitBtn.addEventListener('click', this.toggleModal.bind(this), false);
+      loadMoreBtn.addEventListener('click', this.loadMoreData.bind(this), false);
       filterByNameDate.addEventListener('change', this.afterSelectionChange.bind(this) ,false);
       filterByAscDesc.addEventListener('change', this.afterSelectionChange.bind(this), false);
       window.addEventListener('click', e => {
