@@ -24,6 +24,26 @@ const Events = {
       title: 'World Rowing Under 23',
       location: 'Malta, Poznań',
       description: 'For many years both the Greater Poland Rowing Foundation and FISA International Rowing Federation were loyal partners for the organization of international events'
+    },
+    {
+      title: 'Test #1',
+      location: 'Test #1',
+      description: 'Test #1'
+    },
+    {
+      title: 'Reet aliquam et at orci',
+      location: ' Quisque suscipit ac m',
+      description: 'e et dapibus elit, vitae vestibulum tellus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae'
+    },
+    {
+      title: 'At orci',
+      location: ' Quisque sust ac m',
+      description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae'
+    },
+    {
+      title: 'ABC',
+      location: 'CBA',
+      description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae'
     }],
   indexedDB: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB,
   //db connection
@@ -44,9 +64,21 @@ const Events = {
     this.modal.classList.toggle('modal--showing');
   },
   loadMoreData: function(e) {
-    this.numberToDisplay += 4;
-    this.clearDOM();
-    this.loadDataToDOM();
+    let db = this.dbOpen.result,
+        tx = db.transaction('EventsStore', 'readwrite');
+        store = tx.objectStore('EventsStore'),
+        toggleDataBtn = document.querySelector('button[name="load-more-events"]');
+
+    let databaseSize = store.getAll();
+
+    databaseSize.onsuccess = e => {
+      if(e.target.result.length > this.numberToDisplay) {
+        this.numberToDisplay += 4;
+        this.clearDOM();
+        this.loadDataToDOM();
+      }
+      toggleDataBtn.disabled = true;
+    }
   },
   addInitialEvents: function() {
     let db = this.dbOpen.result,
@@ -101,7 +133,8 @@ const Events = {
   restoreDatabase: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
-        store = tx.objectStore('EventsStore');
+        store = tx.objectStore('EventsStore'),
+        toggleDataBtn = document.querySelector('button[name="load-more-events"]');
 
         this.numberToDisplay = 4;
 
@@ -109,6 +142,7 @@ const Events = {
           this.clearDOM();
           this.addInitialEvents();
           this.loadDataToDOM();
+          toggleDataBtn.disabled = false;
         };
   },
   setFilters: function() {
@@ -140,47 +174,8 @@ const Events = {
         }
   },
   afterSelectionChange: function(e) {
-    let events = this.container.querySelectorAll('article'),
-        db = this.dbOpen.result,
-        tx = db.transaction('EventsStore', 'readwrite'),
-        store = tx.objectStore('EventsStore'),
-        filters = this.setFilters(),
-        counter = 0;
-
         this.clearDOM();
-
-        store.index(filters[0]).openCursor(null, filters[1]).onsuccess = e => {
-          let cursor = e.target.result;
-          if(cursor && counter++ < 4) {
-            this.container.innerHTML += `<article class="popular__item" data-id='${cursor.primaryKey}'>
-                          <figure class='article__image-wrapper'>
-                            <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
-                            <button class='button button--danger popular__delete'>⤫</button>
-                          </figure>
-                          <div class="article__wrapper article__info">
-                            <div class="article__date">
-                              <span class='article__day'>21</span>
-                              <span class='article__month'>AUG</span>
-                            </div>
-                            <a href="#" class='article__link'>
-                              <div class="article__content">
-                                <header>
-                                  <h4 class='article__title'>${cursor.value.title}</h4>
-                                </header>
-                                  <p class="article__summary">${cursor.value.location}</p>
-                                  <p class='article__text'>${cursor.value.description}</p>
-                              </div>
-                            </a>
-                          </div>
-                      </article>`
-               cursor.continue();
-             } else {
-               //if theres no events in container then display a message
-               if(!this.container.innerHTML) return this.container.innerText = 'No events to display. You need to add one or restore data to initial values.';
-               //bind all events inside container
-               return this.bindEvents();
-             }
-        }
+        this.loadDataToDOM();
   },
   loadDataToDOM: function() {
     let db = this.dbOpen.result,

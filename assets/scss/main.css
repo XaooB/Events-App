@@ -452,11 +452,10 @@ input, textarea {
   margin-bottom: 10px; }
   @media (min-width: 480px) {
     .popular__item {
-      width: 50%; }
-      .popular__item:nth-child(even) {
-        padding-left: 5px; }
-      .popular__item:nth-child(odd) {
-        padding-right: 5px; } }
+      width: 50%;
+      padding-right: 10px; }
+      .popular__item:nth-child(2n+0) {
+        padding-right: 0; } }
 .popular__delete {
   width: auto;
   color: #ffffff;
@@ -587,9 +586,10 @@ input, textarea {
   margin-top: 10px; }
   @media (min-width: 960px) {
     .recently-added .popular__item {
-      width: 25%; }
-      .recently-added .popular__item:nth-child(2) {
-        padding-right: 10px; } }
+      width: 25%;
+      padding-right: 10px; }
+      .recently-added .popular__item:nth-child(4n+0) {
+        padding-right: 0; } }
 
 .footer {
   color: #d9d9d9;

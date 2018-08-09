@@ -28,11 +28,9 @@
     margin-bottom:10px;
     @include respond-to(small) {
       width:50%;
-      &:nth-child(even) {
-        padding-left:5px;
-      }
-      &:nth-child(odd) {
-        padding-right:5px;
+      padding-right:10px;
+      &:nth-child(2n+0) {
+        padding-right:0;
       }
     }
 
@@ -150,8 +148,9 @@
   @include respond-to(large) {
     .popular__item {
       width:25%;
-      &:nth-child(2) {
-        padding-right:10px;
+      padding-right:10px;
+      &:nth-child(4n+0) {
+        padding-right:0;
       }
     }
   }
