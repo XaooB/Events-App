@@ -1,6 +1,7 @@
 const Events = {
   //initial values that will be added to the database after visiting  website and resetting current database state
-  initialValues: [{
+  initialValues: [
+    {
       title: 'FrontEnd Bootcamp 2018',
       location: 'Saturday at 6 pm, H15 Boutique Hotel, Warsaw',
       description: 'Meet us in Boutique Hotel next Saturday. We are going to talk about new trends of 2018'
@@ -44,7 +45,8 @@ const Events = {
       title: 'ABC',
       location: 'CBA',
       description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae'
-    }],
+    },
+  ],
   indexedDB: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB,
   //db connection
   dbOpen: this.indexedDB.open('Events', 1),
@@ -75,7 +77,7 @@ const Events = {
       if(e.target.result.length > this.numberToDisplay) {
         this.numberToDisplay += 4;
         this.clearDOM();
-        this.loadDataToDOM();
+        return this.loadDataToDOM();
       }
       toggleDataBtn.disabled = true;
     }
@@ -174,8 +176,55 @@ const Events = {
         }
   },
   afterSelectionChange: function(e) {
-        this.clearDOM();
-        this.loadDataToDOM();
+    //much faster than the solution below
+    this.clearDOM();
+    this.loadDataToDOM();
+
+    //this solution is better visually but much slower with data amount 50+
+        // let db = this.dbOpen.result,
+        //     tx = db.transaction('EventsStore', 'readwrite');
+        //     store = tx.objectStore('EventsStore'),
+        //     counter = 0,
+        //     filters = this.setFilters();
+        //
+        //     store.index(filters[0]).openCursor(null, filters[1]).onsuccess = e => {
+        //       //get all current events from the container
+        //       let articles = this.container.querySelectorAll('article'),
+        //           cursor = e.target.result;
+        //
+        //       if(cursor && counter++ < this.numberToDisplay) {
+        //         //delete first event to the left (default - newest)
+        //         this.container.removeChild(articles[0]);
+        //         //add event depend on sort preferences
+        //         this.container.innerHTML += `<article class="popular__item" data-id='${cursor.primaryKey}'>
+        //                       <figure class='article__image-wrapper'>
+        //                         <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
+        //                         <button class='button button--danger popular__delete'>⤫</button>
+        //                       </figure>
+        //                       <div class="article__wrapper article__info">
+        //                         <div class="article__date">
+        //                           <span class='article__day'>21</span>
+        //                           <span class='article__month'>AUG</span>
+        //                         </div>
+        //                         <a href="#" class='article__link'>
+        //                           <div class="article__content">
+        //                             <header>
+        //                               <h4 class='article__title'>${cursor.value.title}</h4>
+        //                             </header>
+        //                               <p class="article__summary">${cursor.value.location}</p>
+        //                               <p class='article__text'>${cursor.value.description}</p>
+        //                           </div>
+        //                         </a>
+        //                       </div>
+        //                   </article>`
+        //            cursor.continue();
+        //       } else {
+        //         //if theres no events in container then display a message
+        //         if(!this.container.innerHTML) return this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">No events to display. You need to add one or restore data to initial values.</span>';
+        //         //bind all events inside container
+        //         return this.bindEvents();
+        //       }
+        //   }
   },
   loadDataToDOM: function() {
     let db = this.dbOpen.result,
