@@ -142,10 +142,62 @@ const Events = {
 
         store.clear().onsuccess = () => {
           this.clearDOM();
+          this.container.parentElement.firstElementChild.firstElementChild.innerText = 'recently added';
           this.addInitialEvents();
           this.loadDataToDOM();
           toggleDataBtn.disabled = false;
         };
+  },
+  fillContainerWithCursor: function(cursor) {
+    this.container.innerHTML += `<article class="popular__item" data-id='${cursor.primaryKey}'>
+                  <figure class='article__image-wrapper'>
+                    <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
+                    <button class='button button--danger popular__delete'>⤫</button>
+                  </figure>
+                  <div class="article__wrapper article__info">
+                    <div class="article__date">
+                      <span class='article__day'>21</span>
+                      <span class='article__month'>AUG</span>
+                    </div>
+                    <a href="#" class='article__link'>
+                      <div class="article__content">
+                        <header>
+                          <h4 class='article__title'>${cursor.value.title}</h4>
+                        </header>
+                          <p class="article__summary">${cursor.value.location}</p>
+                          <p class='article__text'>${cursor.value.description}</p>
+                      </div>
+                    </a>
+                  </div>
+              </article>`
+  },
+  searchDatabase: function(e) {
+    let keyword = e.target.value.toLowerCase(),
+        db = this.dbOpen.result,
+        tx = db.transaction('EventsStore', 'readwrite'),
+        store = tx.objectStore('EventsStore'),
+        self = this;
+
+        this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">There is no events uder that keyword.</span>';
+        let storedData = store.openCursor();
+        //change container title
+        storedData.onsuccess = function(e) {
+          let cursor = e.target.result;
+
+          if (cursor) {
+            let title = cursor.value.title;
+            if(title.toLowerCase().split(' ').indexOf(keyword) !== -1) {
+              if(self.container.childNodes[0].localName == 'span') self.container.removeChild(self.container.firstElementChild);
+              self.container.parentElement.firstElementChild.firstElementChild.innerHTML = `Searched for: <span style='font-weight: lighter; color: #d4145a;'><i>${keyword}</i></span>`;
+              self.fillContainerWithCursor(cursor);
+            }
+            cursor.continue();
+          }
+        }
+
+        storedData.onerror = function(e) {
+          throw new Error(e);
+        }
   },
   setFilters: function() {
     let selectionByTitle = document.querySelector('#sort_dn').value,
@@ -176,55 +228,8 @@ const Events = {
         }
   },
   afterSelectionChange: function(e) {
-    //much faster than the solution below
     this.clearDOM();
     this.loadDataToDOM();
-
-    //this solution is better visually but much slower with data amount 50+
-        // let db = this.dbOpen.result,
-        //     tx = db.transaction('EventsStore', 'readwrite');
-        //     store = tx.objectStore('EventsStore'),
-        //     counter = 0,
-        //     filters = this.setFilters();
-        //
-        //     store.index(filters[0]).openCursor(null, filters[1]).onsuccess = e => {
-        //       //get all current events from the container
-        //       let articles = this.container.querySelectorAll('article'),
-        //           cursor = e.target.result;
-        //
-        //       if(cursor && counter++ < this.numberToDisplay) {
-        //         //delete first event to the left (default - newest)
-        //         this.container.removeChild(articles[0]);
-        //         //add event depend on sort preferences
-        //         this.container.innerHTML += `<article class="popular__item" data-id='${cursor.primaryKey}'>
-        //                       <figure class='article__image-wrapper'>
-        //                         <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
-        //                         <button class='button button--danger popular__delete'>⤫</button>
-        //                       </figure>
-        //                       <div class="article__wrapper article__info">
-        //                         <div class="article__date">
-        //                           <span class='article__day'>21</span>
-        //                           <span class='article__month'>AUG</span>
-        //                         </div>
-        //                         <a href="#" class='article__link'>
-        //                           <div class="article__content">
-        //                             <header>
-        //                               <h4 class='article__title'>${cursor.value.title}</h4>
-        //                             </header>
-        //                               <p class="article__summary">${cursor.value.location}</p>
-        //                               <p class='article__text'>${cursor.value.description}</p>
-        //                           </div>
-        //                         </a>
-        //                       </div>
-        //                   </article>`
-        //            cursor.continue();
-        //       } else {
-        //         //if theres no events in container then display a message
-        //         if(!this.container.innerHTML) return this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">No events to display. You need to add one or restore data to initial values.</span>';
-        //         //bind all events inside container
-        //         return this.bindEvents();
-        //       }
-        //   }
   },
   loadDataToDOM: function() {
     let db = this.dbOpen.result,
@@ -236,28 +241,8 @@ const Events = {
         store.index(filters[0]).openCursor(null, filters[1]).onsuccess = e => {
           let cursor = e.target.result;
           if(cursor && counter++ < this.numberToDisplay) {
-            this.container.innerHTML += `<article class="popular__item" data-id='${cursor.primaryKey}'>
-                          <figure class='article__image-wrapper'>
-                            <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
-                            <button class='button button--danger popular__delete'>⤫</button>
-                          </figure>
-                          <div class="article__wrapper article__info">
-                            <div class="article__date">
-                              <span class='article__day'>21</span>
-                              <span class='article__month'>AUG</span>
-                            </div>
-                            <a href="#" class='article__link'>
-                              <div class="article__content">
-                                <header>
-                                  <h4 class='article__title'>${cursor.value.title}</h4>
-                                </header>
-                                  <p class="article__summary">${cursor.value.location}</p>
-                                  <p class='article__text'>${cursor.value.description}</p>
-                              </div>
-                            </a>
-                          </div>
-                      </article>`
-               cursor.continue();
+            this.fillContainerWithCursor(cursor);
+            cursor.continue();
           } else {
             //if theres no events in container then display a message
             if(!this.container.innerHTML) return this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">No events to display. You need to add one or restore data to initial values.</span>';
@@ -271,13 +256,15 @@ const Events = {
     let dbNav = document.querySelector('#db-nav'),
         sortWrapper = document.querySelector('.popular__sort'),
         loadMoreBtn = document.querySelector('button[name="load-more-events"]'),
+        searchForm = document.querySelector('.search__form'),
         modalDisplayBtn = dbNav.querySelector('#add_event'),
         restoreDbBtn = dbNav.querySelector('#restore_database'),
         modalAddBtn = this.modal.querySelector('.modal__btn'),
         modalExitBtn = this.modal.querySelector('.modal__exit'),
         modalWrapper = this.modal.querySelector('.modal__wrapper'),
         filterByNameDate = sortWrapper.querySelector('#sort_dn'),
-        filterByAscDesc = sortWrapper.querySelector('#sort_ad');
+        filterByAscDesc = sortWrapper.querySelector('#sort_ad'),
+        searchInputs = searchForm.querySelectorAll('input[type="search"]');
 
     return () => {
       this.dbOpen.onupgradeneeded = e => {
@@ -330,6 +317,7 @@ const Events = {
       loadMoreBtn.addEventListener('click', this.loadMoreData.bind(this), false);
       filterByNameDate.addEventListener('change', this.afterSelectionChange.bind(this) ,false);
       filterByAscDesc.addEventListener('change', this.afterSelectionChange.bind(this), false);
+      searchInputs.forEach(item => { item.addEventListener('keyup', this.searchDatabase.bind(this), false)})
       window.addEventListener('click', e => {
         if(e.target === this.modal) this.toggleModal();
       }, false);
