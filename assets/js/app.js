@@ -33,12 +33,12 @@ const Events = {
     },
     {
       title: 'Reet aliquam et at orci',
-      location: ' Quisque suscipit ac m',
+      location: 'Quisque suscipit ac m',
       description: 'e et dapibus elit, vitae vestibulum tellus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae'
     },
     {
       title: 'At orci',
-      location: ' Quisque sust ac m',
+      location: 'Quisque sust ac m',
       description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae'
     },
     {
@@ -54,7 +54,8 @@ const Events = {
   container: document.querySelector('.recently-added .flex-wrapper'),
   //container for adding event and displaying searched by user
   modal: document.querySelector('.modal'),
-  numberToDisplay: 4,
+  displayAmount: 4,
+  currentDbState: [],
   bindEvents: function() {
     //recently added events
     document.querySelectorAll('.popular__delete').forEach(item => {item.addEventListener('click', this.deleteEvent.bind(this))});
@@ -69,23 +70,46 @@ const Events = {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore'),
+        nodeList = this.container.querySelectorAll('article'),
         toggleDataBtn = document.querySelector('button[name="load-more-events"]');
 
-    let databaseSize = store.getAll();
-
-    databaseSize.onsuccess = e => {
-      if(e.target.result.length > this.numberToDisplay) {
-        this.numberToDisplay += 4;
-        this.clearDOM();
-        return this.loadDataToDOM();
+    if(nodeList.length < this.currentDbState.length) {
+      this.clearDOM();
+      for (var i = 0 ; i < nodeList.length + 4; i++) {
+        if(this.currentDbState[i] === undefined) return this.bindEvents();
+        this.container.innerHTML += `<article class="popular__item" data-id='${this.currentDbState[i].id}'>
+                      <figure class='article__image-wrapper'>
+                        <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
+                        <button class='button button--danger popular__delete'>⤫</button>
+                      </figure>
+                      <div class="article__wrapper article__info">
+                        <div class="article__date">
+                          <span class='article__day'>21</span>
+                          <span class='article__month'>AUG</span>
+                        </div>
+                        <a href="#" class='article__link'>
+                          <div class="article__content">
+                            <header>
+                              <h4 class='article__title'>${this.currentDbState[i].title}</h4>
+                            </header>
+                              <p class="article__summary">${this.currentDbState[i].location}</p>
+                              <p class='article__text'>${this.currentDbState[i].description}</p>
+                          </div>
+                        </a>
+                      </div>
+                  </article>`
       }
+      this.displayAmount += 4;
+      this.bindEvents();
+    } else {
       toggleDataBtn.disabled = true;
     }
   },
   addInitialEvents: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite'),
-        store = tx.objectStore('EventsStore');
+        store = tx.objectStore('EventsStore'),
+        self = this;
 
     this.initialValues.forEach(item => {
       store.put({
@@ -94,6 +118,22 @@ const Events = {
         description: item.description
       });
     })
+
+    //set currectDbState
+    store.openCursor().onsuccess = function(e) {
+      let cursor = e.target.result;
+      if(cursor) {
+        self.currentDbState.push({
+          id: cursor.key,
+          title: cursor.value.title,
+          location: cursor.value.location,
+          description: cursor.value.description
+        });
+        cursor.continue();
+      } else {
+        self.loadDataToDOM();
+      }
+    }
   },
   addEventFromUser: function(e) {
     e.preventDefault();
@@ -103,6 +143,7 @@ const Events = {
         location = form.querySelector('#location').value,
         description = form.querySelector('#description').value,
         date = form.querySelector('#date').value,
+        self = this,
         btn = e.target,
 
         db = this.dbOpen.result,
@@ -116,11 +157,22 @@ const Events = {
         });
 
         event.onsuccess = e => {
-          //works but items are added to the end of the array
-          this.clearDOM();
-          this.loadDataToDOM();
-          btn.disabled = true;
-        }
+          this.currentDbState = [];
+          store.openCursor().onsuccess = function(e) {
+            let cursor = e.target.result;
+            if(cursor) {
+              self.currentDbState.push({
+                id: cursor.key,
+                title: cursor.value.title,
+                location: cursor.value.location,
+                description: cursor.value.description
+              })
+              cursor.continue();
+            };
+              self.clearDOM();
+              self.loadDataToDOM();
+          };
+        };
 
         event.onerror = e => {
           throw new Error(e);
@@ -130,46 +182,22 @@ const Events = {
         let disableButton = setTimeout(e => {
           btn.disabled = false;
           clearTimeout(disableButton);
-        }, 2000);
+        }, 3000);
   },
-  restoreDatabase: function() {
+  restoreSettings: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore'),
         toggleDataBtn = document.querySelector('button[name="load-more-events"]');
 
-        this.numberToDisplay = 4;
-
         store.clear().onsuccess = () => {
-          this.clearDOM();
-          this.container.parentElement.firstElementChild.firstElementChild.innerText = 'recently added';
-          this.addInitialEvents();
-          this.loadDataToDOM();
+          this.currentDbState = [];
           toggleDataBtn.disabled = false;
+          this.displayAmount = 4;
+          this.clearDOM();
+          this.addInitialEvents();
+          // toggleDataBtn.disabled = false;
         };
-  },
-  fillContainerWithCursor: function(cursor) {
-    this.container.innerHTML += `<article class="popular__item" data-id='${cursor.primaryKey}'>
-                  <figure class='article__image-wrapper'>
-                    <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
-                    <button class='button button--danger popular__delete'>⤫</button>
-                  </figure>
-                  <div class="article__wrapper article__info">
-                    <div class="article__date">
-                      <span class='article__day'>21</span>
-                      <span class='article__month'>AUG</span>
-                    </div>
-                    <a href="#" class='article__link'>
-                      <div class="article__content">
-                        <header>
-                          <h4 class='article__title'>${cursor.value.title}</h4>
-                        </header>
-                          <p class="article__summary">${cursor.value.location}</p>
-                          <p class='article__text'>${cursor.value.description}</p>
-                      </div>
-                    </a>
-                  </div>
-              </article>`
   },
   searchDatabase: function(e) {
     let keyword = e.target.value.toLowerCase(),
@@ -179,32 +207,41 @@ const Events = {
         self = this;
 
         this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">There is no events uder that keyword.</span>';
-        let storedData = store.openCursor();
-        //change container title
-        storedData.onsuccess = function(e) {
-          let cursor = e.target.result;
 
-          if (cursor) {
-            let title = cursor.value.title;
-            if(title.toLowerCase().split(' ').indexOf(keyword) !== -1) {
-              if(self.container.childNodes[0].localName == 'span') self.container.removeChild(self.container.firstElementChild);
-              self.container.parentElement.firstElementChild.firstElementChild.innerHTML = `Searched for: <span style='font-weight: lighter; color: #d4145a;'><i>${keyword}</i></span>`;
-              self.fillContainerWithCursor(cursor);
-            }
-            cursor.continue();
-          }
-        }
-
-        storedData.onerror = function(e) {
-          throw new Error(e);
-        }
+        this.currentDbState.forEach(item => {
+          if(item.title.toLowerCase().split(' ').indexOf(keyword) !== -1) {
+            if(self.container.childNodes[0].localName == 'span') self.container.removeChild(self.container.firstElementChild);
+            self.container.parentElement.firstElementChild.firstElementChild.innerHTML = `Searched for: <span style='font-weight: lighter; color: #d4145a;'><i>${keyword}</i></span>`;
+            this.container.innerHTML += `<article class="popular__item" data-id='${item.id}'>
+                          <figure class='article__image-wrapper'>
+                            <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
+                            <button class='button button--danger popular__delete'>⤫</button>
+                          </figure>
+                          <div class="article__wrapper article__info">
+                            <div class="article__date">
+                              <span class='article__day'>21</span>
+                              <span class='article__month'>AUG</span>
+                            </div>
+                            <a href="#" class='article__link'>
+                              <div class="article__content">
+                                <header>
+                                  <h4 class='article__title'>${item.title}</h4>
+                                </header>
+                                  <p class="article__summary">${item.location}</p>
+                                  <p class='article__text'>${item.description}</p>
+                              </div>
+                            </a>
+                          </div>
+                      </article>`
+          };
+      });
   },
   setFilters: function() {
     let selectionByTitle = document.querySelector('#sort_dn').value,
         selectionByAscDesc = document.querySelector('#sort_ad').value;
 
-    (selectionByTitle == 0) ? selectionByTitle = 'title' : selectionByTitle = 'location';
-    (selectionByAscDesc == 0) ? selectionByAscDesc = 'next' : selectionByAscDesc = 'prev';
+    (selectionByTitle == 0) ? selectionByTitle = 'title' : selectionByTitle = 'date';
+    (selectionByAscDesc == 0) ? selectionByAscDesc = 'asc' : selectionByAscDesc = 'desc';
 
     return [selectionByTitle, selectionByAscDesc];
   },
@@ -212,44 +249,86 @@ const Events = {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore'),
-        eventID = Number(e.target.parentElement.parentElement.getAttribute('data-id')),
-        articleToBeDeleted = e.target.parentNode.parentNode;
+        eventID = Number(e.target.parentElement.parentElement.getAttribute('data-id'));
 
         let deleteItem = store.delete(eventID);
-        deleteItem.onsuccess = e => {
+
+        deleteItem.onsuccess = () => {
+        this.currentDbState.forEach((item, key) => {
+          if(item.id === eventID) this.currentDbState.splice(key, 1);
+        });
           this.clearDOM();
           this.loadDataToDOM();
-          //delete child from rencetly added container
-          // this.container.removeChild(articleToBeDeleted);
-        }
+        };
 
         deleteItem.onerror = e => {
           throw new Error(e);
-        }
+        };
   },
   afterSelectionChange: function(e) {
+    let filters = this.setFilters();
+
+    //temporary solution, works for now
+    if(filters[0] === 'title') {
+      if(filters[1] === 'asc') {
+        this.currentDbState.sort((a, b) => {
+          if(a.title < b.title) return 1;
+          if(a.title > b.title) return -1;
+        });
+      } else {
+        this.currentDbState.sort((a, b) => {
+          if(a.title > b.title) return 1;
+          if(a.title < b.title) return -1;
+        });
+      }
+    } else {
+      if(filters[1] === 'asc') {
+        this.currentDbState.sort((a, b) => {
+          if(a.location < b.location) return 1;
+          if(a.location > b.location) return -1;
+        });
+      } else {
+        this.currentDbState.sort((a, b) => {
+          if(a.location > b.location) return 1;
+          if(a.location < b.location) return -1;
+        });
+      }
+    }
     this.clearDOM();
     this.loadDataToDOM();
   },
   loadDataToDOM: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
-        store = tx.objectStore('EventsStore'),
-        counter = 0,
-        filters = this.setFilters();
+        store = tx.objectStore('EventsStore');
 
-        store.index(filters[0]).openCursor(null, filters[1]).onsuccess = e => {
-          let cursor = e.target.result;
-          if(cursor && counter++ < this.numberToDisplay) {
-            this.fillContainerWithCursor(cursor);
-            cursor.continue();
-          } else {
-            //if theres no events in container then display a message
-            if(!this.container.innerHTML) return this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">No events to display. You need to add one or restore data to initial values.</span>';
-            //bind all events inside container
-            return this.bindEvents();
-          }
+      for (var i = 0; i < this.displayAmount; i++) {
+        //temporary solution with displaying events, works as expected but looks kinda bad
+        if(this.currentDbState.length === 0) return this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">No events to display. You need to add one or restore data to initial values.</span>';
+        if(this.currentDbState[i] === undefined ) return this.bindEvents();
+        this.container.innerHTML += `<article class="popular__item" data-id='${this.currentDbState[i].id}'>
+                      <figure class='article__image-wrapper'>
+                        <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
+                        <button class='button button--danger popular__delete'>⤫</button>
+                      </figure>
+                      <div class="article__wrapper article__info">
+                        <div class="article__date">
+                          <span class='article__day'>21</span>
+                          <span class='article__month'>AUG</span>
+                        </div>
+                        <a href="#" class='article__link'>
+                          <div class="article__content">
+                            <header>
+                              <h4 class='article__title'>${this.currentDbState[i].title}</h4>
+                            </header>
+                              <p class="article__summary">${this.currentDbState[i].location}</p>
+                              <p class='article__text'>${this.currentDbState[i].description}</p>
+                          </div>
+                        </a>
+                      </div>
+                  </article>`
       }
+      return this.bindEvents();
   },
   initial: function() {
     //binding DOM elementes
@@ -298,11 +377,11 @@ const Events = {
             this.addInitialEvents();
 
             //add data to the DOM
-            this.loadDataToDOM();
+            // this.loadDataToDOM();
 
             //fired after the initial transaction is completed
             tx.oncomplete = () => {
-              console.log('transaction completed');
+              // db.close();
             };
       };
 
@@ -310,7 +389,7 @@ const Events = {
         throw new Error(e.target.error);
       };
 
-      restoreDbBtn.addEventListener('click', this.restoreDatabase.bind(this), false);
+      restoreDbBtn.addEventListener('click', this.restoreSettings.bind(this), false);
       modalAddBtn.addEventListener('click', this.addEventFromUser.bind(this), false);
       modalDisplayBtn.addEventListener('click', this.toggleModal.bind(this), false);
       modalExitBtn.addEventListener('click', this.toggleModal.bind(this), false);
