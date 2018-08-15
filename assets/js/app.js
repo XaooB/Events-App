@@ -61,6 +61,7 @@ const Events = {
     document.querySelectorAll('.popular__delete').forEach(item => {item.addEventListener('click', this.deleteEvent.bind(this))});
   },
   clearDOM: function() {
+    this.container.parentElement.firstElementChild.firstElementChild.innerText = 'recently added';
     this.container.innerHTML = '';
   },
   toggleModal: function () {
@@ -204,7 +205,14 @@ const Events = {
         db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite'),
         store = tx.objectStore('EventsStore'),
-        self = this;
+        self = this,
+        titleInput = document.querySelector('input[name="title"]');
+
+        // check for search value
+        if(titleInput.value === '') {
+          this.clearDOM();
+          return this.loadDataToDOM();
+        }
 
         this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">There is no events uder that keyword.</span>';
 
@@ -302,10 +310,10 @@ const Events = {
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore');
 
+    if(this.displayAmount > this.currentDbState.length) this.displayAmount = this.currentDbState.length;
+    if(this.currentDbState.length === 0) return this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">No events to display. You need to add one or restore data to initial values.</span>';
       for (var i = 0; i < this.displayAmount; i++) {
         //temporary solution with displaying events, works as expected but looks kinda bad
-        if(this.currentDbState.length === 0) return this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">No events to display. You need to add one or restore data to initial values.</span>';
-        if(this.currentDbState[i] === undefined ) return this.bindEvents();
         this.container.innerHTML += `<article class="popular__item" data-id='${this.currentDbState[i].id}'>
                       <figure class='article__image-wrapper'>
                         <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
@@ -328,7 +336,7 @@ const Events = {
                       </div>
                   </article>`
       }
-      return this.bindEvents();
+      this.bindEvents();
   },
   initial: function() {
     //binding DOM elementes
