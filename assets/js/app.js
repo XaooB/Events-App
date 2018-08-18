@@ -244,14 +244,32 @@ const Events = {
           };
       });
   },
-  setFilters: function() {
-    let selectionByTitle = document.querySelector('#sort_dn').value,
-        selectionByAscDesc = document.querySelector('#sort_ad').value;
+  setFilters: function(e) {
+    let sortWraper = document.querySelector('.popular__sort'),
+        selectionByTitleDate = sortWraper.querySelector('#sort_dn').checked,
+        selectionByAscDesc = sortWraper.querySelector('#sort_ad').checked,
+        labelByTitleDate = sortWraper.querySelector('label[name="sort_dn"]'),
+        labelByAscDesc = sortWraper.querySelector('label[name="sort_ad"]');
 
-    (selectionByTitle == 0) ? selectionByTitle = 'title' : selectionByTitle = 'date';
-    (selectionByAscDesc == 0) ? selectionByAscDesc = 'asc' : selectionByAscDesc = 'desc';
+    if(!selectionByTitleDate) {
+      selectionByTitleDate = 'title';
+      labelByTitleDate.innerText = 'title'
+    } else {
+      selectionByTitleDate = 'date';
+      labelByTitleDate.innerText = 'date'
+    }
 
-    return [selectionByTitle, selectionByAscDesc];
+    if(!selectionByAscDesc) {
+      selectionByAscDesc = 'asc';
+      labelByAscDesc.classList.remove('desc');
+      labelByAscDesc.classList.add('asc');
+    } else {
+      selectionByAscDesc = 'desc';
+      labelByAscDesc.classList.remove('asc');
+      labelByAscDesc.classList.add('desc');
+    }
+
+    return [selectionByTitleDate, selectionByAscDesc];
   },
   deleteEvent: function(e) {
     let db = this.dbOpen.result,
@@ -273,7 +291,7 @@ const Events = {
           throw new Error(e);
         };
   },
-  afterSelectionChange: function(e) {
+  sortData: function(e) {
     let filters = this.setFilters();
 
     //temporary solution, works for now
@@ -384,9 +402,6 @@ const Events = {
             //add initial data to the database
             this.addInitialEvents();
 
-            //add data to the DOM
-            // this.loadDataToDOM();
-
             //fired after the initial transaction is completed
             tx.oncomplete = () => {
               // db.close();
@@ -402,8 +417,8 @@ const Events = {
       modalDisplayBtn.addEventListener('click', this.toggleModal.bind(this), false);
       modalExitBtn.addEventListener('click', this.toggleModal.bind(this), false);
       loadMoreBtn.addEventListener('click', this.loadMoreData.bind(this), false);
-      filterByNameDate.addEventListener('change', this.afterSelectionChange.bind(this) ,false);
-      filterByAscDesc.addEventListener('change', this.afterSelectionChange.bind(this), false);
+      filterByNameDate.addEventListener('click', this.sortData.bind(this) ,false);
+      filterByAscDesc.addEventListener('click', this.sortData.bind(this), false);
       searchInputs.forEach(item => { item.addEventListener('keyup', this.searchDatabase.bind(this), false)})
       window.addEventListener('click', e => {
         if(e.target === this.modal) this.toggleModal();
