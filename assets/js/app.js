@@ -121,7 +121,7 @@ const Events = {
     })
 
     //set currectDbState
-    store.openCursor().onsuccess = function(e) {
+    store.openCursor(null, 'prev').onsuccess = function(e) {
       let cursor = e.target.result;
       if(cursor) {
         self.currentDbState.push({
@@ -133,6 +133,7 @@ const Events = {
         cursor.continue();
       } else {
         self.loadDataToDOM();
+        // self.sortData();
       }
     }
   },
@@ -159,7 +160,7 @@ const Events = {
 
         event.onsuccess = e => {
           this.currentDbState = [];
-          store.openCursor().onsuccess = function(e) {
+          store.openCursor(null, 'prev').onsuccess = function(e) {
             let cursor = e.target.result;
             if(cursor) {
               self.currentDbState.push({
@@ -168,7 +169,7 @@ const Events = {
                 location: cursor.value.location,
                 description: cursor.value.description
               })
-              cursor.continue();
+              return cursor.continue();
             };
               self.clearDOM();
               self.loadDataToDOM();
@@ -259,7 +260,7 @@ const Events = {
       labelByTitleDate.innerText = 'date'
     }
 
-    if(!selectionByAscDesc) {
+    if(selectionByAscDesc) {
       selectionByAscDesc = 'asc';
       labelByAscDesc.classList.remove('desc');
       labelByAscDesc.classList.add('asc');
@@ -405,6 +406,7 @@ const Events = {
             //fired after the initial transaction is completed
             tx.oncomplete = () => {
               // db.close();
+              // this.sortData();
             };
       };
 
