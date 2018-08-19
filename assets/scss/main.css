@@ -500,7 +500,11 @@ input, textarea {
     display: none; }
   .popular__sort label {
     cursor: pointer;
-    padding: 0 4px; }
+    padding: 0 4px;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none; }
   .popular__sort .asc, .popular__sort .desc {
     position: relative; }
     .popular__sort .asc:before, .popular__sort .desc:before {

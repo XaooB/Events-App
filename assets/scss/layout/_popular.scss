@@ -62,6 +62,7 @@
     label {
       cursor: pointer;
       padding:0 4px;
+      user-select: none;
     }
     .asc, .desc {
       position: relative;
