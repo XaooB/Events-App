@@ -176,8 +176,9 @@ const Events = {
               })
               return cursor.continue();
             };
-              self.clearDOM();
-              self.loadDataToDOM();
+            self.displayAmount += 1;
+            self.clearDOM();
+            self.loadDataToDOM();
           };
         };
 
