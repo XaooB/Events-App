@@ -608,14 +608,12 @@ input, textarea {
     .category__image-wrapper {
       height: 150px; } }
 
-.recently-added {
-  margin-top: 10px; }
-  @media (min-width: 960px) {
-    .recently-added .popular__item {
-      width: 25%;
-      padding-right: 10px; }
-      .recently-added .popular__item:nth-child(4n+0) {
-        padding-right: 0; } }
+@media (min-width: 960px) {
+  .recently-added .popular__item {
+    width: 25%;
+    padding-right: 10px; }
+    .recently-added .popular__item:nth-child(4n+0) {
+      padding-right: 0; } }
 
 .footer {
   color: #d9d9d9;

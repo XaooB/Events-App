@@ -162,7 +162,6 @@
 }
 
 .recently-added {
-  margin-top:10px;
   @include respond-to(large) {
     .popular__item {
       width:25%;

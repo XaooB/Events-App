@@ -77,7 +77,12 @@ const Events = {
     if(nodeList.length < this.currentDbState.length) {
       this.clearDOM();
       for (var i = 0 ; i < nodeList.length + 4; i++) {
-        if(this.currentDbState[i] === undefined) return this.bindEvents();
+        if(this.currentDbState[i] === undefined) {
+          return (
+            this.bindEvents(),
+            this.displayAmount = this.currentDbState.length
+          )
+        }
         this.container.innerHTML += `<article class="popular__item" data-id='${this.currentDbState[i].id}'>
                       <figure class='article__image-wrapper'>
                         <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
@@ -370,7 +375,8 @@ const Events = {
         modalWrapper = this.modal.querySelector('.modal__wrapper'),
         filterByNameDate = sortWrapper.querySelector('#sort_dn'),
         filterByAscDesc = sortWrapper.querySelector('#sort_ad'),
-        searchInputs = searchForm.querySelectorAll('input[type="search"]');
+        searchInputs = searchForm.querySelectorAll('input[type="search"]'),
+        self = this;
 
     return () => {
       this.dbOpen.onupgradeneeded = e => {
@@ -398,15 +404,29 @@ const Events = {
             };
 
             //clear old data on each refresh - causes troubles with cursor. Cursor is incremented instead of being reset after every initiation call.
-            store.clear();
+            // store.clear();
 
-            //add initial data to the database
-            this.addInitialEvents();
+            //read data from db and set it to currentDbState variable
+            store.getAll().onsuccess = e => {
+              if(e.target.result.length === 0) return this.addInitialEvents();
+              store.openCursor(null, 'prev').onsuccess = function(e) {
+                let cursor = e.target.result;
+                if(cursor) {
+                  self.currentDbState.push({
+                    id: cursor.key,
+                    title: cursor.value.title,
+                    location: cursor.value.location,
+                    description: cursor.value.description
+                  })
+                  return cursor.continue();
+                };
+                  self.loadDataToDOM();
+              };
+            }
 
             //fired after the initial transaction is completed
             tx.oncomplete = () => {
               // db.close();
-              // this.sortData();
             };
       };
 
