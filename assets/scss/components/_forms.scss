@@ -15,7 +15,6 @@
     transform: rotate(75deg);
   }
 }
-
 .form {
   display:flex;
   align-content:center;
@@ -23,7 +22,6 @@
     flex-flow: nowrap column;
   }
 }
-
 .input {
   color:$palette-inputs-text;
   outline:none;
@@ -47,7 +45,6 @@
     width:100%;
   }
 }
-
 input, textarea {
   font-family: 'RobotoL';
   letter-spacing: .2px;
@@ -56,7 +53,6 @@ input, textarea {
     font-size:.9em;
   }
 }
-
 .footer {
   input, textarea {
     color:$palette-footer-color;

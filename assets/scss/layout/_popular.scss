@@ -4,7 +4,6 @@
       align-self: normal;
     }
   }
-
   &__direction {
     flex-direction: column;
     flex-flow: column nowrap;
@@ -23,7 +22,6 @@
     }
   }
   &__item {
-    // position: relative;
     width:100%;
     margin-bottom:10px;
     @include respond-to(small) {
@@ -33,7 +31,6 @@
         padding-right:0;
       }
     }
-
   }
   &__delete {
     width:auto;
@@ -86,7 +83,6 @@
     }
   }
 }
-
 .category {
   display:flex;
   flex-flow: row wrap;
@@ -115,7 +111,6 @@
   .food, .drink, .sport, .music {
     flex: 1 50%;
   }
-
   .technology, .parties, .fashion {
     flex: 1 100%;
   }
@@ -161,7 +156,6 @@
     }
   }
 }
-
 .recently-added {
   @include respond-to(large) {
     .popular__item {

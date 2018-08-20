@@ -12,14 +12,13 @@
     letter-spacing: 1px;
   }
 }
-
 .page-intro {
   color:$palette-secondary;
   &__title {
     font-family:'RobotoL';
     font-size: 2.2em;
     line-height: $intro-title-line-height;
-  };
+  }
   &__desc {
     font-family:'RobotoR';
     font-size:.75em;
@@ -29,22 +28,14 @@
   }
   @include respond-to(medium) {
     &__title {
+      font-family: 'RobotoM';
       font-size: 3em;
     }
     &__desc {
       font-size:.9em;
     }
   }
-  @include respond-to(huge) {
-    &__title {
-      font-family: 'RobotoM';
-    }
-    &__desc {
-      font-size: .8em;
-    }
-  }
 }
-
 .section {
   &-title {
     text-transform: lowercase;
@@ -52,6 +43,7 @@
     display:inline-block;
     font-size: 1.25em;
     padding:15px 0;
+    font-family:'RobotoL';
     &:before {
       position: absolute;
       content: '';
@@ -69,7 +61,6 @@
     }
   }
 }
-
 .search {
   text-align: center;
   text-transform: uppercase;
@@ -83,7 +74,6 @@
     letter-spacing: 1.5px;
   }
 }
-
 .category {
   color:$palette-secondary;
   &__name {
@@ -93,7 +83,6 @@
     text-shadow: 1px 1px 6px black;
   }
 }
-
 .footer {
   &__copy {
     text-align: center;

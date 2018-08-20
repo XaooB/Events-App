@@ -1,13 +1,11 @@
 @mixin respond-to($breakpoint) {
   $raw: map-get($breakpoints, $breakpoint);
-
   @if $raw {
     $query:  if(
     type-of($raw) == 'string',
     unquote($raw),
     inspect($raw)
     );
-
     @media #{$query} {
       @content;
     }

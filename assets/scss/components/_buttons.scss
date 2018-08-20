@@ -14,17 +14,25 @@
   border:none;
   padding:0 10px;
   font-size: .75em;
+  color:$palette-primary-text;
   border-radius:6px;
   text-transform: uppercase;
   font-family: 'RobotoB';
+  transition: .2s all;
   &:hover {
-    background: $palette-primary;
-    color:$palette-secondary;
+    transition: .2s all;
+    background: darken(#F0F0F0, 15%);
+    color:$palette-footer-inputs;
+    &:not(:enabled) {
+      background:buttonface;
+      cursor:not-allowed;
+    }
   }
   &--default {
     background: $palette-buttons;
     color:$palette-secondary;
     &:hover {
+      transition: .2s all;
       background: lighten($palette-buttons, 8%);
     }
   }

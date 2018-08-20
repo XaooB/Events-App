@@ -55,21 +55,18 @@ a {
     letter-spacing: .2px; }
   @media (min-width: 640px) {
     .page-intro__title {
+      font-family: 'RobotoM';
       font-size: 3em; }
     .page-intro__desc {
       font-size: .9em; } }
-  @media (min-width: 1200px) {
-    .page-intro__title {
-      font-family: 'RobotoM'; }
-    .page-intro__desc {
-      font-size: .8em; } }
 
 .section-title, .footer__head {
   text-transform: lowercase;
   position: relative;
   display: inline-block;
   font-size: 1.25em;
-  padding: 15px 0; }
+  padding: 15px 0;
+  font-family: 'RobotoL'; }
   .section-title:before, .footer__head:before {
     position: absolute;
     content: '';
@@ -145,16 +142,26 @@ a {
   border: none;
   padding: 0 10px;
   font-size: .75em;
+  color: #2b2b2b;
   border-radius: 6px;
   text-transform: uppercase;
-  font-family: 'RobotoB'; }
+  font-family: 'RobotoB';
+  -webkit-transition: .2s all;
+  transition: .2s all; }
   .button:hover {
-    background: #d4145a;
-    color: #ffffff; }
+    -webkit-transition: .2s all;
+    transition: .2s all;
+    background: #cacaca;
+    color: #262626; }
+    .button:hover:not(:enabled) {
+      background: buttonface;
+      cursor: not-allowed; }
   .button--default {
     background: #e8ab00;
     color: #ffffff; }
     .button--default:hover {
+      -webkit-transition: .2s all;
+      transition: .2s all;
       background: #ffc112; }
   .button--danger {
     background: #d4145a; }
@@ -289,11 +296,11 @@ input, textarea {
   @media (min-width: 1200px) {
     .hero {
       margin: 0 auto;
-      max-width: 1200px;
+      max-width: 1400px;
       background-size: auto;
       background-position: top center;
-      background-position-y: -90px;
-      background-position-x: 120px; } }
+      background-position-y: -85px;
+      background-position-x: 215px; } }
 
 .logotype {
   -ms-flex-item-align: center;
