@@ -795,6 +795,7 @@ input, textarea {
   .modal--hiding {
     display: none; }
   .modal__wrapper {
+    background: white;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
