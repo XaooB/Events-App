@@ -5,6 +5,7 @@
     }
   }
   &__direction {
+    margin-top:15px;
     flex-direction: column;
     flex-flow: column nowrap;
     @include respond-to(large) {

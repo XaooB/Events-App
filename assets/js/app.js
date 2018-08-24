@@ -172,8 +172,11 @@ const Events = {
         location = form.querySelector('#location').value,
         description = form.querySelector('#description').value,
         date = form.querySelector('#date').value,
-        self = this,
         btn = e.target,
+        self = this;
+
+        //disable disable button to avoid sending form abuse
+        btn.disabled = true;
 
         db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite'),
@@ -198,6 +201,9 @@ const Events = {
               })
               return cursor.continue();
             };
+            //reset form fields
+            title = location = description = date = '';
+
             self.displayAmount += 1;
             self.clearDOM();
             self.loadDataToDOM();
@@ -211,8 +217,9 @@ const Events = {
         //avoid abusing requests
         let disableButton = setTimeout(e => {
           btn.disabled = false;
+          this.toggleModal();
           clearTimeout(disableButton);
-        }, 3000);
+        }, 1500);
   },
   restoreSettings: function() {
     let db = this.dbOpen.result,
