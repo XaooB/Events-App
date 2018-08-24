@@ -787,7 +787,7 @@ input, textarea {
   left: 0;
   top: 0;
   z-index: 9;
-  background: rgba(0, 0, 0, 0.4);
+  background: #ffffff;
   width: 100%;
   padding: 10px; }
   .modal--showing {
@@ -795,7 +795,6 @@ input, textarea {
   .modal--hiding {
     display: none; }
   .modal__wrapper {
-    background: white;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -805,11 +804,30 @@ input, textarea {
             flex-flow: column nowrap;
     -ms-flex-direction: column;
         flex-direction: column;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 30px auto;
     padding: 30px; }
+  .modal__header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+    -ms-flex-direction: row;
+        flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding: 25px 0;
+    color: #2b2b2b;
+    border-bottom: 1px solid #bdbdbd; }
+  .modal__title {
+    font-size: 2em;
+    display: block; }
   .modal__form {
-    margin-top: 15px;
+    margin-top: 50px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -820,13 +838,33 @@ input, textarea {
     .modal__form div {
       margin-bottom: 15px; }
   .modal__exit {
-    -ms-flex-item-align: end;
-        align-self: flex-end;
-    font-size: 1.5em;
     cursor: pointer;
-    font-weight: bold; }
-    .modal__exit:hover {
-      color: #d4145a; }
+    font-weight: bold;
+    position: relative;
+    display: block;
+    padding: 20px; }
+    .modal__exit:hover:before, .modal__exit:hover:after {
+      background: #2b2b2b; }
+    .modal__exit:before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 35px;
+      width: 6px;
+      background: #bdbdbd;
+      -webkit-transform: rotate(45deg);
+              transform: rotate(45deg); }
+    .modal__exit:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 35px;
+      width: 6px;
+      -webkit-transform: rotate(-45deg);
+              transform: rotate(-45deg);
+      background: #bdbdbd; }
   .modal__btn {
     -ms-flex-item-align: end;
         align-self: flex-end;

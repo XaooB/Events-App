@@ -28,7 +28,7 @@
   left:0;
   top:0;
   z-index: 9;
-  background:$palette-modal-bg;
+  background:$palette-secondary;
   width:100%;
   padding:10px;
   &--showing {
@@ -38,16 +38,28 @@
     display:none;
   }
   &__wrapper {
-    background:white;
     display: flex;
     flex-flow: column nowrap;
     flex-direction: column;
-    max-width:800px;
+    max-width:1200px;
     margin:30px auto;
     padding:30px;
   }
+  &__header {
+    display:flex;
+    flex-flow: row nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    padding:25px 0;
+    color:$palette-primary-text;
+    border-bottom:1px solid #bdbdbd;
+  }
+  &__title {
+    font-size:2em;
+    display:block;
+  }
   &__form {
-    margin-top:15px;
+    margin-top:50px;
     display: flex;
     flex-flow: column nowrap;
     div {
@@ -55,12 +67,30 @@
     }
   }
   &__exit {
-    align-self: flex-end;
-    font-size:1.5em;
     cursor: pointer;
     font-weight:bold;
+    position: relative;
+    display:block;
+    padding:20px;
     &:hover {
-      color: $palette-primary;
+      &:before, &:after {
+        background: $palette-primary-text;
+      }
+    }
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      top:0;
+      left:50%;
+      background:#bdbdbd;
+      height:35px;
+      width:6px;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
     }
   }
   &__btn {

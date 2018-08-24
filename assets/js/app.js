@@ -58,7 +58,8 @@ const Events = {
   currentDbState: [],
   bindEvents: function() {
     //recently added events
-    document.querySelectorAll('.popular__delete').forEach(item => {item.addEventListener('click', this.deleteEvent.bind(this))});
+    this.container.querySelectorAll('.popular__delete').forEach(item => {item.addEventListener('click', this.deleteEvent.bind(this), false)});
+    this.container.querySelectorAll('.article__link').forEach(item => {item.addEventListener('click', this.showArticeInfo.bind(this), false)});
   },
   clearDOM: function() {
     this.container.parentElement.firstElementChild.firstElementChild.innerText = 'recently added';
@@ -66,6 +67,27 @@ const Events = {
   },
   toggleModal: function () {
     this.modal.classList.toggle('modal--showing');
+  },
+  showArticeInfo: function (e) {
+    let eventID = Number(e.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id')),
+        db = this.dbOpen.result,
+        tx = db.transaction('EventsStore', 'readwrite'),
+        store = tx.objectStore('EventsStore'),
+        self = this;
+
+    let event = store.get(eventID);
+
+    event.onsuccess = function(e) {
+      let item = e.target.result;
+
+      self.modal.innerHTML = `<p>Tytul: <strong>${item.title}</strong></p><p><small>${item.location}</small></p><p>${item.description}</p>`;
+      self.toggleModal();
+    }
+
+    event.onerror = e => {
+      throw new Error(e);
+    }
+    e.stopPropagation();
   },
   loadMoreData: function(e) {
     let db = this.dbOpen.result,
@@ -349,7 +371,7 @@ const Events = {
                           <span class='article__day'>21</span>
                           <span class='article__month'>AUG</span>
                         </div>
-                        <a href="#" class='article__link'>
+                        <a href="javascript:void(0)" class='article__link'>
                           <div class="article__content">
                             <header>
                               <h4 class='article__title'>${this.currentDbState[i].title}</h4>
@@ -442,10 +464,8 @@ const Events = {
       loadMoreBtn.addEventListener('click', this.loadMoreData.bind(this), false);
       filterByNameDate.addEventListener('click', this.sortData.bind(this) ,false);
       filterByAscDesc.addEventListener('click', this.sortData.bind(this), false);
-      searchInputs.forEach(item => { item.addEventListener('keyup', this.searchDatabase.bind(this), false)})
-      window.addEventListener('click', e => {
-        if(e.target === this.modal) this.toggleModal();
-      }, false);
+      searchInputs.forEach(item => {item.addEventListener('keyup', this.searchDatabase.bind(this), false)});
+      window.addEventListener('click', e => {if(e.target === this.modal) this.toggleModal()}, false);
     };
   },
 };
