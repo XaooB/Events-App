@@ -68,20 +68,61 @@ const Events = {
   toggleModal: function () {
     this.modal.classList.toggle('modal--showing');
   },
+  setAddEventModal: function() {
+    this.modal.innerHTML = `<div class="modal__wrapper">
+      <div class="modal__header">
+        <h4 class='modal__title'>Event adding form</h4>
+        <span class='modal__exit'></span>
+      </div>
+      <form action="" class='form modal__form'>
+        <div>
+          <label class='modal__label'>Title:</label>
+          <input type="text" class='input modal__input' id='title' placeholder="Enter event title" />
+        </div>
+        <div>
+          <label class='modal__label'>Location:</label>
+          <input type="text" class='input modal__input' id='location' placeholder="Enter event location" />
+        </div>
+        <div>
+          <label class='modal__label'>Description:</label>
+          <input type="text" class='input modal__input' id='description' placeholder="Enter event description" />
+        </div>
+        <div>
+          <label class='modal__label'>Starting Date:</label>
+          <input type="datetime-local" class='input modal__input' id='date' placeholder="Enter event starting date" />
+        </div>
+        <button class='button modal__btn'>add event</button>
+      </form>
+    </div>`
+
+    //bind event
+    this.modal.querySelector('.modal__btn').addEventListener('click', this.addEventFromUser.bind(this), false);
+    this.modal.querySelector('.modal__exit').addEventListener('click', this.toggleModal.bind(this), false);
+
+    this.toggleModal();
+  },
   showArticeInfo: function (e) {
     let eventID = Number(e.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id')),
         db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite'),
-        store = tx.objectStore('EventsStore'),
-        self = this;
+        store = tx.objectStore('EventsStore');
 
     let event = store.get(eventID);
 
-    event.onsuccess = function(e) {
+    event.onsuccess = e => {
       let item = e.target.result;
+      this.modal.innerHTML = `<div class="modal__wrapper">
+        <div class="modal__header">
+          <h4 class='modal__title'>${item.title}</h4>
+          <span class='modal__exit'></span>
+        </div>
+        <img class='modal__image' src="assets/images/categories/fashion.jpg" />
+        <p><small>Location: ${item.location}</small></p>
+        <p>Description: ${item.description}</p>
+      </div>`;
 
-      self.modal.innerHTML = `<p>Tytul: <strong>${item.title}</strong></p><p><small>${item.location}</small></p><p>${item.description}</p>`;
-      self.toggleModal();
+      this.toggleModal();
+      this.modal.querySelector('.modal__exit').addEventListener('click', this.toggleModal.bind(this), false);
     }
 
     event.onerror = e => {
@@ -136,8 +177,7 @@ const Events = {
   addInitialEvents: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite'),
-        store = tx.objectStore('EventsStore'),
-        self = this;
+        store = tx.objectStore('EventsStore');
 
     this.initialValues.forEach(item => {
       store.put({
@@ -148,10 +188,10 @@ const Events = {
     })
 
     //set currectDbState
-    store.openCursor(null, 'prev').onsuccess = function(e) {
+    store.openCursor(null, 'prev').onsuccess = e => {
       let cursor = e.target.result;
       if(cursor) {
-        self.currentDbState.push({
+        this.currentDbState.push({
           id: cursor.key,
           title: cursor.value.title,
           location: cursor.value.location,
@@ -159,8 +199,7 @@ const Events = {
         });
         cursor.continue();
       } else {
-        self.loadDataToDOM();
-        // self.sortData();
+        this.loadDataToDOM();
       }
     }
   },
@@ -172,8 +211,7 @@ const Events = {
         location = form.querySelector('#location').value,
         description = form.querySelector('#description').value,
         date = form.querySelector('#date').value,
-        btn = e.target,
-        self = this;
+        btn = e.target;
 
         //disable disable button to avoid sending form abuse
         btn.disabled = true;
@@ -190,10 +228,10 @@ const Events = {
 
         event.onsuccess = e => {
           this.currentDbState = [];
-          store.openCursor(null, 'prev').onsuccess = function(e) {
+          store.openCursor(null, 'prev').onsuccess = e => {
             let cursor = e.target.result;
             if(cursor) {
-              self.currentDbState.push({
+              this.currentDbState.push({
                 id: cursor.key,
                 title: cursor.value.title,
                 location: cursor.value.location,
@@ -204,9 +242,9 @@ const Events = {
             //reset form fields
             title = location = description = date = '';
 
-            self.displayAmount += 1;
-            self.clearDOM();
-            self.loadDataToDOM();
+            this.displayAmount += 1;
+            this.clearDOM();
+            this.loadDataToDOM();
           };
         };
 
@@ -241,21 +279,21 @@ const Events = {
         db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite'),
         store = tx.objectStore('EventsStore'),
-        self = this,
         titleInput = document.querySelector('input[name="title"]');
 
         // check for search value
         if(titleInput.value === '') {
-          this.clearDOM();
-          return this.loadDataToDOM();
+          return (
+            this.clearDOM(),
+            this.loadDataToDOM()
+          )
         }
 
         this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">There is no events uder that keyword.</span>';
-
         this.currentDbState.forEach(item => {
           if(item.title.toLowerCase().split(' ').indexOf(keyword) !== -1) {
-            if(self.container.childNodes[0].localName == 'span') self.container.removeChild(self.container.firstElementChild);
-            self.container.parentElement.firstElementChild.firstElementChild.innerHTML = `Searched for: <span style='font-weight: lighter; color: #d4145a;'><i>${keyword}</i></span>`;
+            if(this.container.childNodes[0].localName == 'span') this.container.removeChild(this.container.firstElementChild);
+            this.container.parentElement.firstElementChild.firstElementChild.innerHTML = `Searched for: <span style='font-weight: bold; color: #d4145a;'><i>${keyword}</i></span>`;
             this.container.innerHTML += `<article class="popular__item" data-id='${item.id}'>
                           <figure class='article__image-wrapper'>
                             <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
@@ -405,8 +443,7 @@ const Events = {
         modalWrapper = this.modal.querySelector('.modal__wrapper'),
         filterByNameDate = sortWrapper.querySelector('#sort_dn'),
         filterByAscDesc = sortWrapper.querySelector('#sort_ad'),
-        searchInputs = searchForm.querySelectorAll('input[type="search"]'),
-        self = this;
+        searchInputs = searchForm.querySelectorAll('input[type="search"]');
 
     return () => {
       this.dbOpen.onupgradeneeded = e => {
@@ -439,10 +476,10 @@ const Events = {
             //read data from db and set it to currentDbState variable
             store.getAll().onsuccess = e => {
               if(e.target.result.length === 0) return this.addInitialEvents();
-              store.openCursor(null, 'prev').onsuccess = function(e) {
+              store.openCursor(null, 'prev').onsuccess = e => {
                 let cursor = e.target.result;
                 if(cursor) {
-                  self.currentDbState.push({
+                  this.currentDbState.push({
                     id: cursor.key,
                     title: cursor.value.title,
                     location: cursor.value.location,
@@ -450,7 +487,7 @@ const Events = {
                   })
                   return cursor.continue();
                 };
-                  self.loadDataToDOM();
+                  this.loadDataToDOM();
               };
             }
 
@@ -465,9 +502,7 @@ const Events = {
       };
 
       restoreDbBtn.addEventListener('click', this.restoreSettings.bind(this), false);
-      modalAddBtn.addEventListener('click', this.addEventFromUser.bind(this), false);
-      modalDisplayBtn.addEventListener('click', this.toggleModal.bind(this), false);
-      modalExitBtn.addEventListener('click', this.toggleModal.bind(this), false);
+      modalDisplayBtn.addEventListener('click', this.setAddEventModal.bind(this), false);
       loadMoreBtn.addEventListener('click', this.loadMoreData.bind(this), false);
       filterByNameDate.addEventListener('click', this.sortData.bind(this) ,false);
       filterByAscDesc.addEventListener('click', this.sortData.bind(this), false);

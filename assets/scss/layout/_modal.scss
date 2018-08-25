@@ -37,6 +37,9 @@
   &--hiding {
     display:none;
   }
+  &__image {
+    align-self: flex-start;
+  }
   &__wrapper {
     display: flex;
     flex-flow: column nowrap;

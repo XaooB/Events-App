@@ -795,6 +795,9 @@ input, textarea {
     display: block; }
   .modal--hiding {
     display: none; }
+  .modal__image {
+    -ms-flex-item-align: start;
+        align-self: flex-start; }
   .modal__wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
