@@ -261,7 +261,8 @@ input, textarea {
 .footer textarea {
   padding: 10px 15px;
   border: none;
-  border-radius: 10px; }
+  border-radius: 10px;
+  max-width: 442px; }
 
 .header {
   display: -webkit-box;
