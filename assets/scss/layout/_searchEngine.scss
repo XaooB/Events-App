@@ -3,14 +3,19 @@
   color:$palette-secondary;
   background-position-x: 68%;
   background-size: cover;
-  height:320px;
+  height:370px;
   display:flex;
   align-items: center;
   &__form {
     flex-flow: nowrap column;
-    margin:30px 0;
-    input {
+    margin:45px 0;
+    box-shadow: none;
+    & > * {
+      box-shadow: 0px 0px 7px $palette-inputs-bg;
       margin-bottom:3px;
+      @include respond-to(medium-large) {
+        margin:0;
+      }
     }
   }
   @include respond-to(medium-large) {

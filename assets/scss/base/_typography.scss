@@ -15,24 +15,23 @@
 .page-intro {
   color:$palette-secondary;
   &__title {
-    font-family:'RobotoL';
+    font-family:'RobotoR';
     font-size: 2.2em;
     line-height: $intro-title-line-height;
   }
   &__desc {
-    font-family:'RobotoR';
+    font-family:'RobotoL';
     font-size:.75em;
     line-height: $intro-desc-line-height;
     word-spacing: .15em;
-    letter-spacing: .2px;
+    letter-spacing: .8px;
   }
   @include respond-to(medium) {
     &__title {
-      font-family: 'RobotoM';
       font-size: 3em;
     }
     &__desc {
-      font-size:.9em;
+      font-size:.85em;
     }
   }
 }
@@ -41,7 +40,7 @@
     text-transform: lowercase;
     position: relative;
     display:inline-block;
-    font-size: 1.25em;
+    font-size: 1.3em;
     padding:15px 0;
     font-family:'RobotoL';
     &:before {
@@ -65,13 +64,16 @@
   text-align: center;
   text-transform: uppercase;
   &__title {
-    font-family: 'RobotoBk';
+    font-family: 'RobotoB';
     font-size: 1.5em;
-    padding-bottom:4px;
+    padding-bottom:6px;
+    @include respond-to(small) {
+      letter-spacing: 3px;
+    }
   }
   &__sub {
     font-size:.7em;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.8px;
   }
 }
 .category {
@@ -86,7 +88,7 @@
 .footer {
   &__copy {
     text-align: center;
-    font-size:.8em;
+    font-size:.75em;
     font-family:'RobotoL';
     letter-spacing: 1px;
   }

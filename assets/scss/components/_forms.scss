@@ -18,8 +18,20 @@
 .form {
   display:flex;
   align-content:center;
+  box-shadow: 0px 0px 7px $palette-inputs-bg;
+  border-radius: $radius10;
   &--footer {
     flex-flow: nowrap column;
+    box-shadow: none;
+  }
+  &--sign {
+    width:80%;
+    input {
+      flex: 2;
+    }
+    div {
+      flex: 1;
+    }
   }
 }
 .input {
@@ -48,9 +60,9 @@
 input, textarea {
   font-family: 'RobotoL';
   letter-spacing: .2px;
-  font-size:.8em;
+  font-size:.75em;
   @include respond-to(medium) {
-    font-size:.9em;
+    font-size:.8em;
   }
 }
 .footer {
