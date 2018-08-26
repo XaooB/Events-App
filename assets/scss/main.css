@@ -858,6 +858,8 @@ input, textarea {
     font-size: 2em;
     display: block; }
   .modal__form {
+    -webkit-box-shadow: none;
+            box-shadow: none;
     margin-top: 50px;
     display: -webkit-box;
     display: -ms-flexbox;

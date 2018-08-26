@@ -156,7 +156,7 @@ const Events = {
                           <span class='article__day'>21</span>
                           <span class='article__month'>AUG</span>
                         </div>
-                        <a href="#" class='article__link'>
+                        <a href="javascript:void(0)" class='article__link'>
                           <div class="article__content">
                             <header>
                               <h4 class='article__title'>${this.currentDbState[i].title}</h4>
