@@ -16,7 +16,6 @@
   padding:0 10px;
   font-size: .7em;
   color:$palette-primary-text;
-  border-radius:6px;
   letter-spacing: .8px;
   text-transform: uppercase;
   font-family: 'RobotoR';
@@ -25,7 +24,7 @@
     transition: .2s all;
     background: darken(#F0F0F0, 15%);
     color:$palette-primary-text;
-    font-weight:bold;
+    // font-weight:bold;
     &:not(:enabled) {
       background:buttonface;
       cursor:not-allowed;
@@ -44,6 +43,36 @@
     &:hover {
       background: lighten($palette-primary, 5%);
       font-weight:bold;
+    }
+  }
+  &--modal {
+    width:150px;
+    border-radius:0;
+    background:none;
+    border-left:2px solid $palette-primary;
+    color:$palette-primary;
+    position: relative;
+    background:white;
+    &:before {
+      position: absolute;
+      content: '';
+      left:0;
+      top:0;
+      width:0;
+      background:$palette-primary;
+      z-index: -1;
+      height:100%;
+      transition:.2s all ease-in;
+    }
+    &:hover {
+      color:$palette-secondary;
+      background: transparent;
+      &:before {
+        z-index: -1;
+        width:100%;
+        background:$palette-primary;
+        transition:.2s all ease-out;
+      }
     }
   }
 }

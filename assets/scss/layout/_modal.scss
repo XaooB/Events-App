@@ -1,22 +1,30 @@
 #db-nav {
+  background:$palette-secondary;
   position: fixed;
-  right:25px;
-  z-index: 2;
-  bottom:25px;
-  display: flex;
-  flex-flow: row nowrap;
-  button {
-    margin-right:10px;
-    border-radius: 10px;
-    color:$palette-secondary;
-    &:hover {
-    font-family:'RobotoM';
-    color:$palette-footer-inputs;
-    }
+  display:flex;
+  justify-content: space-between;
+  width:100%;
+  align-items: center;
+  box-shadow: -1px -1px 3px rgba(0,0,0,.2);
+  z-index: 999;
+  left:0;
+  bottom:0;
+  height:46px;
+  padding:0 10px;
+  transition:.3s all linear;
+}
+
+.notification {
+  transition:.3s all linear;
+  background:$palette-notification !important; //temporary
+  &-info {
+    color:$palette-primary-text;
+    font-family:'RobotoR';
   }
 }
+
 .modal {
-  display:none;
+  display:block;
   position: fixed;
   //makes modal wrapper scrollable
   height:100%;
@@ -24,13 +32,16 @@
   overflow-y: auto;
   //--//
   left:0;
-  top:0;
+  bottom:-100vh;
   z-index: 9;
   background:$palette-secondary;
   width:100%;
   padding:10px;
+  transition:.3s all ease-out;
   &--showing {
     display:block;
+    bottom:0;
+    transition:.3s all ease-in;
   }
   &--hiding {
     display:none;

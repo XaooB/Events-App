@@ -3,6 +3,7 @@
   background: $palette-primary-text;
   border-top: 10px solid $palette-footer-color;
   padding:20px 0;
+  margin-bottom:46px;
   &__nav {
     @extend .flex-wrapper;
     flex-flow: row wrap;

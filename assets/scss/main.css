@@ -135,7 +135,7 @@ a {
           align-items: center;
   background: #7c043a;
   height: 38px;
-  border-radius: 10px; }
+  border-radius: 0; }
 
 .button {
   cursor: pointer;
@@ -146,7 +146,6 @@ a {
   padding: 0 10px;
   font-size: .7em;
   color: #2b2b2b;
-  border-radius: 6px;
   letter-spacing: .8px;
   text-transform: uppercase;
   font-family: 'RobotoR';
@@ -156,8 +155,7 @@ a {
     -webkit-transition: .2s all;
     transition: .2s all;
     background: #cacaca;
-    color: #2b2b2b;
-    font-weight: bold; }
+    color: #2b2b2b; }
     .button:hover:not(:enabled) {
       background: buttonface;
       cursor: not-allowed; }
@@ -173,6 +171,34 @@ a {
     .button--danger:hover {
       background: #e91864;
       font-weight: bold; }
+  .button--modal {
+    width: 150px;
+    border-radius: 0;
+    background: none;
+    border-left: 2px solid #d4145a;
+    color: #d4145a;
+    position: relative;
+    background: white; }
+    .button--modal:before {
+      position: absolute;
+      content: '';
+      left: 0;
+      top: 0;
+      width: 0;
+      background: #d4145a;
+      z-index: -1;
+      height: 100%;
+      -webkit-transition: .2s all ease-in;
+      transition: .2s all ease-in; }
+    .button--modal:hover {
+      color: #ffffff;
+      background: transparent; }
+      .button--modal:hover:before {
+        z-index: -1;
+        width: 100%;
+        background: #d4145a;
+        -webkit-transition: .2s all ease-out;
+        transition: .2s all ease-out; }
 
 .nav-toggle {
   -ms-flex-item-align: center;
@@ -196,7 +222,7 @@ a {
       align-content: center;
   -webkit-box-shadow: 0px 0px 7px #7c043a;
           box-shadow: 0px 0px 7px #7c043a;
-  border-radius: 10px; }
+  border-radius: 0; }
   .form--footer {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -221,7 +247,7 @@ a {
   height: 38px;
   border: none;
   padding: 0 15px;
-  border-radius: 10px; }
+  border-radius: 0; }
   .input::-webkit-input-placeholder {
     color: #f44d90; }
   .input:-ms-input-placeholder {
@@ -261,7 +287,7 @@ input, textarea {
 .footer textarea {
   padding: 10px 15px;
   border: none;
-  border-radius: 10px;
+  border-radius: 0;
   max-width: 442px; }
 
 .header {
@@ -659,7 +685,8 @@ input, textarea {
   color: #d9d9d9;
   background: #2b2b2b;
   border-top: 10px solid #d9d9d9;
-  padding: 20px 0; }
+  padding: 20px 0;
+  margin-bottom: 46px; }
   .footer__nav {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -755,8 +782,8 @@ input, textarea {
   .article__info {
     padding: 10px;
     background: #f7f7f7;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px; }
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; }
   .article__content {
     -ms-flex-item-align: start;
         align-self: flex-start; }
@@ -788,39 +815,55 @@ input, textarea {
       color: #d4145a; }
 
 #db-nav {
+  background: #ffffff;
   position: fixed;
-  right: 25px;
-  z-index: 2;
-  bottom: 25px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap; }
-  #db-nav button {
-    margin-right: 10px;
-    border-radius: 10px;
-    color: #ffffff; }
-    #db-nav button:hover {
-      font-family: 'RobotoM';
-      color: #262626; }
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: -1px -1px 3px rgba(0, 0, 0, 0.2);
+          box-shadow: -1px -1px 3px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  left: 0;
+  bottom: 0;
+  height: 46px;
+  padding: 0 10px;
+  -webkit-transition: .3s all linear;
+  transition: .3s all linear; }
+
+.notification {
+  -webkit-transition: .3s all linear;
+  transition: .3s all linear;
+  background: yellowgreen !important; }
+  .notification-info {
+    color: #2b2b2b;
+    font-family: 'RobotoR'; }
 
 .modal {
-  display: none;
+  display: block;
   position: fixed;
   height: 100%;
   max-height: 100%;
   overflow-y: auto;
   left: 0;
-  top: 0;
+  bottom: -100vh;
   z-index: 9;
   background: #ffffff;
   width: 100%;
-  padding: 10px; }
+  padding: 10px;
+  -webkit-transition: .3s all ease-out;
+  transition: .3s all ease-out; }
   .modal--showing {
-    display: block; }
+    display: block;
+    bottom: 0;
+    -webkit-transition: .3s all ease-in;
+    transition: .3s all ease-in; }
   .modal--hiding {
     display: none; }
   .modal__image {

@@ -15,10 +15,11 @@ $x-palette-mineShaft: #2b2b2b;
 $default-line-height: 1.5;
 $intro-title-line-height: 1;
 $intro-desc-line-height: 1.7;
-$radius10: 10px; 
+$radius10: 0;
 
 $palette-primary: $x-palette-crimson;
 $palette-secondary: $x-palette-white;
+$palette-notification: yellowgreen;
 $palette-buttons: $x-palette-corn;
 $palette-primary-text: $x-palette-mineShaft;
 $palette-secondary-text: lighter($x-palette-mineShaft, 30%);

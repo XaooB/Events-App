@@ -91,12 +91,12 @@ const Events = {
           <label class='modal__label'>Starting Date:</label>
           <input type="datetime-local" class='input modal__input' id='date' placeholder="Enter event starting date" />
         </div>
-        <button class='button modal__btn'>add event</button>
+        <button class='button modal_btn' name='add-event-toggle-modal'>add event</button>
       </form>
     </div>`
 
     //bind event
-    this.modal.querySelector('.modal__btn').addEventListener('click', this.addEventFromUser.bind(this), false);
+    this.modal.querySelector('button[name="add-event-toggle-modal"]').addEventListener('click', this.addEventFromUser.bind(this), false);
     this.modal.querySelector('.modal__exit').addEventListener('click', this.toggleModal.bind(this), false);
 
     this.toggleModal();
@@ -349,13 +349,25 @@ const Events = {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore'),
-        eventID = Number(e.target.parentElement.parentElement.getAttribute('data-id'));
+        eventID = Number(e.target.parentElement.parentElement.getAttribute('data-id')),
+        notificationWrapper = document.querySelector('.notification-wrapper'),
+        dbNavWrapper = document.querySelector('#db-nav'),
+        paragraph = dbNavWrapper.querySelector('.notification-info');
 
         let deleteItem = store.delete(eventID);
 
         deleteItem.onsuccess = () => {
         this.currentDbState.forEach((item, key) => {
-          if(item.id === eventID) this.currentDbState.splice(key, 1);
+          if(item.id === eventID) {
+            paragraph.innerHTML = `<b>${item.title}</b> has been deleted from database.`;
+            dbNavWrapper.classList.add('notification');
+            this.currentDbState.splice(key, 1);
+
+            let notificationTime = setTimeout(() => {
+              paragraph.innerText = ''
+              dbNavWrapper.classList.remove('notification');
+            }, 1500)
+          }
         });
           this.clearDOM();
           this.loadDataToDOM();
