@@ -15,12 +15,17 @@
 }
 
 .notification {
-  transition:.3s all linear;
+  transition:.3s background linear;
   background:$palette-notification !important; //temporary
   &-info {
-    color:$palette-primary-text;
+    color:$palette-secondary;
     font-family:'RobotoR';
   }
+}
+
+.relative {
+  position: relative;
+  z-index: 1;
 }
 
 .modal {

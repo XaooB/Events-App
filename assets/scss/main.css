@@ -15,7 +15,6 @@ body {
   margin: 50px 0;
   background: #ffffff;
   padding: 30px;
-  border-radius: 10px;
   -webkit-box-shadow: 0px 1px 8px #dedede;
           box-shadow: 0px 1px 8px #dedede; }
 
@@ -143,6 +142,7 @@ a {
   width: 100%;
   height: 30px;
   border: none;
+  outline: none;
   padding: 0 10px;
   font-size: .7em;
   color: #2b2b2b;
@@ -172,13 +172,11 @@ a {
       background: #e91864;
       font-weight: bold; }
   .button--modal {
-    width: 150px;
-    border-radius: 0;
-    background: none;
+    width: 139px;
+    background: white;
     border-left: 2px solid #d4145a;
     color: #d4145a;
-    position: relative;
-    background: white; }
+    position: relative; }
     .button--modal:before {
       position: absolute;
       content: '';
@@ -186,19 +184,18 @@ a {
       top: 0;
       width: 0;
       background: #d4145a;
-      z-index: -1;
+      z-index: 0;
       height: 100%;
-      -webkit-transition: .2s all ease-in;
-      transition: .2s all ease-in; }
+      -webkit-transition: width .3s ease-out;
+      transition: width .3s ease-out; }
     .button--modal:hover {
       color: #ffffff;
       background: transparent; }
       .button--modal:hover:before {
-        z-index: -1;
-        width: 100%;
-        background: #d4145a;
-        -webkit-transition: .2s all ease-out;
-        transition: .2s all ease-out; }
+        width: 100%; }
+    @media (min-width: 480px) {
+      .button--modal {
+        width: 150px; } }
 
 .nav-toggle {
   -ms-flex-item-align: center;
@@ -838,12 +835,16 @@ input, textarea {
   transition: .3s all linear; }
 
 .notification {
-  -webkit-transition: .3s all linear;
-  transition: .3s all linear;
-  background: yellowgreen !important; }
+  -webkit-transition: .3s background linear;
+  transition: .3s background linear;
+  background: #5CB85C !important; }
   .notification-info {
-    color: #2b2b2b;
+    color: #ffffff;
     font-family: 'RobotoR'; }
+
+.relative {
+  position: relative;
+  z-index: 1; }
 
 .modal {
   display: block;

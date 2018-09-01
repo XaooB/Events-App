@@ -13,6 +13,7 @@
   width:100%;
   height:30px;
   border:none;
+  outline:none;
   padding:0 10px;
   font-size: .7em;
   color:$palette-primary-text;
@@ -46,13 +47,11 @@
     }
   }
   &--modal {
-    width:150px;
-    border-radius:0;
-    background:none;
+    width:139px;
+    background:white;
     border-left:2px solid $palette-primary;
     color:$palette-primary;
     position: relative;
-    background:white;
     &:before {
       position: absolute;
       content: '';
@@ -60,19 +59,19 @@
       top:0;
       width:0;
       background:$palette-primary;
-      z-index: -1;
+      z-index: 0;
       height:100%;
-      transition:.2s all ease-in;
+      transition:width .3s ease-out;
     }
     &:hover {
       color:$palette-secondary;
       background: transparent;
       &:before {
-        z-index: -1;
         width:100%;
-        background:$palette-primary;
-        transition:.2s all ease-out;
       }
+    }
+    @include respond-to(small) {
+      width:150px;
     }
   }
 }
