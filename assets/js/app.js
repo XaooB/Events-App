@@ -4,47 +4,65 @@ const Events = {
     {
       title: 'FrontEnd Bootcamp 2018',
       location: 'Saturday at 6 pm, H15 Boutique Hotel, Warsaw',
-      description: 'Meet us in Boutique Hotel next Saturday. We are going to talk about new trends of 2018'
+      description: 'Meet us in Boutique Hotel next Saturday. We are going to talk about new trends of 2018',
+      date: '2018-09-03',
+      time: '20:00'
     },
     {
       title: 'Up In Smoke Tour',
       location: 'Saturday at 5 pm, Mattress Firm Amphitheatre, 2050 Entertainment Cir, Chula Vista',
-      description: 'Featured Eminem, Snoop Dog, Dr Dre and more! Best event of 2018'
+      description: 'Featured Eminem, Snoop Dog, Dr Dre and more! Best event of 2018',
+      date: '2018-09-07',
+      time: '21:00'
     },
     {
       title: 'Art Show',
       location: 'Sunday at 11 am, Lincoln Street, London',
-      description: 'Must come and see best art made by John Doe. #FREE ENTRY, #FREE MEAL'
+      description: 'Must come and see best art made by John Doe. #FREE ENTRY, #FREE MEAL',
+      date: '2018-09-10',
+      time: '21:45'
     },
     {
       title: 'Open Day - Business Link Maraton',
       location: 'Maraton Business Center, Poznań',
-      description: 'We have a good reason to make you visit us at MBC. We will meet and talk about business and economy'
+      description: 'We have a good reason to make you visit us at MBC. We will meet and talk about business and economy',
+      date: '2018-09-09',
+      time: '19:00'
     },
     {
       title: 'World Rowing Under 23',
       location: 'Malta, Poznań',
-      description: 'For many years both the Greater Poland Rowing Foundation and FISA International Rowing Federation were loyal partners for the organization of international events'
+      description: 'For many years both the Greater Poland Rowing Foundation and FISA International Rowing Federation were loyal partners for the organization of international events',
+      date: '2018-09-12',
+      time: '19:30'
     },
     {
       title: 'Test #1',
-      location: 'Test #1',
-      description: 'Test #1'
+      location: 'Wrasaw',
+      description: 'Test #1',
+      date: '2018-09-18',
+      time: '17:00'
     },
     {
       title: 'Reet aliquam et at orci',
-      location: 'Quisque suscipit ac m',
-      description: 'e et dapibus elit, vitae vestibulum tellus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae'
+      location: 'Szczecin',
+      description: 'e et dapibus elit, vitae vestibulum tellus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae',
+      date: '2018-09-27',
+      time: '18:00'
     },
     {
       title: 'At orci',
-      location: 'Quisque sust ac m',
-      description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae'
+      location: 'Poznan',
+      description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae',
+      date: '2018-09-27',
+      time: '18:45'
     },
     {
       title: 'ABC',
-      location: 'CBA',
-      description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae'
+      location: 'Gdansk',
+      description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae',
+      date: '2018-09-29',
+      time: '20:00'
     },
   ],
   indexedDB: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB,
@@ -71,25 +89,32 @@ const Events = {
   setAddEventModal: function() {
     this.modal.innerHTML = `<div class="modal__wrapper">
       <div class="modal__header">
-        <h4 class='modal__title'>Event adding form</h4>
+        <h4 class='modal__title'>Add your event</h4>
         <span class='modal__exit'></span>
       </div>
       <form action="" class='form modal__form'>
         <div>
           <label class='modal__label'>Title:</label>
-          <input type="text" class='input modal__input' id='title' placeholder="Enter event title" />
+          <input type="text" class='input modal__input' id='title' placeholder="Enter event title" maxlength='50' required/>
         </div>
         <div>
           <label class='modal__label'>Location:</label>
-          <input type="text" class='input modal__input' id='location' placeholder="Enter event location" />
+          <input type="text" class='input modal__input' id='location' placeholder="Enter event location" maxlength='35' required/>
+        </div>
+        <div>
+          <label class='modal__label'>Summary:</label>
+          <textarea type="text" class='input modal__input' id='summary' placeholder="Enter short summary" maxlength='150' required></textarea>
         </div>
         <div>
           <label class='modal__label'>Description:</label>
-          <input type="text" class='input modal__input' id='description' placeholder="Enter event description" />
+          <textarea type="text" class='input modal__input' id='description' placeholder="Enter event description" maxlength='500' required></textarea>
         </div>
         <div>
-          <label class='modal__label'>Starting Date:</label>
-          <input type="datetime-local" class='input modal__input' id='date' placeholder="Enter event starting date" />
+          <label class='modal__label'>Starting At:</label>
+          <div class='flex-wrapper flex-wrapper--row'>
+            <input type="time" class='input modal__input' name='time' required/>
+            <input type="date" class='input modal__input' name='date' required/>
+          </div>
         </div>
         <button class='button modal_btn' name='add-event-toggle-modal'>add event</button>
       </form>
@@ -116,8 +141,10 @@ const Events = {
           <h4 class='modal__title'>${item.title}</h4>
           <span class='modal__exit'></span>
         </div>
-        <img class='modal__image' src="assets/images/categories/fashion.jpg" />
-        <p><small>Location: ${item.location}</small></p>
+        <div class='modal__image-wrapper'>
+          <img class='modal__image' src="assets/images/categories/fashion.jpg" />
+        </div>
+        <p><small>Location: ${item.location}, ${item.date}, ${item.time}</small></p>
         <p>Description: ${item.description}</p>
       </div>`;
 
@@ -135,7 +162,8 @@ const Events = {
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore'),
         nodeList = this.container.querySelectorAll('article'),
-        toggleDataBtn = document.querySelector('button[name="load-more-events"]');
+        toggleDataBtn = document.querySelector('button[name="load-more-events"]'),
+        monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
     if(nodeList.length < this.currentDbState.length) {
       this.clearDOM();
@@ -153,8 +181,8 @@ const Events = {
                       </figure>
                       <div class="article__wrapper article__info">
                         <div class="article__date">
-                          <span class='article__day'>21</span>
-                          <span class='article__month'>AUG</span>
+                          <span class='article__day'>${new Date(this.currentDbState[i].date).getDate()}</span>
+                          <span class='article__month'>${monthArr[new Date(this.currentDbState[i].date).getMonth()]}</span>
                         </div>
                         <a href="javascript:void(0)" class='article__link'>
                           <div class="article__content">
@@ -180,10 +208,13 @@ const Events = {
         store = tx.objectStore('EventsStore');
 
     this.initialValues.forEach(item => {
+      let {title, location, description, date, time} = item;
       store.put({
-        title: item.title,
-        location: item.location,
-        description: item.description
+        title,
+        location,
+        description,
+        date,
+        time
       });
     })
 
@@ -191,11 +222,14 @@ const Events = {
     store.openCursor(null, 'prev').onsuccess = e => {
       let cursor = e.target.result;
       if(cursor) {
+        let {title, location, description, date, time} = cursor.value;
         this.currentDbState.push({
           id: cursor.key,
-          title: cursor.value.title,
-          location: cursor.value.location,
-          description: cursor.value.description
+          title,
+          location,
+          description,
+          date,
+          time
         });
         cursor.continue();
       } else {
@@ -210,8 +244,15 @@ const Events = {
         title = form.querySelector('#title').value.replace(/^\w/, e => e.toUpperCase()),
         location = form.querySelector('#location').value,
         description = form.querySelector('#description').value,
-        date = form.querySelector('#date').value,
-        btn = e.target;
+        date = new Date(form.querySelector('input[type="date"]').value),
+        time = form.querySelector('input[type="time"]').value,
+        btn = e.target,
+        dbNavWrapper = document.querySelector('#db-nav'),
+        notificationWrapper = dbNavWrapper.querySelector('.notification-wrapper'),
+        paragraph = dbNavWrapper.querySelector('.notification-info');
+
+        console.log('Year: ',date.getFullYear());
+        console.log('Month: ',date.getMonth() + 1);
 
         //disable disable button to avoid sending form abuse
         btn.disabled = true;
@@ -223,28 +264,45 @@ const Events = {
         event = store.put({
           title,
           location,
-          description
+          description,
+          date,
+          time
         });
 
         event.onsuccess = e => {
+          //clear local db state
           this.currentDbState = [];
+          //add data from db to local var
           store.openCursor(null, 'prev').onsuccess = e => {
             let cursor = e.target.result;
             if(cursor) {
+              let {title, location, description, date, time} = cursor.value;
               this.currentDbState.push({
                 id: cursor.key,
-                title: cursor.value.title,
-                location: cursor.value.location,
-                description: cursor.value.description
+                title,
+                location,
+                description,
+                date,
+                time
               })
               return cursor.continue();
             };
-            //reset form fields
-            title = location = description = date = '';
+
 
             this.displayAmount += 1;
             this.clearDOM();
             this.loadDataToDOM();
+
+            //set notification
+            paragraph.innerHTML = `<strong>${title}</strong> has been added to the database`;
+            dbNavWrapper.classList.add('notification');
+
+            //reset form fields
+            title = location = description = date = '';
+            let notificationTime = setTimeout(() => {
+              paragraph.innerText = ''
+              dbNavWrapper.classList.remove('notification');
+            }, 1500);
           };
         };
 
@@ -359,7 +417,7 @@ const Events = {
         deleteItem.onsuccess = () => {
         this.currentDbState.forEach((item, key) => {
           if(item.id === eventID) {
-            paragraph.innerHTML = `<b>${item.title}</b> has been deleted from database.`;
+            paragraph.innerHTML = `<b>${item.title}</b> has been deleted from the database.`;
             dbNavWrapper.classList.add('notification');
             this.currentDbState.splice(key, 1);
 
@@ -396,13 +454,13 @@ const Events = {
     } else {
       if(filters[1] === 'asc') {
         this.currentDbState.sort((a, b) => {
-          if(a.location < b.location) return 1;
-          if(a.location > b.location) return -1;
+          if(a.date < b.date) return 1;
+          if(a.date > b.date) return -1;
         });
       } else {
         this.currentDbState.sort((a, b) => {
-          if(a.location > b.location) return 1;
-          if(a.location < b.location) return -1;
+          if(a.date > b.date) return 1;
+          if(a.date < b.date) return -1;
         });
       }
     }
@@ -412,7 +470,8 @@ const Events = {
   loadDataToDOM: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
-        store = tx.objectStore('EventsStore');
+        store = tx.objectStore('EventsStore'),
+        monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
     if(this.displayAmount > this.currentDbState.length) this.displayAmount = this.currentDbState.length;
     if(this.currentDbState.length === 0) return this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">No events to display. You need to add one or restore data to initial values.</span>';
@@ -425,8 +484,8 @@ const Events = {
                       </figure>
                       <div class="article__wrapper article__info">
                         <div class="article__date">
-                          <span class='article__day'>21</span>
-                          <span class='article__month'>AUG</span>
+                          <span class='article__day'>${new Date(this.currentDbState[i].date).getDate()}</span>
+                          <span class='article__month'>${monthArr[new Date(this.currentDbState[i].date).getMonth()]}</span>
                         </div>
                         <a href="javascript:void(0)" class='article__link'>
                           <div class="article__content">
@@ -466,6 +525,8 @@ const Events = {
             store.createIndex('title', 'title', {unique: false});
             store.createIndex('location', 'location', {unique: false});
             store.createIndex('description', 'description', {unique: false});
+            store.createIndex('date', 'date', {unique: false});
+            store.createIndex('time', 'time', {unique: false});
       };
 
       this.dbOpen.onsuccess = e => {
@@ -476,6 +537,8 @@ const Events = {
             store.index('title');
             store.index('location');
             store.index('description')
+            store.index('date')
+            store.index('time')
 
             //general error handler
             db.onerror = e => {
@@ -491,17 +554,20 @@ const Events = {
               store.openCursor(null, 'prev').onsuccess = e => {
                 let cursor = e.target.result;
                 if(cursor) {
+                  let {title, location, description, date, time} = cursor.value;
                   this.currentDbState.push({
                     id: cursor.key,
-                    title: cursor.value.title,
-                    location: cursor.value.location,
-                    description: cursor.value.description
-                  })
+                    title,
+                    location,
+                    description,
+                    date,
+                    time
+                  });
                   return cursor.continue();
                 };
                   this.loadDataToDOM();
               };
-            }
+            };
 
             //fired after the initial transaction is completed
             tx.oncomplete = () => {

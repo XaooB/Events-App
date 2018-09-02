@@ -10,4 +10,8 @@
   @include respond-to(large) {
     flex-flow: row wrap;
   }
+  &--row {
+    flex-flow: row nowrap;
+    flex-direction: row;
+  }
 }

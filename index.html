@@ -48,7 +48,7 @@
           <h2 class='page-intro__title'>Best events among </br> Your beloved city</h2>
           <p class='page-intro__desc'>Are you looking for a party, concert or you are the organizer by yourself? You are in a good place! Choose through a thousands of events available in plenty of cities.</p>
           <form action="#" method="post" class='form form--sign'>
-            <input type="text" placeholder="Enter your email" class='input input--default input--leftBorder'/>
+            <input type="text" placeholder="Enter your email" class='input input--default input--leftBorder' required />
             <div class='button-wrapper'>
               <button type="submit" class='button button--default'>create account</button>
             </div>
@@ -314,16 +314,16 @@
                 <div class='flex-wrapper footer__labels'>
                   <div class='label-wrapper'>
                     <label>email</label>
-                    <input type="text" placeholder="Enter your email" class="input input--darker" />
+                    <input pattern=".{3,}" required title="3 characters minimum" type="text" placeholder="Enter your email" class="input input--darker" />
                   </div>
                   <div class='label-wrapper'>
                     <label>nickname</label>
-                    <input type="text" placeholder="Enter your nickname" class="input  input--darker" />
+                    <input pattern=".{3,}" required title="3 characters minimum" type="text" placeholder="Enter your nickname" class="input  input--darker" />
                   </div>
                 </div>
                 <div class='label-wrapper'>
                   <label>message</label>
-                  <textarea type="text" placeholder="Enter your message" class='input--darker'></textarea>
+                  <textarea pattern=".{3,}" required title="3 characters minimum" type="text" placeholder="Enter your message" class='input--darker'></textarea>
                 </div>
                 <button class="button button--default">send message</button>
               </form>

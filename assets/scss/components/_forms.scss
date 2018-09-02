@@ -39,7 +39,7 @@
   outline:none;
   height:38px;
   border:none;
-  padding:0 15px;
+  padding:11px;
   border-radius:$radius10;
   &::placeholder {
     color: $palette-inputs-text;
@@ -75,6 +75,8 @@ input, textarea {
     padding:10px 15px;
     border:none;
     border-radius: $radius10;
-    max-width:442px;
+    @include respond-to(huge) {
+      max-width:442px;
+    }
   }
 }
