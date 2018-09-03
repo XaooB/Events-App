@@ -5,63 +5,63 @@ const Events = {
       title: 'FrontEnd Bootcamp 2018',
       location: 'Saturday at 6 pm, H15 Boutique Hotel, Warsaw',
       description: 'Meet us in Boutique Hotel next Saturday. We are going to talk about new trends of 2018',
-      date: '2018-09-03',
+      date: `${new Date(2018,9,03)}`,
       time: '20:00'
     },
     {
       title: 'Up In Smoke Tour',
       location: 'Saturday at 5 pm, Mattress Firm Amphitheatre, 2050 Entertainment Cir, Chula Vista',
       description: 'Featured Eminem, Snoop Dog, Dr Dre and more! Best event of 2018',
-      date: '2018-09-07',
+      date: `${new Date(2018,9,02)}`,
       time: '21:00'
     },
     {
       title: 'Art Show',
       location: 'Sunday at 11 am, Lincoln Street, London',
       description: 'Must come and see best art made by John Doe. #FREE ENTRY, #FREE MEAL',
-      date: '2018-09-10',
+      date: `${new Date(2018,9,10)}`,
       time: '21:45'
     },
     {
       title: 'Open Day - Business Link Maraton',
       location: 'Maraton Business Center, Poznań',
       description: 'We have a good reason to make you visit us at MBC. We will meet and talk about business and economy',
-      date: '2018-09-09',
+      date: `${new Date(2018,9,22)}`,
       time: '19:00'
     },
     {
       title: 'World Rowing Under 23',
       location: 'Malta, Poznań',
       description: 'For many years both the Greater Poland Rowing Foundation and FISA International Rowing Federation were loyal partners for the organization of international events',
-      date: '2018-09-12',
+      date: `${new Date(2018,10,01)}`,
       time: '19:30'
     },
     {
       title: 'Test #1',
       location: 'Wrasaw',
       description: 'Test #1',
-      date: '2018-09-18',
+      date: `${new Date(2018,10,05)}`,
       time: '17:00'
     },
     {
       title: 'Reet aliquam et at orci',
       location: 'Szczecin',
       description: 'e et dapibus elit, vitae vestibulum tellus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae',
-      date: '2018-09-27',
+      date: `${new Date(2018,11,15)}`,
       time: '18:00'
     },
     {
       title: 'At orci',
       location: 'Poznan',
       description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae',
-      date: '2018-09-27',
+      date: `${new Date(2018,11,28)}`,
       time: '18:45'
     },
     {
       title: 'ABC',
       location: 'Gdansk',
       description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae',
-      date: '2018-09-29',
+      date: `${new Date(2018,9,14)}`,
       time: '20:00'
     },
   ],
@@ -438,29 +438,33 @@ const Events = {
   sortData: function(e) {
     let filters = this.setFilters();
 
-    //temporary solution, works for now
+    //works only for title, date sort is not working probably because compare funtion takes sting as parameter instead of date objecet but im not sure enough
     if(filters[0] === 'title') {
       if(filters[1] === 'asc') {
         this.currentDbState.sort((a, b) => {
-          if(a.title < b.title) return 1;
-          if(a.title > b.title) return -1;
+          if(a.title > b.title) return 1;
+          if(a.title < b.title) return -1;
+          return 0;
         });
       } else {
         this.currentDbState.sort((a, b) => {
-          if(a.title > b.title) return 1;
-          if(a.title < b.title) return -1;
+          if(a.title > b.title) return -1;
+          if(a.title < b.title) return 1;
+          return 0;
         });
       }
     } else {
       if(filters[1] === 'asc') {
         this.currentDbState.sort((a, b) => {
-          if(a.date < b.date) return 1;
-          if(a.date > b.date) return -1;
+          if(a.date > b.date) return 1;
+          if(a.date < b.date) return -1;
+          return 0;
         });
       } else {
         this.currentDbState.sort((a, b) => {
-          if(a.date > b.date) return 1;
-          if(a.date < b.date) return -1;
+          if(a.date > b.date) return -1;
+          if(a.date < b.date) return 1;
+          return 0;
         });
       }
     }
