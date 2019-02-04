@@ -2,23 +2,26 @@ const Events = {
   //initial values that will be added to the database after visiting  website and resetting current database state
   initialValues: [
     {
-      title: 'FrontEnd Bootcamp 2018',
-      location: 'Saturday at 6 pm, H15 Boutique Hotel, Warsaw',
-      description: 'Meet us in Boutique Hotel next Saturday. We are going to talk about new trends of 2018',
-      date: `${new Date(2018,9,03)}`,
+      title: '5th CEPPIS Conference',
+      location: 'Saturday at 6 pm, H15 Boutique Hotel, Warszawa',
+      description: 'International scientific conference Civil Engineering: Present Problems.',
+      summary: 'We encourage you to take part in a discussion in the course of the conference debates or present your theoretical or practical considerations, experiences and results of conducted investigations. Innovative Solutions CEPPIS 2019 is set out to pay attention to recent trends especially Circular Economy in Construction Sector.',
+      date: `${new Date(2019,5,22)}`,
       time: '20:00'
     },
     {
       title: 'Up In Smoke Tour',
-      location: 'Saturday at 5 pm, Mattress Firm Amphitheatre, 2050 Entertainment Cir, Chula Vista',
+      location: 'Saturday at 5 pm, Mattress Firm Amphitheatre, 2050 Entertainment Cir, Nowy Jork',
       description: 'Featured Eminem, Snoop Dog, Dr Dre and more! Best event of 2018',
+      summary: "The tour was originally called The Boyz in the Hood under the pretext of Dr. Dre's to-be-released collaborative album The Chronic 2000 (later renamed).[1] In September 1999, Snoop Dogg stated that he, Dr. Dre, Eminem, Xzibit, Warren G and Nate Dogg would form the line-up.[2] By April 2000, Ice Cube was on board as part of the tour, which was slated for a June 15 start in San Diego. MC Ren, one time MC of N.W.A, was expected to join the tour in order to have reunited version of N.W.A along with Dr. Dre, Ice Cube, and Snoop Dogg.[3] Come May the tour was officially known as the Up In Smoke Tour,[4] and Dr. Dre was promising fans. Its gonna be incredible. We are gonna give everybody that's been buying our records a real show, something they've never seen before.",
       date: `${new Date(2018,9,02)}`,
       time: '21:00'
     },
     {
-      title: 'Art Show',
-      location: 'Sunday at 11 am, Lincoln Street, London',
-      description: 'Must come and see best art made by John Doe. #FREE ENTRY, #FREE MEAL',
+      title: 'Laravel #Poznań #Meetup #9!',
+      location: 'Sunday at 11 am, Lincoln Street, Londym',
+      description: "Laravel's freaks and not only let's connect!",
+      summary: 'Already in the New Year we invite you to the next editions of Laravel Meetups! Follow us to find out what we have prepared for you this time! It willl be possible to ask questions by Sli. Do application. We want to reach as many fans of Laravel as possible. We are going to share live streaming on our profile, especially for those who cannot be with us. We will try to release recordings of presentations after meetup (share on. slideshare.net/Laravel_Poznan_Meetup)',
       date: `${new Date(2018,9,10)}`,
       time: '21:45'
     },
@@ -26,43 +29,17 @@ const Events = {
       title: 'Open Day - Business Link Maraton',
       location: 'Maraton Business Center, Poznań',
       description: 'We have a good reason to make you visit us at MBC. We will meet and talk about business and economy',
-      date: `${new Date(2018,9,22)}`,
+      summary: 'Young Living - to od 25 lat światowy lider w dziedzinie aromaterapii, ekologiczne farmy, przyjazne biura i	6-milionowa społeczność w 40 krajach, na wszystkich kontynentach. Jednak przede wszystkim to filozofia czystych i aktywnych biologicznie olejów eterycznych, których produkcja jest kontrolowana na każdym etapie - od ziarna do szklanej buteleczki. Tylko 2% olejków eterycznych na świecie ma takie naturalne, biologicznie czynne pochodzenie zgodne ze standardem "from Sead to Seal"',
+      date: `${new Date(2018,9,30)}`,
       time: '19:00'
     },
     {
-      title: 'World Rowing Under 23',
-      location: 'Malta, Poznań',
-      description: 'For many years both the Greater Poland Rowing Foundation and FISA International Rowing Federation were loyal partners for the organization of international events',
-      date: `${new Date(2018,10,01)}`,
+      title: 'BEAT-PCD Conference & Training School 2019',
+      location: 'Poznań',
+      description: "The 4th (and Final) BEAT-PCD Conference and 5th PCD Training School will be held in Poznan, Poland from lunchtime on Tuesday 26 March to lunchtime on Friday 29 March 2019.",
+      summary: 'Venue: Mercure Poznań Centrum, Ul. Roosevelta 20, 60-829 POZNAN, POLAND. Full programme will be circulated later but the format will follow last years event combining presentations, invited speaker lectures and workshops.',
+      date: `${new Date(2019,05,11)}`,
       time: '19:30'
-    },
-    {
-      title: 'Test #1',
-      location: 'Wrasaw',
-      description: 'Test #1',
-      date: `${new Date(2018,10,05)}`,
-      time: '17:00'
-    },
-    {
-      title: 'Reet aliquam et at orci',
-      location: 'Szczecin',
-      description: 'e et dapibus elit, vitae vestibulum tellus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae',
-      date: `${new Date(2018,11,15)}`,
-      time: '18:00'
-    },
-    {
-      title: 'At orci',
-      location: 'Poznan',
-      description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae',
-      date: `${new Date(2018,11,28)}`,
-      time: '18:45'
-    },
-    {
-      title: 'ABC',
-      location: 'Gdansk',
-      description: 'e et dapilus. Nunc ac vehicula lorem. Quisque suscipit ac magna vitae',
-      date: `${new Date(2018,9,14)}`,
-      time: '20:00'
     },
   ],
   indexedDB: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB,
@@ -74,20 +51,22 @@ const Events = {
   modal: document.querySelector('.modal'),
   displayAmount: 4,
   currentDbState: [],
+  copyDbState: [],
   bindEvents: function() {
     //recently added events
     this.container.querySelectorAll('.popular__delete').forEach(item => {item.addEventListener('click', this.deleteEvent.bind(this), false)});
     this.container.querySelectorAll('.article__link').forEach(item => {item.addEventListener('click', this.showArticeInfo.bind(this), false)});
   },
   clearDOM: function() {
-    this.container.parentElement.firstElementChild.firstElementChild.innerText = 'recently added';
     this.container.innerHTML = '';
   },
   toggleModal: function () {
     this.modal.classList.toggle('modal--showing');
+    document.querySelector('.modal__wrapper').classList.toggle('modal--showing')
   },
   setAddEventModal: function() {
-    this.modal.innerHTML = `<div class="modal__wrapper">
+    this.modal.innerHTML =
+    `<div class="modal__wrapper">
       <div class="modal__header">
         <h4 class='modal__title'>Add your event</h4>
         <span class='modal__exit'></span>
@@ -127,25 +106,39 @@ const Events = {
     this.toggleModal();
   },
   showArticeInfo: function (e) {
+    e.stopImmediatePropagation();
     let eventID = Number(e.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id')),
         db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite'),
-        store = tx.objectStore('EventsStore');
+        store = tx.objectStore('EventsStore'),
+        months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     let event = store.get(eventID);
 
     event.onsuccess = e => {
-      let item = e.target.result;
-      this.modal.innerHTML = `<div class="modal__wrapper">
+      const { title, location, date, time, summary } = e.target.result;
+
+      console.log(summary);
+
+      this.modal.innerHTML =
+      `<div class="modal__wrapper">
         <div class="modal__header">
-          <h4 class='modal__title'>${item.title}</h4>
+          <h3 class='modal__title'>${title}</h3>
           <span class='modal__exit'></span>
         </div>
         <div class='modal__image-wrapper'>
           <img class='modal__image' src="assets/images/categories/fashion.jpg" />
         </div>
-        <p><small>Location: ${item.location}, ${item.date}, ${item.time}</small></p>
-        <p>Description: ${item.description}</p>
+        <div class='modal__content'>
+          <section class='modal__column'>
+            <span class='label'>About event</span>
+            <p>${summary}</p>
+          </section>
+          <section class='modal__column'>
+            <span class='label'>Location</span>
+            <p>${location}, ${new Date(date).getDate()} ${months[new Date(date).getMonth()]} ${new Date(date).getFullYear()},  ${time}</p>
+          </section>
+        </div>
       </div>`;
 
       this.toggleModal();
@@ -155,7 +148,6 @@ const Events = {
     event.onerror = e => {
       throw new Error(e);
     }
-    e.stopPropagation();
   },
   loadMoreData: function(e) {
     let db = this.dbOpen.result,
@@ -165,32 +157,32 @@ const Events = {
         toggleDataBtn = document.querySelector('button[name="load-more-events"]'),
         monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
-    if(nodeList.length < this.currentDbState.length) {
+    if(nodeList.length < this.copyDbState.length) {
       this.clearDOM();
       for (var i = 0 ; i < nodeList.length + 4; i++) {
-        if(this.currentDbState[i] === undefined) {
+        if(this.copyDbState[i] === undefined) {
           return (
             this.bindEvents(),
-            this.displayAmount = this.currentDbState.length
+            this.displayAmount = this.copyDbState.length
           )
         }
-        this.container.innerHTML += `<article class="popular__item" data-id='${this.currentDbState[i].id}'>
+        this.container.innerHTML += `<article class="popular__item" data-id='${this.copyDbState[i].id}'>
                       <figure class='article__image-wrapper'>
                         <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
                         <button class='button button--danger popular__delete'>⤫</button>
                       </figure>
                       <div class="article__wrapper article__info">
                         <div class="article__date">
-                          <span class='article__day'>${new Date(this.currentDbState[i].date).getDate()}</span>
-                          <span class='article__month'>${monthArr[new Date(this.currentDbState[i].date).getMonth()]}</span>
+                          <span class='article__day'>${new Date(this.copyDbState[i].date).getDate()}</span>
+                          <span class='article__month'>${monthArr[new Date(this.copyDbState[i].date).getMonth()]}</span>
                         </div>
                         <a href="javascript:void(0)" class='article__link'>
                           <div class="article__content">
                             <header>
-                              <h4 class='article__title'>${this.currentDbState[i].title}</h4>
+                              <h4 class='article__title'>${this.copyDbState[i].title}</h4>
                             </header>
-                              <p class="article__summary">${this.currentDbState[i].location}</p>
-                              <p class='article__text'>${this.currentDbState[i].description}</p>
+                              <p class="article__summary">${this.copyDbState[i].location}</p>
+                              <p class='article__text'>${this.copyDbState[i].description}</p>
                           </div>
                         </a>
                       </div>
@@ -202,23 +194,37 @@ const Events = {
       toggleDataBtn.disabled = true;
     }
   },
+  showNotification: function(text) {
+    let dbNavWrapper = document.querySelector('#db-nav'),
+        paragraph = dbNavWrapper.querySelector('.notification-info');
+    paragraph.innerHTML = `${text}`;
+    dbNavWrapper.classList.add('notification');
+
+    //reset form fields
+    title = location = description = date = '';
+    let notificationTime = setTimeout(() => {
+      paragraph.innerText = ''
+      dbNavWrapper.classList.remove('notification');
+    }, 1500);
+  },
   addInitialEvents: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite'),
         store = tx.objectStore('EventsStore');
 
     this.initialValues.forEach(item => {
-      let {title, location, description, date, time} = item;
+      let {title, location, description, summary, date, time} = item;
       store.put({
         title,
         location,
         description,
+        summary,
         date,
         time
       });
     })
 
-    //set currectDbState
+    //set currentDbState
     store.openCursor(null, 'prev').onsuccess = e => {
       let cursor = e.target.result;
       if(cursor) {
@@ -233,6 +239,7 @@ const Events = {
         });
         cursor.continue();
       } else {
+        this.copyDbState = this.currentDbState.slice();
         this.loadDataToDOM();
       }
     }
@@ -297,7 +304,6 @@ const Events = {
             paragraph.innerHTML = `<strong>${title}</strong> has been added to the database`;
             dbNavWrapper.classList.add('notification');
 
-            //reset form fields
             title = location = description = date = '';
             let notificationTime = setTimeout(() => {
               paragraph.innerText = ''
@@ -317,11 +323,20 @@ const Events = {
           clearTimeout(disableButton);
         }, 1500);
   },
+  resetInputsValue: function() {
+    let searchInputs = document.querySelectorAll('input[type="search"]');
+
+    searchInputs.forEach(item => {
+      item.value = '';
+    });
+  },
   restoreSettings: function() {
     let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore'),
-        toggleDataBtn = document.querySelector('button[name="load-more-events"]');
+        toggleDataBtn = document.querySelector('button[name="load-more-events"]'),
+        dbNavWrapper = document.querySelector('#db-nav'),
+        paragraph = dbNavWrapper.querySelector('.notification-info');
 
         store.clear().onsuccess = () => {
           this.currentDbState = [];
@@ -329,52 +344,119 @@ const Events = {
           this.displayAmount = 4;
           this.clearDOM();
           this.addInitialEvents();
-          // toggleDataBtn.disabled = false;
+
+          paragraph.innerHTML = `Data has been restored from database.`;
+          dbNavWrapper.classList.add('notification');
+          let notificationTime = setTimeout(() => {
+            paragraph.innerText = ''
+            dbNavWrapper.classList.remove('notification');
+          }, 1500);
         };
   },
+  searchHelper: function(i, displayTitle, displayCity) {
+    let monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
+    //default value
+    city = displayCity !== null ? displayCity : '';
+    title = displayTitle !== null ? displayTitle : '';
+
+    if(this.container.childNodes[0].localName == 'span') this.container.removeChild(this.container.firstElementChild);
+    this.container.innerHTML +=
+      `<article class="popular__item" data-id='${this.copyDbState[i].id}'>
+        <figure class='article__image-wrapper'>
+          <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
+          <button class='button button--danger popular__delete'>⤫</button>
+        </figure>
+        <div class="article__wrapper article__info">
+          <div class="article__date">
+            <span class='article__day'>${new Date(this.copyDbState[i].date).getDate()}</span>
+            <span class='article__month'>${monthArr[new Date(this.copyDbState[i].date).getMonth()]}</span>
+          </div>
+          <a href="#" class='article__link'>
+          <div class="article__content">
+            <header>
+              <h4 class='article__title'>${this.copyDbState[i].title}</h4>
+            </header>
+            <p class="article__summary">${this.copyDbState[i].location}</p>
+            <p class='article__text'>${this.copyDbState[i].description}</p>
+          </div>
+        </a>
+      </div>
+    </article>`
+  },
   searchDatabase: function(e) {
-    let keyword = e.target.value.toLowerCase(),
-        db = this.dbOpen.result,
+    let db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite'),
         store = tx.objectStore('EventsStore'),
-        titleInput = document.querySelector('input[name="title"]');
+        title = document.querySelector('[name="title"]').value.toLowerCase(),
+        city = document.querySelector('[name="city"]').value.toLowerCase();
 
-        // check for search value
-        if(titleInput.value === '') {
-          return (
-            this.clearDOM(),
-            this.loadDataToDOM()
-          )
-        }
+    // copy original database state every each call
+    // because each item that does not meet the condition in filter methods (430, 442, 454)
+    // is deleted from an array, so when a letter changes we need to be sure that an array
+    // contains all events to be filtered again
+    // !! PROBABLY BAD PERFORMANCE WITH A LOT OF ITEMS IN AN ARRAY, need exp.
+    this.copyDbState = this.currentDbState.slice();
 
-        this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">There is no events uder that keyword.</span>';
-        this.currentDbState.forEach(item => {
-          if(item.title.toLowerCase().split(' ').indexOf(keyword) !== -1) {
-            if(this.container.childNodes[0].localName == 'span') this.container.removeChild(this.container.firstElementChild);
-            this.container.parentElement.firstElementChild.firstElementChild.innerHTML = `Searched for: <span style='font-weight: bold; color: #d4145a;'><i>${keyword}</i></span>`;
-            this.container.innerHTML += `<article class="popular__item" data-id='${item.id}'>
-                          <figure class='article__image-wrapper'>
-                            <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
-                            <button class='button button--danger popular__delete'>⤫</button>
-                          </figure>
-                          <div class="article__wrapper article__info">
-                            <div class="article__date">
-                              <span class='article__day'>21</span>
-                              <span class='article__month'>AUG</span>
-                            </div>
-                            <a href="#" class='article__link'>
-                              <div class="article__content">
-                                <header>
-                                  <h4 class='article__title'>${item.title}</h4>
-                                </header>
-                                  <p class="article__summary">${item.location}</p>
-                                  <p class='article__text'>${item.description}</p>
-                              </div>
-                            </a>
-                          </div>
-                      </article>`
-          };
-      });
+    this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">There is no events under that keyword.</span>';
+    if(title.length > 0 && city.length > 0) {
+      for (var i = 0; i < this.copyDbState.length; i++)
+        if(this.filterTitleCity(this.copyDbState[i], i)) i--;
+
+      this.bindEvents();
+    } else if (title.length > 0) {
+      for (var i = 0; i < this.copyDbState.length; i++)
+        if(this.filterTitle(this.copyDbState[i], i)) i--;
+
+      this.bindEvents();
+    } else if (city.length > 0) {
+      for (var i = 0; i < this.copyDbState.length; i++)
+        if(this.filterCity(this.copyDbState[i], i)) i--;
+
+      this.bindEvents();
+    } else {
+      this.displayAmount = 4;
+      this.clearDOM(),
+      this.loadDataToDOM()
+    }
+  },
+  filterTitle: function(item, index) {
+    let title = item.title.toLowerCase(),
+    searchByTitle = document.querySelector('[name="title"]').value.toLowerCase();
+
+    if(title.includes(searchByTitle)) {
+      this.searchHelper(index, searchByTitle, null);
+      return false;
+    } else {
+      this.copyDbState.splice(index, 1)
+      return true;
+    }
+  },
+  filterCity: function(item, index) {
+    let location = item.location.toLowerCase(),
+    searchByCity = document.querySelector('[name="city"]').value.toLowerCase();
+
+    if(location.includes(searchByCity)) {
+      this.searchHelper(index, null, searchByCity);
+      return false;
+    } else {
+      this.copyDbState.splice(index, 1)
+      return true;
+    }
+  },
+  filterTitleCity: function(item, index) {
+    let location = item.location.toLowerCase(),
+        title = item.title.toLowerCase(),
+        searchByTitle = document.querySelector('[name="title"]').value.toLowerCase();
+        searchByCity = document.querySelector('[name="city"]').value.toLowerCase();
+
+    if(location.includes(searchByCity) && title.includes(searchByTitle)) {
+      this.searchHelper(index, searchByTitle, searchByCity);
+      return false;
+    } else {
+      this.copyDbState.splice(index, 1)
+      return true;
+    }
   },
   setFilters: function(e) {
     let sortWraper = document.querySelector('.popular__sort'),
@@ -410,44 +492,43 @@ const Events = {
         eventID = Number(e.target.parentElement.parentElement.getAttribute('data-id')),
         notificationWrapper = document.querySelector('.notification-wrapper'),
         dbNavWrapper = document.querySelector('#db-nav'),
-        paragraph = dbNavWrapper.querySelector('.notification-info');
+        paragraph = dbNavWrapper.querySelector('.notification-info'),
+        deleteItem = store.delete(eventID);
 
-        let deleteItem = store.delete(eventID);
+    deleteItem.onsuccess = () => {
+      this.copyDbState.forEach((item, key) => {
+        if(item.id === eventID) {
+          paragraph.innerHTML = `<b>${item.title}</b> has been deleted from the database.`;
+          dbNavWrapper.classList.add('notification');
+          this.copyDbState.splice(key, 1);
 
-        deleteItem.onsuccess = () => {
-        this.currentDbState.forEach((item, key) => {
-          if(item.id === eventID) {
-            paragraph.innerHTML = `<b>${item.title}</b> has been deleted from the database.`;
-            dbNavWrapper.classList.add('notification');
-            this.currentDbState.splice(key, 1);
-
-            let notificationTime = setTimeout(() => {
-              paragraph.innerText = ''
-              dbNavWrapper.classList.remove('notification');
-            }, 1500)
+          for (var i = 0; i < this.currentDbState.length; i++) {
+            if(this.currentDbState[i].id === item.id)  this.currentDbState.splice(i, 1);
           }
-        });
-          this.clearDOM();
-          this.loadDataToDOM();
-        };
 
-        deleteItem.onerror = e => {
-          throw new Error(e);
-        };
+          let notificationTime = setTimeout(() => {
+            paragraph.innerText = ''
+            dbNavWrapper.classList.remove('notification');
+          }, 1500)
+        }
+      });
+      this.clearDOM();
+      this.loadDataToDOM();
+    };
   },
   sortData: function(e) {
     let filters = this.setFilters();
 
-    //works only for title, date sort is not working probably because compare funtion takes sting as parameter instead of date objecet but im not sure enough
+    //works only for title, date sort is not working probably because compare funtion takes string as parameter instead of date objecet but im not sure enough
     if(filters[0] === 'title') {
       if(filters[1] === 'asc') {
-        this.currentDbState.sort((a, b) => {
+        this.copyDbState.sort((a, b) => {
           if(a.title > b.title) return 1;
           if(a.title < b.title) return -1;
           return 0;
         });
       } else {
-        this.currentDbState.sort((a, b) => {
+        this.copyDbState.sort((a, b) => {
           if(a.title > b.title) return -1;
           if(a.title < b.title) return 1;
           return 0;
@@ -455,15 +536,15 @@ const Events = {
       }
     } else {
       if(filters[1] === 'asc') {
-        this.currentDbState.sort((a, b) => {
-          if(a.date > b.date) return 1;
-          if(a.date < b.date) return -1;
+        this.copyDbState.sort((a, b) => {
+          if(new Date(a.date) > new Date(b.date)) return 1;
+          if(new Date(a.date) < new Date(b.date)) return -1;
           return 0;
         });
       } else {
-        this.currentDbState.sort((a, b) => {
-          if(a.date > b.date) return -1;
-          if(a.date < b.date) return 1;
+        this.copyDbState.sort((a, b) => {
+          if(new Date(a.date) > new Date(b.date)) return -1;
+          if(new Date(a.date) < new Date(b.date)) return 1;
           return 0;
         });
       }
@@ -477,27 +558,30 @@ const Events = {
         store = tx.objectStore('EventsStore'),
         monthArr = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
-    if(this.displayAmount > this.currentDbState.length) this.displayAmount = this.currentDbState.length;
-    if(this.currentDbState.length === 0) return this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">No events to display. You need to add one or restore data to initial values.</span>';
+    // if(this.copyDbState.length === 0) this.copyDbState = this.currentDbState.slice()
+    if(this.displayAmount > this.copyDbState.length) this.displayAmount = this.copyDbState.length;
+
+    //message if there is no events to display
+    if(this.copyDbState.length === 0) return this.container.innerHTML = '<span style="margin-top:5px; margin-bottom:15px;">No events to display. You need to add one, change your search keywords or restore data to initial values.</span>';
       for (var i = 0; i < this.displayAmount; i++) {
         //temporary solution with displaying events, works as expected but looks kinda bad
-        this.container.innerHTML += `<article class="popular__item" data-id='${this.currentDbState[i].id}'>
+        this.container.innerHTML += `<article class="popular__item" data-id='${this.copyDbState[i].id}'>
                       <figure class='article__image-wrapper'>
                         <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
                         <button class='button button--danger popular__delete'>⤫</button>
                       </figure>
                       <div class="article__wrapper article__info">
                         <div class="article__date">
-                          <span class='article__day'>${new Date(this.currentDbState[i].date).getDate()}</span>
-                          <span class='article__month'>${monthArr[new Date(this.currentDbState[i].date).getMonth()]}</span>
+                          <span class='article__day'>${new Date(this.copyDbState[i].date).getDate()}</span>
+                          <span class='article__month'>${monthArr[new Date(this.copyDbState[i].date).getMonth()]}</span>
                         </div>
                         <a href="javascript:void(0)" class='article__link'>
                           <div class="article__content">
                             <header>
-                              <h4 class='article__title'>${this.currentDbState[i].title}</h4>
+                              <h4 class='article__title'>${this.copyDbState[i].title}</h4>
                             </header>
-                              <p class="article__summary">${this.currentDbState[i].location}</p>
-                              <p class='article__text'>${this.currentDbState[i].description}</p>
+                              <p class="article__summary">${this.copyDbState[i].location}</p>
+                              <p class='article__text'>${this.copyDbState[i].description}</p>
                           </div>
                         </a>
                       </div>
@@ -518,7 +602,8 @@ const Events = {
         modalWrapper = this.modal.querySelector('.modal__wrapper'),
         filterByNameDate = sortWrapper.querySelector('#sort_dn'),
         filterByAscDesc = sortWrapper.querySelector('#sort_ad'),
-        searchInputs = searchForm.querySelectorAll('input[type="search"]');
+        searchInputs = searchForm.querySelectorAll('input[type="search"]'),
+        resetInputsValue = searchForm.querySelector('#resetInputs');
 
     return () => {
       this.dbOpen.onupgradeneeded = e => {
@@ -529,69 +614,71 @@ const Events = {
             store.createIndex('title', 'title', {unique: false});
             store.createIndex('location', 'location', {unique: false});
             store.createIndex('description', 'description', {unique: false});
+            store.createIndex('summary', 'summary', {unique: false});
             store.createIndex('date', 'date', {unique: false});
             store.createIndex('time', 'time', {unique: false});
-      };
+        };
 
       this.dbOpen.onsuccess = e => {
         let db = this.dbOpen.result,
             tx = db.transaction('EventsStore', 'readwrite');
             store = tx.objectStore('EventsStore');
 
-            store.index('title');
-            store.index('location');
-            store.index('description')
-            store.index('date')
-            store.index('time')
+        store.index('title');
+        store.index('location');
+        store.index('description')
+        store.index('summary')
+        store.index('date')
+        store.index('time')
 
-            //general error handler
-            db.onerror = e => {
-              throw new Error(e.target.error);
+        //general error handler
+        db.onerror = e => {
+          throw new Error(e.target.error);
+        };
+
+        //read data from db and set it to currentDbState variable
+        store.getAll().onsuccess = e => {
+          if(e.target.result.length === 0) return this.addInitialEvents();
+          store.openCursor(null, 'prev').onsuccess = e => {
+            let cursor = e.target.result;
+            if(cursor) {
+              let {title, location, description, summary, date, time} = cursor.value;
+              this.currentDbState.push({
+                id: cursor.key,
+                title,
+                location,
+                description,
+                summary,
+                date,
+                time
+              });
+              return cursor.continue();
             };
+              this.copyDbState = this.currentDbState.slice();
+              this.loadDataToDOM();
+          };
+        };
 
-            //clear old data on each refresh - causes troubles with cursor. Cursor is incremented instead of being reset after every initiation call.
-            // store.clear();
+      //fired after the initial transaction is completed
+        tx.oncomplete = () => {
+          // db.close();
+          };
+        };
 
-            //read data from db and set it to currentDbState variable
-            store.getAll().onsuccess = e => {
-              if(e.target.result.length === 0) return this.addInitialEvents();
-              store.openCursor(null, 'prev').onsuccess = e => {
-                let cursor = e.target.result;
-                if(cursor) {
-                  let {title, location, description, date, time} = cursor.value;
-                  this.currentDbState.push({
-                    id: cursor.key,
-                    title,
-                    location,
-                    description,
-                    date,
-                    time
-                  });
-                  return cursor.continue();
-                };
-                  this.loadDataToDOM();
-              };
-            };
+        this.dbOpen.onerror = e => {
+          throw new Error(e.target.error);
+        };
 
-            //fired after the initial transaction is completed
-            tx.oncomplete = () => {
-              // db.close();
-            };
-      };
-
-      this.dbOpen.onerror = e => {
-        throw new Error(e.target.error);
-      };
-
-      restoreDbBtn.addEventListener('click', this.restoreSettings.bind(this), false);
-      modalDisplayBtn.addEventListener('click', this.setAddEventModal.bind(this), false);
-      loadMoreBtn.addEventListener('click', this.loadMoreData.bind(this), false);
-      filterByNameDate.addEventListener('click', this.sortData.bind(this) ,false);
-      filterByAscDesc.addEventListener('click', this.sortData.bind(this), false);
-      searchInputs.forEach(item => {item.addEventListener('keyup', this.searchDatabase.bind(this), false)});
-      window.addEventListener('click', e => {if(e.target === this.modal) this.toggleModal()}, false);
+        restoreDbBtn.addEventListener('click', this.restoreSettings.bind(this), false);
+        modalDisplayBtn.addEventListener('click', this.setAddEventModal.bind(this), false);
+        loadMoreBtn.addEventListener('click', this.loadMoreData.bind(this), false);
+        filterByNameDate.addEventListener('click', this.sortData.bind(this) ,false);
+        filterByAscDesc.addEventListener('click', this.sortData.bind(this), false);
+        resetInputsValue.addEventListener('click', this.resetInputsValue.bind(this), false);
+        searchInputs.forEach(item => {item.addEventListener('keyup', this.searchDatabase.bind(this), false)});
+        window.addEventListener('click', e => { if(e.target === this.modal) this.toggleModal() }, false);
     };
-  },
+  }
 };
 
 Events.initial()();

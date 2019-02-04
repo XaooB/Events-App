@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="assets/scss/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
+  <body id='body'>
     <div class="hero">
       <div class="container">
           <header class="header">
@@ -19,23 +19,23 @@
                 <p class='logotype__desc'>all over your city</p>
               </div>
           </div>
-          <div class='nav-toggle'>
-            <label for='nav-toggle'>&#9776;</label>
+          <div class='nav-mobile'>
             <input type="checkbox" name="nav-toggle" id='nav-toggle'>
-            <nav class="nav-mobile">
-              <ul class="nav__list">
-                <li class="nav__item"><a href="#" class="nav__link">add event</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">home</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">events</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">categories</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">about us</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">contact</a></li>
-              </ul>
-            </nav>
+            <div class='nav__background'>
+              <label for='nav-toggle'>&#9776;</label>
+              <nav class="navigation">
+                <ul class="nav__list">
+                  <li class="nav__item"><a href="#" class="nav__link">home</a></li>
+                  <li class="nav__item"><a href="#" class="nav__link">events</a></li>
+                  <li class="nav__item"><a href="#" class="nav__link">categories</a></li>
+                  <li class="nav__item"><a href="#" class="nav__link">about us</a></li>
+                  <li class="nav__item"><a href="#" class="nav__link">contact</a></li>
+                </ul>
+              </nav>
+            </div>
           </div>
           <nav class="nav">
             <ul class="nav__list">
-              <li class="nav__item"><a href="#" class="nav__link">add event</a></li>
               <li class="nav__item"><a href="#" class="nav__link">home</a></li>
               <li class="nav__item"><a href="#" class="nav__link">events</a></li>
               <li class="nav__item"><a href="#" class="nav__link">categories</a></li>
@@ -93,11 +93,13 @@
           <div class="search-flex">
             <h3 class="search__title">search our database</h3>
             <p class="search__sub">1000+ events near you</p>
-            <form action="#" method="post" class='search__form form form--default'>
+            <form action="void:javascript(0)" method="post" class='search__form form form--default'>
               <input type="search" placeholder="What are you looking for?" class="input input--default" name='title' />
-              <input type="search" placeholder="Enter event location" class="input input--default"  name='city' />
+              <input type="search" placeholder="Enter event location" class="input input--default"  name='city' id='city'/>
+              <span class="search__loader"></span>
+              <img src='assets/images/location.svg' class='search__icon' alt='get location' title='get location' id='navigator' />
               <div class='button-wrapper'>
-                <button class="button button--default">reset</button>
+                <button class="button button--default" id='resetInputs'>reset</button>
               </div>
             </form>
           </div>
@@ -107,7 +109,7 @@
         <section class="section popular">
           <section class='recently-added'>
             <div class='popular__sort-wrapper'>
-              <h3 class="section-title">recently added</h3>
+              <h3 class="section-title">events</h3>
               <div class='popular__sort'>
                 <span style="color:#d4145a">filter by:</span>
                 <label for="sort_dn" class='sorting__label' name='sort_dn'>title</label>
@@ -345,5 +347,7 @@
       </div>
     </div>
     <script src="assets/js/app.js" charset="utf-8"></script>
+    <script src="assets/js/navigation.js" charset="utf-8"></script>
+    <script src="assets/js/geolocation.js" charset="utf-8"></script>
   </body>
 </html>

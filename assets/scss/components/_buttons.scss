@@ -8,6 +8,7 @@
 }
 
 .button {
+  border-radius: $radius10;
   cursor: pointer;
   white-space: nowrap;
   width:100%;
@@ -24,8 +25,6 @@
   &:hover {
     transition: .2s all;
     background: darken(#F0F0F0, 15%);
-    color:$palette-primary-text;
-    // font-weight:bold;
     &:not(:enabled) {
       background:buttonface;
       cursor:not-allowed;
@@ -34,9 +33,10 @@
   &--default {
     background: $palette-buttons;
     color:$palette-secondary;
+    border-bottom:2px solid $palette-buttons;
     &:hover {
       transition: .2s all;
-      background: lighten($palette-buttons, 8%);
+      background: lighten($palette-buttons, 15%);
     }
   }
   &--danger {
@@ -47,28 +47,12 @@
     }
   }
   &--modal {
-    width:139px;
-    background:white;
-    border-left:2px solid $palette-primary;
-    color:$palette-primary;
-    position: relative;
-    &:before {
-      position: absolute;
-      content: '';
-      left:0;
-      top:0;
-      width:0;
-      background:$palette-primary;
-      z-index: 0;
-      height:100%;
-      transition:width .3s ease-out;
-    }
+    width:120px;
+    background:$palette-buttons;
+    border-bottom:2px solid $palette-buttons;
+    color:$palette-secondary;
     &:hover {
-      color:$palette-secondary;
-      background: transparent;
-      &:before {
-        width:100%;
-      }
+      background: lighten($palette-buttons, 15%);
     }
     @include respond-to(small) {
       width:150px;

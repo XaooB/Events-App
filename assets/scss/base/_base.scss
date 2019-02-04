@@ -5,6 +5,7 @@ body {
   font-family: 'RobotoR';
   font-size: 16px; //1em
   background:$palette-body-bg;
+  transition: all .3s ease-in;
 }
 .container {
   max-width:1200px;
