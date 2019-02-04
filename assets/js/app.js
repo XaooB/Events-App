@@ -6,7 +6,7 @@ const Events = {
       location: 'Saturday at 6 pm, H15 Boutique Hotel, Warszawa',
       description: 'International scientific conference Civil Engineering: Present Problems.',
       summary: 'We encourage you to take part in a discussion in the course of the conference debates or present your theoretical or practical considerations, experiences and results of conducted investigations. Innovative Solutions CEPPIS 2019 is set out to pay attention to recent trends especially Circular Economy in Construction Sector.',
-      date: `${new Date(2019,5,22)}`,
+      date: `2019-5-22`,
       time: '20:00'
     },
     {
@@ -14,7 +14,7 @@ const Events = {
       location: 'Saturday at 5 pm, Mattress Firm Amphitheatre, 2050 Entertainment Cir, Nowy Jork',
       description: 'Featured Eminem, Snoop Dog, Dr Dre and more! Best event of 2018',
       summary: "The tour was originally called The Boyz in the Hood under the pretext of Dr. Dre's to-be-released collaborative album The Chronic 2000 (later renamed).[1] In September 1999, Snoop Dogg stated that he, Dr. Dre, Eminem, Xzibit, Warren G and Nate Dogg would form the line-up.[2] By April 2000, Ice Cube was on board as part of the tour, which was slated for a June 15 start in San Diego. MC Ren, one time MC of N.W.A, was expected to join the tour in order to have reunited version of N.W.A along with Dr. Dre, Ice Cube, and Snoop Dogg.[3] Come May the tour was officially known as the Up In Smoke Tour,[4] and Dr. Dre was promising fans. Its gonna be incredible. We are gonna give everybody that's been buying our records a real show, something they've never seen before.",
-      date: `${new Date(2018,9,02)}`,
+      date: `2018-9-02`,
       time: '21:00'
     },
     {
@@ -22,7 +22,7 @@ const Events = {
       location: 'Sunday at 11 am, Lincoln Street, Londym',
       description: "Laravel's freaks and not only let's connect!",
       summary: 'Already in the New Year we invite you to the next editions of Laravel Meetups! Follow us to find out what we have prepared for you this time! It willl be possible to ask questions by Sli. Do application. We want to reach as many fans of Laravel as possible. We are going to share live streaming on our profile, especially for those who cannot be with us. We will try to release recordings of presentations after meetup (share on. slideshare.net/Laravel_Poznan_Meetup)',
-      date: `${new Date(2018,9,10)}`,
+      date: `2018-9-10`,
       time: '21:45'
     },
     {
@@ -30,7 +30,7 @@ const Events = {
       location: 'Maraton Business Center, Poznań',
       description: 'We have a good reason to make you visit us at MBC. We will meet and talk about business and economy',
       summary: 'Young Living - to od 25 lat światowy lider w dziedzinie aromaterapii, ekologiczne farmy, przyjazne biura i	6-milionowa społeczność w 40 krajach, na wszystkich kontynentach. Jednak przede wszystkim to filozofia czystych i aktywnych biologicznie olejów eterycznych, których produkcja jest kontrolowana na każdym etapie - od ziarna do szklanej buteleczki. Tylko 2% olejków eterycznych na świecie ma takie naturalne, biologicznie czynne pochodzenie zgodne ze standardem "from Sead to Seal"',
-      date: `${new Date(2018,9,30)}`,
+      date: `2018-9-30`,
       time: '19:00'
     },
     {
@@ -38,7 +38,7 @@ const Events = {
       location: 'Poznań',
       description: "The 4th (and Final) BEAT-PCD Conference and 5th PCD Training School will be held in Poznan, Poland from lunchtime on Tuesday 26 March to lunchtime on Friday 29 March 2019.",
       summary: 'Venue: Mercure Poznań Centrum, Ul. Roosevelta 20, 60-829 POZNAN, POLAND. Full programme will be circulated later but the format will follow last years event combining presentations, invited speaker lectures and workshops.',
-      date: `${new Date(2019,05,11)}`,
+      date: `2019-05-11`,
       time: '19:30'
     },
   ],
@@ -250,16 +250,14 @@ const Events = {
         //make the first letter of the string to be uppercase
         title = form.querySelector('#title').value.replace(/^\w/, e => e.toUpperCase()),
         location = form.querySelector('#location').value,
+        summary = form.querySelector('#summary').value,
         description = form.querySelector('#description').value,
-        date = new Date(form.querySelector('input[type="date"]').value),
+        date = form.querySelector('input[type="date"]').value,
         time = form.querySelector('input[type="time"]').value,
         btn = e.target,
         dbNavWrapper = document.querySelector('#db-nav'),
         notificationWrapper = dbNavWrapper.querySelector('.notification-wrapper'),
         paragraph = dbNavWrapper.querySelector('.notification-info');
-
-        console.log('Year: ',date.getFullYear());
-        console.log('Month: ',date.getMonth() + 1);
 
         //disable disable button to avoid sending form abuse
         btn.disabled = true;
@@ -272,6 +270,7 @@ const Events = {
           title,
           location,
           description,
+          summary,
           date,
           time
         });
@@ -284,6 +283,7 @@ const Events = {
             let cursor = e.target.result;
             if(cursor) {
               let {title, location, description, date, time} = cursor.value;
+              console.log(typeof date);
               this.currentDbState.push({
                 id: cursor.key,
                 title,
@@ -295,8 +295,7 @@ const Events = {
               return cursor.continue();
             };
 
-
-            this.displayAmount += 1;
+            this.copyDbState = this.currentDbState.slice();
             this.clearDOM();
             this.loadDataToDOM();
 
