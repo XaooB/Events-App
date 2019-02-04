@@ -259,6 +259,10 @@ const Events = {
         notificationWrapper = dbNavWrapper.querySelector('.notification-wrapper'),
         paragraph = dbNavWrapper.querySelector('.notification-info');
 
+        if(title.length === 0 || location.length === 0 || summary.length === 0 || description.length === 0 || date.length === 0 || time.length === 0) {
+          console.log('Wypełnij wszystkie pola!');
+          return true;
+        }
         //disable disable button to avoid sending form abuse
         btn.disabled = true;
 
@@ -283,7 +287,7 @@ const Events = {
             let cursor = e.target.result;
             if(cursor) {
               let {title, location, description, date, time} = cursor.value;
-              console.log(typeof date);
+              
               this.currentDbState.push({
                 id: cursor.key,
                 title,
