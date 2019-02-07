@@ -7,7 +7,8 @@ const Events = {
       description: 'International scientific conference Civil Engineering: Present Problems.',
       summary: 'We encourage you to take part in a discussion in the course of the conference debates or present your theoretical or practical considerations, experiences and results of conducted investigations. Innovative Solutions CEPPIS 2019 is set out to pay attention to recent trends especially Circular Economy in Construction Sector.',
       date: `2019-5-22`,
-      time: '20:00'
+      time: '20:00',
+      image: "https://www.dike.lib.ia.us/images/sample-1.jpg/image"
     },
     {
       title: 'Up In Smoke Tour',
@@ -15,7 +16,8 @@ const Events = {
       description: 'Featured Eminem, Snoop Dog, Dr Dre and more! Best event of 2018',
       summary: "The tour was originally called The Boyz in the Hood under the pretext of Dr. Dre's to-be-released collaborative album The Chronic 2000 (later renamed).[1] In September 1999, Snoop Dogg stated that he, Dr. Dre, Eminem, Xzibit, Warren G and Nate Dogg would form the line-up.[2] By April 2000, Ice Cube was on board as part of the tour, which was slated for a June 15 start in San Diego. MC Ren, one time MC of N.W.A, was expected to join the tour in order to have reunited version of N.W.A along with Dr. Dre, Ice Cube, and Snoop Dogg.[3] Come May the tour was officially known as the Up In Smoke Tour,[4] and Dr. Dre was promising fans. Its gonna be incredible. We are gonna give everybody that's been buying our records a real show, something they've never seen before.",
       date: `2018-9-02`,
-      time: '21:00'
+      time: '21:00',
+      image: "https://www.dike.lib.ia.us/images/sample-1.jpg/image"
     },
     {
       title: 'Laravel #Poznań #Meetup #9!',
@@ -23,7 +25,8 @@ const Events = {
       description: "Laravel's freaks and not only let's connect!",
       summary: 'Already in the New Year we invite you to the next editions of Laravel Meetups! Follow us to find out what we have prepared for you this time! It willl be possible to ask questions by Sli. Do application. We want to reach as many fans of Laravel as possible. We are going to share live streaming on our profile, especially for those who cannot be with us. We will try to release recordings of presentations after meetup (share on. slideshare.net/Laravel_Poznan_Meetup)',
       date: `2018-9-10`,
-      time: '21:45'
+      time: '21:45',
+      image: "https://www.dike.lib.ia.us/images/sample-1.jpg/image"
     },
     {
       title: 'Open Day - Business Link Maraton',
@@ -31,7 +34,8 @@ const Events = {
       description: 'We have a good reason to make you visit us at MBC. We will meet and talk about business and economy',
       summary: 'Young Living - to od 25 lat światowy lider w dziedzinie aromaterapii, ekologiczne farmy, przyjazne biura i	6-milionowa społeczność w 40 krajach, na wszystkich kontynentach. Jednak przede wszystkim to filozofia czystych i aktywnych biologicznie olejów eterycznych, których produkcja jest kontrolowana na każdym etapie - od ziarna do szklanej buteleczki. Tylko 2% olejków eterycznych na świecie ma takie naturalne, biologicznie czynne pochodzenie zgodne ze standardem "from Sead to Seal"',
       date: `2018-9-30`,
-      time: '19:00'
+      time: '19:00',
+      image: "https://www.dike.lib.ia.us/images/sample-1.jpg/image"
     },
     {
       title: 'BEAT-PCD Conference & Training School 2019',
@@ -39,7 +43,8 @@ const Events = {
       description: "The 4th (and Final) BEAT-PCD Conference and 5th PCD Training School will be held in Poznan, Poland from lunchtime on Tuesday 26 March to lunchtime on Friday 29 March 2019.",
       summary: 'Venue: Mercure Poznań Centrum, Ul. Roosevelta 20, 60-829 POZNAN, POLAND. Full programme will be circulated later but the format will follow last years event combining presentations, invited speaker lectures and workshops.',
       date: `2019-05-11`,
-      time: '19:30'
+      time: '19:30',
+      image: "https://www.dike.lib.ia.us/images/sample-1.jpg/image"
     },
   ],
   indexedDB: window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB,
@@ -64,46 +69,32 @@ const Events = {
     this.modal.classList.toggle('modal--showing');
     document.querySelector('.modal__wrapper').classList.toggle('modal--showing')
   },
-  setAddEventModal: function() {
-    this.modal.innerHTML =
-    `<div class="modal__wrapper">
-      <div class="modal__header">
-        <h4 class='modal__title'>Add your event</h4>
-        <span class='modal__exit'></span>
-      </div>
-      <form action="" class='form modal__form'>
-        <div>
-          <label class='modal__label'>Title:</label>
-          <input type="text" class='input modal__input' id='title' placeholder="Enter event title" maxlength='50' required/>
-        </div>
-        <div>
-          <label class='modal__label'>Location:</label>
-          <input type="text" class='input modal__input' id='location' placeholder="Enter event location" maxlength='35' required/>
-        </div>
-        <div>
-          <label class='modal__label'>Summary:</label>
-          <textarea type="text" class='input modal__input' id='summary' placeholder="Enter short summary" maxlength='150' required></textarea>
-        </div>
-        <div>
-          <label class='modal__label'>Description:</label>
-          <textarea type="text" class='input modal__input' id='description' placeholder="Enter event description" maxlength='500' required></textarea>
-        </div>
-        <div>
-          <label class='modal__label'>Starting At:</label>
-          <div class='flex-wrapper flex-wrapper--row'>
-            <input type="time" class='input modal__input' name='time' required/>
-            <input type="date" class='input modal__input' name='date' required/>
-          </div>
-        </div>
-        <button class='button modal_btn' name='add-event-toggle-modal'>add event</button>
-      </form>
-    </div>`
+  readDataUrl: function (file) {
+    return new Promise(function(resolve, reject) {
+      const reader  = new FileReader();
 
-    //bind event
-    this.modal.querySelector('button[name="add-event-toggle-modal"]').addEventListener('click', this.addEventFromUser.bind(this), false);
-    this.modal.querySelector('.modal__exit').addEventListener('click', this.toggleModal.bind(this), false);
+      reader.onload = function() {
+        resolve(this.result);
+      };
+      reader.onerror = reader.onabort = reject;
+      reader.readAsDataURL(file);
+    });
+  },
+  uploadImageToImgur: async function (file) {
+    const url = 'https://api.imgur.com/3/image';
 
-    this.toggleModal();
+    if(file) {
+      const result = await this.readDataUrl(file);
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          "Authorization": 'Client-ID 9972355cc3cd2ea Bearer 69312b9b7ddd10b659fb82c2465f4dc8db0af3cd',
+        },
+        body: result.replace(/^data:image\/(png|jpg|jpeg|gif);base64,/, "")
+      });
+      const data = await response.json();
+      return data.data.link;
+    }
   },
   showArticeInfo: function (e) {
     e.stopImmediatePropagation();
@@ -111,14 +102,11 @@ const Events = {
         db = this.dbOpen.result,
         tx = db.transaction('EventsStore', 'readwrite'),
         store = tx.objectStore('EventsStore'),
-        months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    let event = store.get(eventID);
+        months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        event = store.get(eventID);
 
     event.onsuccess = e => {
-      const { title, location, date, time, summary } = e.target.result;
-
-      console.log(summary);
+      const { title, location, date, time, summary, image } = e.target.result;
 
       this.modal.innerHTML =
       `<div class="modal__wrapper">
@@ -127,7 +115,7 @@ const Events = {
           <span class='modal__exit'></span>
         </div>
         <div class='modal__image-wrapper'>
-          <img class='modal__image' src="assets/images/categories/fashion.jpg" />
+          <img class='modal__image' src=${image} />
         </div>
         <div class='modal__content'>
           <section class='modal__column'>
@@ -168,7 +156,7 @@ const Events = {
         }
         this.container.innerHTML += `<article class="popular__item" data-id='${this.copyDbState[i].id}'>
                       <figure class='article__image-wrapper'>
-                        <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
+                        <img src=${this.copyDbState[i].image} alt="event name" class='article__image'>
                         <button class='button button--danger popular__delete'>⤫</button>
                       </figure>
                       <div class="article__wrapper article__info">
@@ -213,30 +201,16 @@ const Events = {
         store = tx.objectStore('EventsStore');
 
     this.initialValues.forEach(item => {
-      let {title, location, description, summary, date, time} = item;
-      store.put({
-        title,
-        location,
-        description,
-        summary,
-        date,
-        time
-      });
-    })
+      let {title, location, description, summary, date, time, image} = item;
+      store.put({ title, location, description, summary, date, time, image });
+    });
 
     //set currentDbState
     store.openCursor(null, 'prev').onsuccess = e => {
       let cursor = e.target.result;
       if(cursor) {
-        let {title, location, description, date, time} = cursor.value;
-        this.currentDbState.push({
-          id: cursor.key,
-          title,
-          location,
-          description,
-          date,
-          time
-        });
+        let { title, location, description, date, time, image } = cursor.value;
+        this.currentDbState.push({ id: cursor.key, title, location, description, date, time, image });
         cursor.continue();
       } else {
         this.copyDbState = this.currentDbState.slice();
@@ -244,9 +218,66 @@ const Events = {
       }
     }
   },
+  setAddEventModal: function() {
+    this.modal.innerHTML =
+    `<div class="modal__wrapper">
+      <div class="modal__header">
+        <h4 class='modal__title'>Add your event</h4>
+        <span class='modal__exit'></span>
+      </div>
+      <form action="" class='form modal__form'>
+        <div class='modal__item'>
+          <label class='modal__label'>Title:</label>
+          <input type="text" class='input modal__input' id='title' placeholder="Enter event title" maxlength='50' required/>
+        </div>
+        <div class='modal__item'>
+          <label class='modal__label'>Location:</label>
+          <input type="text" class='input modal__input' id='location' placeholder="Enter event location" maxlength='35' required/>
+        </div>
+        <div class='modal__item'>
+          <label class='modal__label'>Summary:</label>
+          <textarea type="text" class='input modal__input' id='summary' placeholder="Enter short summary" maxlength='150' required></textarea>
+        </div>
+        <div class='modal__item'>
+          <label class='modal__label'>Description:</label>
+          <textarea type="text" class='input modal__input' id='description' placeholder="Enter event description" maxlength='500' required></textarea>
+        </div>
+        <div class='modal__item'>
+          <label class='modal__label'>Starting At:</label>
+          <div class='flex-wrapper flex-wrapper--row'>
+            <input type="time" class='input modal__input' name='time' required/>
+            <input type="date" class='input modal__input' name='date' required/>
+          </div>
+        </div>
+        <div class='modal__item'>
+          <label class='modal__label'>Image:</label>
+          <input type="file" accept="image/*", class='input' id='image' placeholder="Upload your image" required />
+        </div>
+        <button class='button button--modal' name='add-event-toggle-modal'>add event</button>
+      </form>
+    </div>`
+
+    //bind event
+    this.modal.querySelector('button[name="add-event-toggle-modal"]').addEventListener('click', this.addEventFromUser.bind(this), false);
+    this.modal.querySelector('.modal__exit').addEventListener('click', this.toggleModal.bind(this), false);
+    this.toggleModal();
+  },
+  validateAddEventForm: function (arr) {
+    let toBeValidated = false;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].value === '') {
+        arr[i].style.border='2px solid #ee324e';
+        toBeValidated = true;
+      } else {
+        arr[i].style.border= '2px solid #d9d9d9';}
+    }
+    return toBeValidated;
+  },
   addEventFromUser: function(e) {
     e.preventDefault();
     let form = e.target.parentElement,
+        formInputs = form.querySelectorAll('input'),
+        formTextarea = form.querySelectorAll('textarea'),
         //make the first letter of the string to be uppercase
         title = form.querySelector('#title').value.replace(/^\w/, e => e.toUpperCase()),
         location = form.querySelector('#location').value,
@@ -254,77 +285,58 @@ const Events = {
         description = form.querySelector('#description').value,
         date = form.querySelector('input[type="date"]').value,
         time = form.querySelector('input[type="time"]').value,
+        image = form.querySelector('input[type="file"]').files[0],
         btn = e.target,
         dbNavWrapper = document.querySelector('#db-nav'),
         notificationWrapper = dbNavWrapper.querySelector('.notification-wrapper'),
-        paragraph = dbNavWrapper.querySelector('.notification-info');
+        paragraph = dbNavWrapper.querySelector('.notification-info'),
+        validate = this.validateAddEventForm([...formInputs,...formTextarea]);
 
-        if(title.length === 0 || location.length === 0 || summary.length === 0 || description.length === 0 || date.length === 0 || time.length === 0) {
-          console.log('Wypełnij wszystkie pola!');
-          return true;
-        }
-        //disable disable button to avoid sending form abuse
-        btn.disabled = true;
+        if(validate) return true;
 
-        db = this.dbOpen.result,
-        tx = db.transaction('EventsStore', 'readwrite'),
-        store = tx.objectStore('EventsStore'),
+        //uplod an image
+        this.uploadImageToImgur(image)
+        .then((image) => {
+          let db = this.dbOpen.result,
+              tx = db.transaction('EventsStore', 'readwrite'),
+              store = tx.objectStore('EventsStore');
 
-        event = store.put({
-          title,
-          location,
-          description,
-          summary,
-          date,
-          time
-        });
+          event = store.put({ title, location, description, summary, date, time, image });
+          event.onsuccess = e => {
+            //clear local db state
+            this.currentDbState = [];
+            //add data from db to local var
+            store.openCursor(null, 'prev').onsuccess = e => {
+              let cursor = e.target.result;
+              if(cursor) {
+                let { title, location, description, date, time, image } = cursor.value;
 
-        event.onsuccess = e => {
-          //clear local db state
-          this.currentDbState = [];
-          //add data from db to local var
-          store.openCursor(null, 'prev').onsuccess = e => {
-            let cursor = e.target.result;
-            if(cursor) {
-              let {title, location, description, date, time} = cursor.value;
-              
-              this.currentDbState.push({
-                id: cursor.key,
-                title,
-                location,
-                description,
-                date,
-                time
-              })
-              return cursor.continue();
+                this.currentDbState.push({ id: cursor.key, title, location, description, date, time, image })
+                return cursor.continue();
+              };
+
+              this.copyDbState = this.currentDbState.slice();
+              this.clearDOM();
+              this.loadDataToDOM();
+
+              //set notification
+              paragraph.innerHTML = `<strong>${title}</strong> has been added to the database`;
+              dbNavWrapper.classList.add('notification');
+
+              title = location = description = date = '';
+              let notificationTime = setTimeout(() => {
+                paragraph.innerText = '';
+                dbNavWrapper.classList.remove('notification');
+              }, 1500);
             };
-
-            this.copyDbState = this.currentDbState.slice();
-            this.clearDOM();
-            this.loadDataToDOM();
-
-            //set notification
-            paragraph.innerHTML = `<strong>${title}</strong> has been added to the database`;
-            dbNavWrapper.classList.add('notification');
-
-            title = location = description = date = '';
-            let notificationTime = setTimeout(() => {
-              paragraph.innerText = ''
-              dbNavWrapper.classList.remove('notification');
-            }, 1500);
           };
-        };
 
-        event.onerror = e => {
-          throw new Error(e);
-        }
-
-        //avoid abusing requests
-        let disableButton = setTimeout(e => {
-          btn.disabled = false;
           this.toggleModal();
-          clearTimeout(disableButton);
-        }, 1500);
+
+          event.onerror = e => {
+            throw new Error(e);
+          }
+        })
   },
   resetInputsValue: function() {
     let searchInputs = document.querySelectorAll('input[type="search"]');
@@ -367,7 +379,7 @@ const Events = {
     this.container.innerHTML +=
       `<article class="popular__item" data-id='${this.copyDbState[i].id}'>
         <figure class='article__image-wrapper'>
-          <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
+          <img src=${this.copyDbState[i].image} alt="event name" class='article__image'>
           <button class='button button--danger popular__delete'>⤫</button>
         </figure>
         <div class="article__wrapper article__info">
@@ -570,7 +582,7 @@ const Events = {
         //temporary solution with displaying events, works as expected but looks kinda bad
         this.container.innerHTML += `<article class="popular__item" data-id='${this.copyDbState[i].id}'>
                       <figure class='article__image-wrapper'>
-                        <img src="assets/images/ev1.jpg" alt="event name" class='article__image'>
+                        <img src=${this.copyDbState[i].image} alt="event name" class='article__image'>
                         <button class='button button--danger popular__delete'>⤫</button>
                       </figure>
                       <div class="article__wrapper article__info">
@@ -620,6 +632,7 @@ const Events = {
             store.createIndex('summary', 'summary', {unique: false});
             store.createIndex('date', 'date', {unique: false});
             store.createIndex('time', 'time', {unique: false});
+            store.createIndex('image', 'image', {unique: false});
         };
 
       this.dbOpen.onsuccess = e => {
@@ -629,10 +642,11 @@ const Events = {
 
         store.index('title');
         store.index('location');
-        store.index('description')
-        store.index('summary')
-        store.index('date')
-        store.index('time')
+        store.index('description');
+        store.index('summary');
+        store.index('date');
+        store.index('time');
+        store.index('image');
 
         //general error handler
         db.onerror = e => {
@@ -645,16 +659,8 @@ const Events = {
           store.openCursor(null, 'prev').onsuccess = e => {
             let cursor = e.target.result;
             if(cursor) {
-              let {title, location, description, summary, date, time} = cursor.value;
-              this.currentDbState.push({
-                id: cursor.key,
-                title,
-                location,
-                description,
-                summary,
-                date,
-                time
-              });
+              let { title, location, description, summary, date, time, image } = cursor.value;
+              this.currentDbState.push({ id: cursor.key, title, location, description, summary, date, time, image });
               return cursor.continue();
             };
               this.copyDbState = this.currentDbState.slice();

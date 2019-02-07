@@ -1,6 +1,9 @@
 .article {
   position: relative;
   &__image-wrapper {
+    display:flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     display:none;
     align-items: center;
@@ -11,6 +14,10 @@
     @include respond-to(small) {
       display:flex;
     }
+  }
+  &__image {
+    width:100%;
+    min-height:150px;
   }
   &__wrapper { //jest ok
     display: flex;

@@ -82,13 +82,22 @@
     font-size:2em;
     display:block;
   }
+  &__item {
+    margin:10px 0;
+    .error-message {
+      display:block;
+      margin-top:6px;
+      color:#ee324e;
+      font-size:.8em;
+    }
+  }
   &__form {
     box-shadow: none;
     margin-top:50px;
     display: flex;
     flex-flow: column nowrap;
-    div {
-      margin-bottom:15px;
+    button {
+      width:100%;
     }
     textarea {
       min-height:50px;
@@ -102,6 +111,7 @@
     }
     input[type='time'] {
       flex:1;
+      margin-right:15px;
     }
   }
   &__exit {
@@ -136,13 +146,15 @@
     width:120px;
   }
   &__label {
+    font-size: .95em;
+    font-family:'RobotoM';
     display:block;
     margin-bottom:2px;
   }
   &__input {
     display:block;
     color:$palette-primary-text;
-    border: 1px solid $palette-footer-color;
+    border: 2px solid $palette-footer-color;
     width:100% !important; //temporary
     &::placeholder {
       color: $palette-primary-text;
