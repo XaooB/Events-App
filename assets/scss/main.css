@@ -233,7 +233,7 @@ a {
   outline: none;
   height: 38px;
   border: none;
-  padding: 11px;
+  padding: 7px 12px;
   border-radius: 6px; }
   .input[name='city'] {
     position: relative; }
@@ -1111,6 +1111,10 @@ input, textarea {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
     margin-top: 15px; }
   .modal__information {
     font-size: 1.2em;
@@ -1119,8 +1123,12 @@ input, textarea {
     font-family: 'RobotoL';
     padding: 15px 10px;
     -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1; }
+        -ms-flex: 1 1 300px;
+            flex: 1 1 300px; }
+    .modal__column:first-child {
+      -webkit-box-flex: 2;
+          -ms-flex: 2 1 300px;
+              flex: 2 1 300px; }
     .modal__column .label {
       display: block;
       margin-bottom: 6px;

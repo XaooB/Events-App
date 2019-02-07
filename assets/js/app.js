@@ -21,7 +21,7 @@ const Events = {
     },
     {
       title: 'Laravel #Poznań #Meetup #9!',
-      location: 'Sunday at 11 am, Lincoln Street, Londyn',
+      location: 'Londyn',
       description: "Laravel's freaks and not only let's connect!",
       summary: 'Already in the New Year we invite you to the next editions of Laravel Meetups! Follow us to find out what we have prepared for you this time! It willl be possible to ask questions by Sli. Do application. We want to reach as many fans of Laravel as possible. We are going to share live streaming on our profile, especially for those who cannot be with us. We will try to release recordings of presentations after meetup (share on. slideshare.net/Laravel_Poznan_Meetup)',
       date: `2018-9-10`,
@@ -183,16 +183,14 @@ const Events = {
     }
   },
   showNotification: function(text) {
-    let dbNavWrapper = document.querySelector('#db-nav'),
-        paragraph = dbNavWrapper.querySelector('.notification-info');
+    let paragraph = document.querySelector('.notification-info');
+
     paragraph.innerHTML = `${text}`;
-    dbNavWrapper.classList.add('notification');
 
     //reset form fields
     title = location = description = date = '';
     let notificationTime = setTimeout(() => {
       paragraph.innerText = ''
-      dbNavWrapper.classList.remove('notification');
     }, 1500);
   },
   addInitialEvents: function() {
@@ -287,13 +285,13 @@ const Events = {
         time = form.querySelector('input[type="time"]').value,
         image = form.querySelector('input[type="file"]').files[0],
         btn = e.target,
-        dbNavWrapper = document.querySelector('#db-nav'),
-        notificationWrapper = dbNavWrapper.querySelector('.notification-wrapper'),
-        paragraph = dbNavWrapper.querySelector('.notification-info'),
+        paragraph = document.querySelector('.notification-info'),
         validate = this.validateAddEventForm([...formInputs,...formTextarea]);
 
         if(validate) return true;
 
+
+        paragraph.innerHTML = `Please wait..`;
         //uplod an image
         this.uploadImageToImgur(image)
         .then((image) => {
@@ -318,18 +316,13 @@ const Events = {
               this.copyDbState = this.currentDbState.slice();
               this.clearDOM();
               this.loadDataToDOM();
-
-              //set notification
-              paragraph.innerHTML = `<strong>${title}</strong> has been added to the database`;
-              dbNavWrapper.classList.add('notification');
-
-              title = location = description = date = '';
-              let notificationTime = setTimeout(() => {
-                paragraph.innerText = '';
-                dbNavWrapper.classList.remove('notification');
-              }, 1500);
             };
           };
+
+          paragraph.innerHTML = `${title} has been added to database`;
+          setTimeout(() => {
+            paragraph.innerText = '';
+          }, 1500);
 
           this.toggleModal();
 
@@ -350,8 +343,7 @@ const Events = {
         tx = db.transaction('EventsStore', 'readwrite');
         store = tx.objectStore('EventsStore'),
         toggleDataBtn = document.querySelector('button[name="load-more-events"]'),
-        dbNavWrapper = document.querySelector('#db-nav'),
-        paragraph = dbNavWrapper.querySelector('.notification-info');
+        paragraph = document.querySelector('.notification-info');
 
         store.clear().onsuccess = () => {
           this.currentDbState = [];
@@ -360,11 +352,9 @@ const Events = {
           this.clearDOM();
           this.addInitialEvents();
 
-          paragraph.innerHTML = `Data has been restored from database.`;
-          dbNavWrapper.classList.add('notification');
+          paragraph.innerHTML = `Data has been restored from database`;
           let notificationTime = setTimeout(() => {
             paragraph.innerText = ''
-            dbNavWrapper.classList.remove('notification');
           }, 1500);
         };
   },
@@ -506,15 +496,13 @@ const Events = {
         store = tx.objectStore('EventsStore'),
         eventID = Number(e.target.parentElement.parentElement.getAttribute('data-id')),
         notificationWrapper = document.querySelector('.notification-wrapper'),
-        dbNavWrapper = document.querySelector('#db-nav'),
-        paragraph = dbNavWrapper.querySelector('.notification-info'),
+        paragraph = document.querySelector('.notification-info'),
         deleteItem = store.delete(eventID);
 
     deleteItem.onsuccess = () => {
       this.copyDbState.forEach((item, key) => {
         if(item.id === eventID) {
-          paragraph.innerHTML = `<b>${item.title}</b> has been deleted from the database.`;
-          dbNavWrapper.classList.add('notification');
+          paragraph.innerHTML = `${item.title} has been deleted from database`;
           this.copyDbState.splice(key, 1);
 
           for (var i = 0; i < this.currentDbState.length; i++) {
@@ -523,7 +511,6 @@ const Events = {
 
           let notificationTime = setTimeout(() => {
             paragraph.innerText = ''
-            dbNavWrapper.classList.remove('notification');
           }, 1500)
         }
       });

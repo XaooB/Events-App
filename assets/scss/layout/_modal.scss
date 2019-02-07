@@ -163,6 +163,7 @@
   &__content {
     display:flex;
     justify-content: space-between;
+    flex-flow: row wrap;
     margin-top:15px;
   }
   &__information {
@@ -172,7 +173,10 @@
   &__column {
     font-family:'RobotoL';
     padding:15px 10px;
-    flex:1;
+    flex:1 1 300px;
+    &:first-child {
+      flex:2 1 300px;
+    }
     .label {
       display:block;
       margin-bottom:6px;
