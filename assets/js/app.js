@@ -292,6 +292,7 @@ const Events = {
 
 
         paragraph.innerHTML = `Please wait..`;
+        btn.disabled = true;
         //uplod an image
         this.uploadImageToImgur(image)
         .then((image) => {
@@ -324,6 +325,7 @@ const Events = {
             paragraph.innerText = '';
           }, 1500);
 
+          btn.disabled = false;
           this.toggleModal();
 
           event.onerror = e => {
