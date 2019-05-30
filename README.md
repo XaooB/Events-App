@@ -12,4 +12,4 @@ HTML5, CSS, JS, Google API, Imgur API
 
 ## Contribution
 
-Bartosz Lorek – [balorek@interia.com](mailto:balorek@interia.com)
+Bartosz Lorek – [@me](mailto:balorek@interia.com)
