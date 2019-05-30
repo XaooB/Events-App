@@ -4,7 +4,7 @@
 
 ## Technologies and APIs
 
-HTML5, CSS, JS, Google API, Imgur API
+HTML5, CSS, JS, Google API, Imgur API, IndexedDB API 
 
 ## Screenshot
 
