@@ -1,6 +1,6 @@
 # Find event near your city
 
-> App allows people to search events around their location. You can also add and deletes events.
+> App allows people to search events around their location. You can also add and delete events.
 
 ## Technologies and APIs
 
