@@ -1,4 +1,15 @@
-# Events-App
-Simple events app written in pure JS.
+# Find event near your city
 
-Issues/thing to change:
+> App allows people to search events around their location.
+
+## Technologies and APIs
+
+HTML5, CSS, JS, Google API, Imgur API
+
+## Screenshot
+
+![](eventsapp.png)
+
+## Contribution
+
+Bartosz Lorek – [balorek@interia.com](mailto:balorek@interia.com)
